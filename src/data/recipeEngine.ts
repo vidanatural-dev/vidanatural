@@ -77,6 +77,13 @@ const AVAILABLE_FAMILIES = new Set<string>([
   'bebida-fria', 'latte', 'topping', 'pan', 'endulzante', 'salado',
 ]);
 
+// Recetas con foto única propia en /public/recetas/r/<slug>.webp (Nano Banana Pro).
+// Se va completando por oleadas; tiene prioridad sobre la imagen de familia.
+const RECIPE_IMAGES = new Set<string>([
+  'chia-pudin', 'chia-smoothie', 'chia-panqueques', 'chia-yogur',
+  'avena-porridge', 'avena-overnight', 'avena-panqueques',
+]);
+
 const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
 const cleanName = (nombre: string): string =>
@@ -137,7 +144,11 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
   const descripcion = bp.descripcion(cn);
 
   const familia = KEY_FAMILY[bp.key] ?? 'snack';
-  const imagen = AVAILABLE_FAMILIES.has(familia) ? `/recetas/${familia}.png` : undefined;
+  const imagen = RECIPE_IMAGES.has(slug)
+    ? `/recetas/r/${slug}.webp`
+    : AVAILABLE_FAMILIES.has(familia)
+      ? `/recetas/${familia}.png`
+      : undefined;
 
   return {
     slug,
