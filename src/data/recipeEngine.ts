@@ -12,6 +12,66 @@ import type { Product, Recipe, RecipeType, Dificultad, FAQItem } from './types';
 const NON_GF = new Set(['Cereal']);
 const SWEETENERS = new Set(['miel', 'azucar-mascabo']);
 
+// Cada tipo de preparación (key del blueprint) se agrupa en una "familia de plato".
+// La foto de cada familia vive en /public/recetas/<familia>.png
+const KEY_FAMILY: Record<string, string> = {
+  pudin: 'pudin',
+  smoothie: 'smoothie',
+  'smoothie-bowl': 'smoothie',
+  panqueques: 'panqueques',
+  galletas: 'galletas',
+  yogur: 'yogur',
+  parfait: 'yogur',
+  granola: 'granola',
+  snack: 'snack',
+  mix: 'snack',
+  ensalada: 'ensalada',
+  porridge: 'porridge',
+  overnight: 'porridge',
+  desayuno: 'porridge',
+  bowl: 'bowl',
+  budin: 'budin',
+  reposteria: 'budin',
+  muffins: 'budin',
+  'base-tarta': 'budin',
+  postre: 'budin',
+  manzana: 'budin',
+  hamburguesas: 'hamburguesas',
+  croquetas: 'croquetas',
+  guarnicion: 'guarnicion',
+  arroz: 'guarnicion',
+  barras: 'barras',
+  untable: 'untable',
+  bolitas: 'bolitas',
+  guiso: 'guiso',
+  infusion: 'infusion',
+  caliente: 'infusion',
+  blend: 'infusion',
+  'leche-dorada': 'infusion',
+  'bebida-fria': 'bebida-fria',
+  helado: 'bebida-fria',
+  limonada: 'bebida-fria',
+  bebida: 'bebida-fria',
+  latte: 'latte',
+  cafe: 'latte',
+  topping: 'topping',
+  cobertura: 'topping',
+  pan: 'pan',
+  endulzar: 'endulzante',
+  vinagreta: 'endulzante',
+  dressing: 'endulzante',
+  salsa: 'salado',
+  pastas: 'salado',
+  pure: 'salado',
+  palomitas: 'salado',
+  'budin-salado': 'salado',
+  salteado: 'salado',
+};
+
+// Familias que YA tienen foto real cargada en /public/recetas/<familia>.png.
+// Al agregar el archivo, sumá el nombre acá y todas sus recetas usan la foto.
+const AVAILABLE_FAMILIES = new Set<string>([]);
+
 const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
 const cleanName = (nombre: string): string =>
@@ -71,10 +131,14 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
 
   const descripcion = bp.descripcion(cn);
 
+  const familia = KEY_FAMILY[bp.key] ?? 'snack';
+  const imagen = AVAILABLE_FAMILIES.has(familia) ? `/recetas/${familia}.png` : undefined;
+
   return {
     slug,
     titulo,
     descripcion,
+    imagen,
     tipo: bp.tipo,
     prepMin: bp.prepMin,
     cookMin: bp.cookMin,

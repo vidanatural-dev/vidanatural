@@ -1,0 +1,37 @@
+FOTOS DE RECETAS (por familia de plato)
+=======================================
+
+Cada foto representa un TIPO de preparación y se reutiliza en todas las
+recetas de esa familia. Poné las imágenes acá con el nombre exacto (slug),
+horizontal/apaisada, ~1200 px, .png (o .jpg), licencia libre o generada.
+
+Cuando subas una, avisá el nombre y la "activo" para que todas sus recetas
+la muestren (mientras tanto se ve el icono por tipo de plato).
+
+ARCHIVOS ESPERADOS (25):
+
+  pudin.png         -> pudín / postre cremoso en frasco (tipo pudín de chía)
+  smoothie.png      -> licuado / smoothie en vaso con fruta
+  panqueques.png    -> panqueques / tortitas apiladas con fruta
+  galletas.png      -> galletas / cookies caseras
+  yogur.png         -> bowl de yogur con frutas y granola (parfait)
+  granola.png       -> granola crocante en bowl o sobre yogur
+  snack.png         -> mix de semillas y frutos secos (snack para picar)
+  ensalada.png      -> ensalada fresca de hojas y vegetales
+  porridge.png      -> avena cocida / porridge tibio con fruta
+  bowl.png          -> bowl nutritivo salado (grano + vegetales)
+  budin.png         -> budín / torta / muffins caseros horneados
+  hamburguesas.png  -> hamburguesas vegetales (de legumbre/grano)
+  croquetas.png     -> croquetas / bocados dorados al horno
+  guarnicion.png    -> guarnición de grano (arroz/quinoa) en plato
+  barras.png        -> barras de cereal energéticas
+  untable.png       -> untable / crema (hummus o pasta de frutos secos)
+  bolitas.png       -> bolitas energéticas (energy balls)
+  guiso.png         -> guiso / olla de legumbres con vegetales
+  infusion.png      -> infusión caliente en taza (té / leche dorada)
+  bebida-fria.png   -> bebida fría / limonada / té helado con hielo
+  latte.png         -> latte cremoso en taza
+  topping.png       -> semillas/coco tostado como topping
+  pan.png           -> pan casero de semillas, rebanado
+  endulzante.png    -> aderezo / bebida endulzada (miel, vinagreta)
+  salado.png        -> plato salado (pastas/puré/salsa con levadura, etc.)
