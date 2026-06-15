@@ -29,6 +29,10 @@ import {
   CookingPot,
   WhatsappLogo,
   Envelope,
+  Coffee,
+  Cake,
+  Cookie,
+  Bread,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -61,6 +65,10 @@ const map: Record<string, PhosphorIcon> = {
   CookingPot,
   WhatsappLogo,
   Envelope,
+  Coffee,
+  Cake,
+  Cookie,
+  Bread,
 };
 
 interface IconProps {

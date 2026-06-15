@@ -1,6 +1,19 @@
 import Image from 'next/image';
 import { ProductArt } from './ProductArt';
-import type { Recipe } from '@/data/types';
+import type { Recipe, RecipeType } from '@/data/types';
+
+// Glifo según el tipo de plato (referencia visual a lo que se cocina).
+const tipoGlyph: Record<RecipeType, string> = {
+  desayuno: 'BowlFood',
+  almuerzo: 'CookingPot',
+  cena: 'CookingPot',
+  snack: 'Cookie',
+  postre: 'Cake',
+  bebida: 'Coffee',
+  panificado: 'Bread',
+  ensalada: 'Leaf',
+  guarnicion: 'ForkKnife',
+};
 
 export function RecipeImage({
   recipe,
@@ -23,5 +36,5 @@ export function RecipeImage({
       />
     );
   }
-  return <ProductArt hue={recipe.hue} glyph="BowlFood" glyphSize={80} />;
+  return <ProductArt hue={recipe.hue} glyph={tipoGlyph[recipe.tipo] ?? 'BowlFood'} glyphSize={76} />;
 }
