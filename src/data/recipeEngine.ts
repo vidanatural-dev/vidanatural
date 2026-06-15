@@ -70,7 +70,12 @@ const KEY_FAMILY: Record<string, string> = {
 
 // Familias que YA tienen foto real cargada en /public/recetas/<familia>.png.
 // Al agregar el archivo, sumá el nombre acá y todas sus recetas usan la foto.
-const AVAILABLE_FAMILIES = new Set<string>(['smoothie']);
+const AVAILABLE_FAMILIES = new Set<string>([
+  'pudin', 'smoothie', 'panqueques', 'galletas', 'yogur', 'granola', 'snack',
+  'ensalada', 'porridge', 'bowl', 'budin', 'hamburguesas', 'croquetas',
+  'guarnicion', 'barras', 'untable', 'bolitas', 'guiso', 'infusion',
+  'bebida-fria', 'latte', 'topping', 'pan', 'endulzante', 'salado',
+]);
 
 const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
