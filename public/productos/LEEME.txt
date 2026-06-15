@@ -1,0 +1,28 @@
+IMÁGENES DE PRODUCTOS
+=====================
+
+El nombre del archivo debe ser el "slug" del producto (minúsculas,
+sin tildes), así se conecta solo.
+
+Catálogo actual (ya con foto):
+  chia.png
+  avena.png
+  quinoa.png
+  lino.png
+  almendras.png
+  nueces.png
+  curcuma.png
+  maca.png
+  espirulina.png
+  aceite-de-coco.png
+
+Para SUMAR productos nuevos:
+  1. Dejá la imagen acá con un nombre de slug (ej. jengibre.png).
+  2. Avisá el nombre del producto.
+  3. Se agrega la ficha con su contenido y se conecta la foto.
+
+Recomendado:
+  - Cuadradas (1:1) o apaisadas, ~1200-1600 px
+  - .png o .webp
+  - Menos de ~400 KB si se puede
+  - Licencia libre si son de internet
