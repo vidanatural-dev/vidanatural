@@ -951,6 +951,8 @@ const CATEGORY_FALLBACK: Record<string, string> = {
   Harina: 'HARINA_DULCE',
   Raíz: 'ESPECIA',
   Infusión: 'INFUSION',
+  Hierba: 'INFUSION',
+  Especia: 'ESPECIA',
   Endulzante: 'ENDULZANTE',
   Aceite: 'ACEITE_COCO',
   Coco: 'COCO_RALLADO',

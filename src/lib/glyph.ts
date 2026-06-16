@@ -18,8 +18,14 @@ export const glyphForCategory = (categoria: string): string => {
       return 'Waves';
     case 'Aceite':
     case 'Endulzante':
+    case 'Untable':
+    case 'Fermentado':
       return 'Drop';
+    case 'Condimento':
+      return 'Hexagon';
     case 'Infusión':
+    case 'Hierba':
+    case 'Especia':
       return 'Leaf';
     case 'Superalimento':
       return 'Sparkle';

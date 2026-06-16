@@ -1,4 +1,7 @@
 import type { Product, UseCaseSlug } from './types';
+import { buildProducts } from './productEngine';
+import { extraSeeds } from './extraProducts';
+import { extraSeeds2 } from './extraProducts2';
 
 const FAQ_BASE = [
   {
@@ -1270,6 +1273,8 @@ export const products: Product[] = [
     hue: 85,
     imagen: '/productos/levadura-nutricional.png',
   },
+  ...buildProducts(extraSeeds),
+  ...buildProducts(extraSeeds2),
 ];
 
 export const allProductSlugs = (): string[] => products.map((p) => p.slug);
