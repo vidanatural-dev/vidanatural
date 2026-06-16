@@ -29,6 +29,13 @@ const ODS: Fuente = { nombre: 'Oficina de Suplementos Dietéticos (NIH, EE. UU.)
 const PACKSHOTS = new Set<string>([
   'castanas-caju', 'mani', 'avellanas', 'nuez-de-brasil', 'nuez-pecan',
   'pistachos', 'macadamia', 'pinones',
+  // Oleada 1 (Materia Natural)
+  'semillas-de-calabaza', 'arroz-integral', 'porotos-negros', 'soja',
+  'harina-de-garbanzo', 'yerba-mate', 'canela', 'cacao-nibs', 'matcha',
+  'datil-medjool', 'higos-secos', 'arandanos-secos', 'goji', 'mijo',
+  'trigo-burgol', 'porotos-colorados', 'lenteja-coral', 'polenta',
+  'quinoa-roja', 'semillas-de-amapola', 'sesamo-negro', 'cacao-amargo',
+  'moringa', 'maca-roja',
 ]);
 
 const FAQ_BASE: FAQItem[] = [
