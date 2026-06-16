@@ -8,7 +8,7 @@ export const site = {
   whatsapp: '+54 11 2181-6064',
   whatsappLink: 'https://wa.me/5491121816064',
   whatsappCta:
-    'https://wa.me/5491121816064?text=Hola%21%20Quer%C3%ADa%20hacer%20una%20consulta%20sobre%20un%20producto.',
+    'https://wa.me/5491121816064?text=Quiero%20consultar%20sobre%20un%20producto%20de%20Materia%20Natural',
   nav: [
     { href: '/productos', label: 'Productos' },
     { href: '/usos', label: 'Por uso' },
