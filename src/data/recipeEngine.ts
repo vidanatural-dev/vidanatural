@@ -143,6 +143,12 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
 
   const descripcion = bp.descripcion(cn);
 
+  const pasos = [
+    'Reuní y medí todos los ingredientes antes de empezar; así controlás mejor las cantidades y las porciones.',
+    ...bp.pasos(cn),
+    `Esta receta rinde ${bp.porciones}. Respetá las cantidades indicadas; si querés más o menos porciones, ajustá todos los ingredientes en la misma proporción.`,
+  ];
+
   const familia = KEY_FAMILY[bp.key] ?? 'snack';
   const imagen = RECIPE_IMAGES.has(slug)
     ? `/recetas/r/${slug}.webp`
@@ -162,7 +168,7 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
     porciones: bp.porciones,
     dificultad: bp.dificultad,
     ingredientes: bp.ingredientes(cn),
-    pasos: bp.pasos(cn),
+    pasos,
     tags: uniqTags,
     producto: product.slug,
     productos: [product.slug],
@@ -183,7 +189,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: false, extraTags: ['Alto en fibra'],
       titulo: (cn) => `Pudín de ${cn}`,
       descripcion: (cn) => `Un pudín cremoso de ${cn} que se prepara la noche anterior. Una opción para sumar a desayunos o como postre liviano.`,
-      ingredientes: (cn) => [`3 cucharadas de ${cn}`, '1 taza de bebida vegetal', '1 cucharadita de vainilla', 'Frutas frescas a gusto', 'Endulzante natural opcional'],
+      ingredientes: (cn) => [`3 cucharadas de ${cn}`, '1 taza de bebida vegetal', '1 cucharadita de vainilla', '1 taza (150 g) de frutas frescas', '1 cucharada de endulzante natural (opcional)'],
       pasos: (cn) => [`Mezclá ${cn} con la bebida vegetal y la vainilla.`, 'Revolvé y esperá 5 minutos; volvé a revolver para que no queden grumos.', 'Tapá y llevá a la heladera al menos 4 horas o toda la noche.', 'Serví con frutas frescas por encima.'],
     },
     {
@@ -191,7 +197,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Smoothie con ${cn}`,
       descripcion: (cn) => `Un smoothie rápido con ${cn} y fruta, ideal para empezar el día o como merienda.`,
-      ingredientes: (cn) => ['1 banana', '1 taza de bebida vegetal', `1 cucharada de ${cn}`, 'Un puñado de frutillas', 'Hielo a gusto'],
+      ingredientes: (cn) => ['1 banana', '1 taza de bebida vegetal', `1 cucharada de ${cn}`, 'Un puñado de frutillas', '1 taza de hielo'],
       pasos: () => ['Poné todos los ingredientes en la licuadora.', 'Licuá hasta obtener una mezcla homogénea.', 'Ajustá el espesor con más bebida si hace falta.', 'Serví al momento.'],
     },
     {
@@ -207,7 +213,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Galletas de avena y ${cn}`,
       descripcion: (cn) => `Galletas simples de avena con ${cn}, ideales para la merienda.`,
-      ingredientes: (cn) => ['2 bananas pisadas', '1 taza de avena', `2 cucharadas de ${cn}`, 'Un puñado de pasas', 'Canela a gusto'],
+      ingredientes: (cn) => ['2 bananas pisadas', '1 taza de avena', `2 cucharadas de ${cn}`, 'Un puñado de pasas', '1/2 cucharadita de canela'],
       pasos: () => ['Precalentá el horno a 180 °C.', 'Mezclá todos los ingredientes.', 'Formá las galletas sobre una placa.', 'Horneá 12 a 15 minutos hasta dorar.'],
     },
     {
@@ -215,7 +221,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Bowl de yogur con ${cn} y frutas`,
       descripcion: (cn) => `Un bowl de yogur con frutas y ${cn} por encima, listo en minutos.`,
-      ingredientes: (cn) => ['1 taza de yogur natural', 'Frutas frescas a gusto', `1 cucharada de ${cn}`, 'Un puñado de frutos secos', 'Ralladura de limón opcional'],
+      ingredientes: (cn) => ['1 taza de yogur natural', '1 taza (150 g) de frutas frescas', `1 cucharada de ${cn}`, 'Un puñado de frutos secos', 'Ralladura de 1/2 limón (opcional)'],
       pasos: (cn) => ['Serví el yogur en un bowl.', 'Sumá las frutas cortadas.', `Espolvoreá ${cn} y los frutos secos.`, 'Disfrutá al momento.'],
     },
   ],
@@ -226,7 +232,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Topping crocante de ${cn}`,
       descripcion: (cn) => `${cap(cn)} tostado para sumar sabor y textura a ensaladas, sopas o yogur.`,
-      ingredientes: (cn) => [`4 cucharadas de ${cn}`, 'Una pizca de sal opcional'],
+      ingredientes: (cn) => [`4 cucharadas de ${cn}`, '1 pizca de sal (opcional)'],
       pasos: (cn) => [`Calentá una sartén sin aceite.`, `Tostá ${cn} a fuego suave, revolviendo, hasta que estén doradas.`, 'Dejá enfriar.', 'Usá como topping en tus comidas.'],
     },
     {
@@ -234,7 +240,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: true, extraTags: ['Alto en fibra'],
       titulo: (cn) => `Pan de semillas con ${cn}`,
       descripcion: (cn) => `Un pan casero cargado de semillas, con ${cn}, ideal para acompañar.`,
-      ingredientes: (cn) => ['2 tazas de harina integral', `4 cucharadas de ${cn}`, '1 sobre de levadura', '1 taza de agua tibia', 'Sal a gusto'],
+      ingredientes: (cn) => ['2 tazas de harina integral', `4 cucharadas de ${cn}`, '1 sobre de levadura', '1 taza de agua tibia', '1/2 cucharadita de sal'],
       pasos: () => ['Mezclá los secos y sumá el agua hasta formar un bollo.', 'Dejá levar tapado una hora.', 'Llevá a un molde y dejá reposar 20 minutos.', 'Horneá a 200 °C unos 40 minutos.'],
     },
     {
@@ -242,7 +248,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Granola casera con ${cn}`,
       descripcion: (cn) => `Granola crocante de avena y ${cn} para tener lista en casa.`,
-      ingredientes: (cn) => ['3 tazas de avena', `4 cucharadas de ${cn}`, '3 cucharadas de aceite de coco', 'Endulzante natural a gusto', 'Una pizca de sal'],
+      ingredientes: (cn) => ['3 tazas de avena', `4 cucharadas de ${cn}`, '3 cucharadas de aceite de coco', '1 a 2 cucharadas de endulzante natural', 'Una pizca de sal'],
       pasos: () => ['Precalentá el horno a 160 °C.', 'Mezclá todo en un bol.', 'Esparcí en una placa.', 'Horneá 20 a 25 minutos revolviendo a la mitad.'],
     },
     {
@@ -250,7 +256,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Energético'],
       titulo: (cn) => `Mix de semillas con ${cn}`,
       descripcion: (cn) => `Una mezcla práctica de semillas con ${cn} para llevar como snack.`,
-      ingredientes: (cn) => [`3 cucharadas de ${cn}`, '3 cucharadas de otras semillas', 'Un puñado de pasas', 'Frutos secos a gusto'],
+      ingredientes: (cn) => [`3 cucharadas de ${cn}`, '3 cucharadas de otras semillas', 'Un puñado de pasas', '1/4 taza (30 g) de frutos secos'],
       pasos: () => ['Mezclá todos los ingredientes.', 'Guardá en un frasco cerrado.', 'Llevá una porción como colación.'],
     },
     {
@@ -258,7 +264,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Ensalada con ${cn}`,
       descripcion: (cn) => `Una ensalada fresca terminada con ${cn} para sumar textura.`,
-      ingredientes: (cn) => ['Hojas verdes a gusto', 'Tomate y zanahoria', `2 cucharadas de ${cn}`, 'Aceite de oliva, limón y sal'],
+      ingredientes: (cn) => ['2 tazas de hojas verdes', 'Tomate y zanahoria', `2 cucharadas de ${cn}`, 'Aceite de oliva, limón y sal'],
       pasos: (cn) => ['Lavá y cortá los vegetales.', 'Armá la ensalada en un bol.', `Espolvoreá ${cn} por encima.`, 'Aderezá con aceite, limón y sal.'],
     },
   ],
@@ -269,7 +275,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: ['Alto en fibra'],
       titulo: (cn) => `Porridge de ${cn}`,
       descripcion: (cn) => `La clásica ${cn} cocida, cremosa y tibia, base ideal para frutas y semillas.`,
-      ingredientes: (cn) => [`1/2 taza de ${cn}`, '1 taza de bebida vegetal', 'Canela a gusto', 'Frutas para servir'],
+      ingredientes: (cn) => [`1/2 taza de ${cn}`, '1 taza de bebida vegetal', '1/2 cucharadita de canela', '1 taza (150 g) de frutas para servir'],
       pasos: (cn) => [`Llevá ${cn} con la bebida a fuego medio.`, 'Cociná 4 a 5 minutos hasta espesar.', 'Sumá canela.', 'Serví con frutas.'],
     },
     {
@@ -277,7 +283,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Overnight de ${cn}`,
       descripcion: (cn) => `${cap(cn)} en remojo lista para el desayuno, sin cocción.`,
-      ingredientes: (cn) => [`1/2 taza de ${cn}`, '1/2 taza de bebida vegetal', '1 cucharada de chía', 'Frutas a gusto'],
+      ingredientes: (cn) => [`1/2 taza de ${cn}`, '1/2 taza de bebida vegetal', '1 cucharada de chía', '1 taza (150 g) de frutas'],
       pasos: () => ['Mezclá todo en un frasco.', 'Tapá y llevá a la heladera toda la noche.', 'A la mañana, sumá frutas y disfrutá.'],
     },
     {
@@ -293,7 +299,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Budín de ${cn}`,
       descripcion: (cn) => `Un budín húmedo de ${cn}, ideal para la merienda.`,
-      ingredientes: (cn) => [`2 tazas de ${cn}`, '2 bananas', '1 taza de bebida vegetal', '1 cucharadita de polvo de hornear', 'Endulzante a gusto'],
+      ingredientes: (cn) => [`2 tazas de ${cn}`, '2 bananas', '1 taza de bebida vegetal', '1 cucharadita de polvo de hornear', '1 a 2 cucharadas de endulzante'],
       pasos: () => ['Precalentá el horno a 180 °C.', 'Mezclá todos los ingredientes.', 'Volcá en un molde.', 'Horneá 35 minutos hasta que esté firme.'],
     },
     {
@@ -301,7 +307,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Granola de ${cn}`,
       descripcion: (cn) => `Granola crocante de ${cn} con frutos secos para tener en casa.`,
-      ingredientes: (cn) => [`3 tazas de ${cn}`, '1 taza de frutos secos', '3 cucharadas de aceite de coco', 'Endulzante natural a gusto'],
+      ingredientes: (cn) => [`3 tazas de ${cn}`, '1 taza de frutos secos', '3 cucharadas de aceite de coco', '1 a 2 cucharadas de endulzante natural'],
       pasos: () => ['Precalentá el horno a 160 °C.', 'Mezclá todo.', 'Esparcí en una placa.', 'Horneá 20 a 25 minutos revolviendo a la mitad.'],
     },
   ],
@@ -320,7 +326,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Proteico'],
       titulo: (cn) => `Hamburguesas de ${cn}`,
       descripcion: (cn) => `Hamburguesas vegetales con ${cn}, ideales para el almuerzo.`,
-      ingredientes: (cn) => [`2 tazas de ${cn} cocido`, '1 zanahoria rallada', '2 cucharadas de harina de garbanzo', 'Condimentos a gusto'],
+      ingredientes: (cn) => [`2 tazas de ${cn} cocido`, '1 zanahoria rallada', '2 cucharadas de harina de garbanzo', 'Sal, pimienta y condimentos (≈1 cucharadita)'],
       pasos: () => ['Pisá la base y mezclá con el resto.', 'Formá las hamburguesas.', 'Cociná en sartén o al horno hasta dorar de ambos lados.'],
     },
     {
@@ -328,7 +334,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Bowl nutritivo con ${cn}`,
       descripcion: (cn) => `Un bowl colorido con ${cn}, vegetales y un buen aderezo.`,
-      ingredientes: (cn) => [`1 taza de ${cn} cocido`, 'Vegetales asados', 'Hojas verdes', 'Aderezo a gusto'],
+      ingredientes: (cn) => [`1 taza de ${cn} cocido`, 'Vegetales asados', 'Hojas verdes', '3 cucharadas de aderezo'],
       pasos: (cn) => [`Cociná ${cn}.`, 'Asá los vegetales.', 'Armá el bowl con todos los componentes.', 'Terminá con el aderezo.'],
     },
     {
@@ -355,7 +361,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Energético'],
       titulo: (cn) => `Mix energético con ${cn}`,
       descripcion: (cn) => `Una mezcla práctica con ${cn} y fruta seca para llevar de snack.`,
-      ingredientes: (cn) => [`1 taza de ${cn}`, 'Pasas y dátiles', 'Otras semillas a gusto'],
+      ingredientes: (cn) => [`1 taza de ${cn}`, 'Pasas y dátiles', '2 cucharadas de otras semillas'],
       pasos: () => ['Mezclá todos los ingredientes.', 'Guardá en un frasco.', 'Llevá una porción como colación.'],
     },
     {
@@ -379,7 +385,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Crema untable de ${cn}`,
       descripcion: (cn) => `Una crema casera de ${cn}, sin azúcar agregada, para untar.`,
-      ingredientes: (cn) => [`2 tazas de ${cn}`, 'Una pizca de sal', 'Aceite neutro opcional'],
+      ingredientes: (cn) => [`2 tazas de ${cn}`, 'Una pizca de sal', '1 cucharada de aceite neutro (opcional)'],
       pasos: (cn) => [`Tostá ${cn} levemente.`, 'Procesá varios minutos hasta que largue sus aceites.', 'Sumá sal y procesá hasta lograr una crema.', 'Guardá en un frasco en la heladera.'],
     },
     {
@@ -398,7 +404,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Energético'],
       titulo: (cn) => `Snack natural con ${cn}`,
       descripcion: (cn) => `${cap(cn)} como colación rápida, solos o con frutos secos.`,
-      ingredientes: (cn) => [`Un puñado de ${cn}`, 'Frutos secos opcionales'],
+      ingredientes: (cn) => [`Un puñado de ${cn}`, '1/4 taza de frutos secos (opcional)'],
       pasos: (cn) => [`Serví ${cn} en un bol.`, 'Acompañá con frutos secos si querés.', 'Llevá como snack.'],
     },
     {
@@ -422,7 +428,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Energético'],
       titulo: (cn) => `Bolitas energéticas con ${cn}`,
       descripcion: (cn) => `Bolitas sin horno con ${cn} y avena para llevar.`,
-      ingredientes: (cn) => [`1 taza de ${cn} sin carozo`, '1 taza de avena', '2 cucharadas de cacao', 'Coco rallado para rebozar'],
+      ingredientes: (cn) => [`1 taza de ${cn} sin carozo`, '1 taza de avena', '2 cucharadas de cacao', '3 cucharadas de coco rallado para rebozar'],
       pasos: (cn) => [`Procesá ${cn} hasta formar pasta.`, 'Mezclá con la avena y el cacao.', 'Formá bolitas y rebozá en coco.', 'Llevá al frío 30 minutos.'],
     },
     {
@@ -430,7 +436,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Desayuno con ${cn}`,
       descripcion: (cn) => `Un desayuno simple de yogur o avena con ${cn} para sumar dulzor natural.`,
-      ingredientes: (cn) => ['1 taza de yogur o avena cocida', `Un puñado de ${cn} sin carozo`, 'Semillas a gusto'],
+      ingredientes: (cn) => ['1 taza de yogur o avena cocida', `Un puñado de ${cn} sin carozo`, '1 cucharada de semillas'],
       pasos: (cn) => ['Serví el yogur o la avena en un bol.', `Sumá ${cn} cortados.`, 'Terminá con semillas.'],
     },
   ],
@@ -449,7 +455,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Galletas con ${cn}`,
       descripcion: (cn) => `Galletas sin gluten con ${cn}, ideales para la merienda.`,
-      ingredientes: (cn) => [`2 tazas de ${cn}`, '1 huevo', 'Endulzante a gusto', 'Esencia de vainilla'],
+      ingredientes: (cn) => [`2 tazas de ${cn}`, '1 huevo', '1 a 2 cucharadas de endulzante', 'Esencia de vainilla'],
       pasos: () => ['Precalentá el horno a 170 °C.', 'Formá una masa y dejá reposar.', 'Armá las galletas en una placa.', 'Horneá 10 a 12 minutos.'],
     },
     {
@@ -457,7 +463,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Budín húmedo con ${cn}`,
       descripcion: (cn) => `Un budín sin gluten con ${cn}, húmedo y aromático.`,
-      ingredientes: (cn) => [`2 tazas de ${cn}`, '3 huevos', 'Endulzante a gusto', 'Polvo de hornear y vainilla'],
+      ingredientes: (cn) => [`2 tazas de ${cn}`, '3 huevos', '1 a 2 cucharadas de endulzante', 'Polvo de hornear y vainilla'],
       pasos: () => ['Precalentá el horno a 180 °C.', 'Mezclá los ingredientes.', 'Volcá en un molde.', 'Horneá 35 a 40 minutos.'],
     },
     {
@@ -473,7 +479,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Muffins con ${cn}`,
       descripcion: (cn) => `Muffins sin gluten con ${cn}, prácticos para llevar.`,
-      ingredientes: (cn) => [`2 tazas de ${cn}`, '2 huevos', 'Endulzante a gusto', 'Frutas o chips de cacao'],
+      ingredientes: (cn) => [`2 tazas de ${cn}`, '2 huevos', '1 a 2 cucharadas de endulzante', 'Frutas o chips de cacao'],
       pasos: () => ['Precalentá el horno a 180 °C.', 'Mezclá todo.', 'Repartí en moldes para muffins.', 'Horneá 18 a 20 minutos.'],
     },
   ],
@@ -500,7 +506,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Proteico'],
       titulo: (cn) => `Hamburguesas de ${cn}`,
       descripcion: (cn) => `Hamburguesas vegetales de ${cn}, sabrosas y nutritivas.`,
-      ingredientes: (cn) => [`2 tazas de ${cn} cocido`, '1 zanahoria rallada', '2 cucharadas de avena', 'Condimentos a gusto'],
+      ingredientes: (cn) => [`2 tazas de ${cn} cocido`, '1 zanahoria rallada', '2 cucharadas de avena', 'Sal, pimienta y condimentos (≈1 cucharadita)'],
       pasos: () => ['Pisá la legumbre y mezclá con el resto.', 'Formá las hamburguesas.', 'Cociná en sartén o al horno hasta dorar.'],
     },
     {
@@ -527,7 +533,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Leche dorada con ${cn}`,
       descripcion: (cn) => `Una bebida tibia y reconfortante con ${cn}, ideal para la tarde.`,
-      ingredientes: (cn) => ['500 ml de bebida vegetal', `1 cucharadita de ${cn}`, 'Una pizca de pimienta', 'Canela y endulzante a gusto'],
+      ingredientes: (cn) => ['500 ml de bebida vegetal', `1 cucharadita de ${cn}`, 'Una pizca de pimienta', '1/2 cucharadita de canela y 1 cucharada de endulzante'],
       pasos: (cn) => ['Calentá la bebida sin que hierva.', `Sumá ${cn}, la pimienta y la canela.`, 'Revolvé unos minutos.', 'Endulzá y serví tibio.'],
     },
     {
@@ -535,7 +541,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Infusión de ${cn}`,
       descripcion: (cn) => `Una infusión simple de ${cn}, sola o con limón.`,
-      ingredientes: (cn) => ['1 taza de agua caliente', `1 cucharadita de ${cn}`, 'Jugo de limón opcional'],
+      ingredientes: (cn) => ['1 taza de agua caliente', `1 cucharadita de ${cn}`, 'Jugo de 1/2 limón (opcional)'],
       pasos: (cn) => ['Calentá el agua.', `Sumá ${cn} y dejá reposar unos minutos.`, 'Colá si hace falta.', 'Serví con limón a gusto.'],
     },
     {
@@ -559,7 +565,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Bebida fría de ${cn} con limón`,
       descripcion: (cn) => `Una bebida refrescante con ${cn} y limón para los días de calor.`,
-      ingredientes: (cn) => ['1 litro de agua fría', `1/2 cucharadita de ${cn}`, 'Jugo de 2 limones', 'Hielo a gusto'],
+      ingredientes: (cn) => ['1 litro de agua fría', `1/2 cucharadita de ${cn}`, 'Jugo de 2 limones', '1 taza de hielo'],
       pasos: () => ['Mezclá el agua con el limón.', 'Sumá la especia y revolvé.', 'Agregá hielo.', 'Serví bien fría.'],
     },
   ],
@@ -578,7 +584,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: ['Energético'],
       titulo: (cn) => `Bolitas energéticas con ${cn}`,
       descripcion: (cn) => `Bolitas sin horno con ${cn}, dátiles y avena.`,
-      ingredientes: (cn) => ['1 taza de dátiles sin carozo', '1 taza de avena', `1 cucharada de ${cn}`, 'Coco rallado para rebozar'],
+      ingredientes: (cn) => ['1 taza de dátiles sin carozo', '1 taza de avena', `1 cucharada de ${cn}`, '3 cucharadas de coco rallado para rebozar'],
       pasos: () => ['Procesá los dátiles.', 'Mezclá con la avena y el polvo.', 'Formá bolitas y rebozá en coco.', 'Llevá al frío 30 minutos.'],
     },
     {
@@ -594,7 +600,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Latte de ${cn}`,
       descripcion: (cn) => `Un latte cremoso con ${cn} y bebida vegetal.`,
-      ingredientes: (cn) => ['1 taza de bebida vegetal', `1 cucharadita de ${cn}`, 'Endulzante a gusto', 'Canela opcional'],
+      ingredientes: (cn) => ['1 taza de bebida vegetal', `1 cucharadita de ${cn}`, '1 a 2 cucharadas de endulzante', '1/2 cucharadita de canela (opcional)'],
       pasos: (cn) => ['Calentá la bebida sin que hierva.', `Integrá ${cn} batiendo bien.`, 'Endulzá a gusto.', 'Serví con canela.'],
     },
     {
@@ -621,7 +627,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Té helado de ${cn}`,
       descripcion: (cn) => `Una versión fría de ${cn}, refrescante para el verano.`,
-      ingredientes: (cn) => ['1 litro de agua', `2 cucharaditas de ${cn}`, 'Rodajas de limón', 'Hielo a gusto'],
+      ingredientes: (cn) => ['1 litro de agua', `2 cucharaditas de ${cn}`, 'Rodajas de limón', '1 taza de hielo'],
       pasos: (cn) => [`Prepará la infusión de ${cn} y dejá enfriar.`, 'Llevá a la heladera.', 'Serví con hielo y limón.'],
     },
     {
@@ -629,7 +635,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Blend de ${cn} con especias`,
       descripcion: (cn) => `Una infusión de ${cn} combinada con especias aromáticas.`,
-      ingredientes: (cn) => ['1 taza de agua caliente', `1 cucharadita de ${cn}`, 'Jengibre y canela', 'Cáscara de naranja opcional'],
+      ingredientes: (cn) => ['1 taza de agua caliente', `1 cucharadita de ${cn}`, 'Jengibre y canela', 'Cáscara de 1/2 naranja (opcional)'],
       pasos: () => ['Calentá el agua.', 'Sumá la infusión y las especias.', 'Dejá reposar unos minutos.', 'Colá y serví.'],
     },
     {
@@ -645,7 +651,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Latte de ${cn}`,
       descripcion: (cn) => `Un latte cremoso a base de ${cn} y bebida vegetal.`,
-      ingredientes: (cn) => [`1 infusión concentrada de ${cn}`, '1/2 taza de bebida vegetal', 'Endulzante a gusto'],
+      ingredientes: (cn) => [`1 infusión concentrada de ${cn}`, '1/2 taza de bebida vegetal', '1 a 2 cucharadas de endulzante'],
       pasos: () => ['Prepará la infusión concentrada.', 'Calentá y espumá la bebida vegetal.', 'Combiná y endulzá a gusto.'],
     },
   ],
@@ -699,7 +705,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Café cremoso con ${cn}`,
       descripcion: (cn) => `Un café batido y cremoso con ${cn}.`,
-      ingredientes: (cn) => ['1 taza de café', `1 cucharadita de ${cn}`, 'Bebida vegetal a gusto'],
+      ingredientes: (cn) => ['1 taza de café', `1 cucharadita de ${cn}`, '1/2 taza de bebida vegetal'],
       pasos: (cn) => ['Prepará el café.', `Sumá ${cn} y batí o licuá unos segundos.`, 'Completá con bebida vegetal.', 'Serví caliente.'],
     },
     {
@@ -723,7 +729,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Granola con ${cn}`,
       descripcion: (cn) => `Granola crocante hecha con ${cn}.`,
-      ingredientes: (cn) => ['3 tazas de avena', '1 taza de frutos secos', `3 cucharadas de ${cn} derretido`, 'Endulzante natural a gusto'],
+      ingredientes: (cn) => ['3 tazas de avena', '1 taza de frutos secos', `3 cucharadas de ${cn} derretido`, '1 a 2 cucharadas de endulzante natural'],
       pasos: () => ['Precalentá el horno a 160 °C.', 'Mezclá todo.', 'Esparcí en una placa.', 'Horneá 20 a 25 minutos.'],
     },
     {
@@ -766,7 +772,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Cobertura crocante con ${cn}`,
       descripcion: (cn) => `Una cobertura de ${cn} para terminar postres y frutas.`,
-      ingredientes: (cn) => [`1 taza de ${cn}`, 'Ralladura de limón opcional'],
+      ingredientes: (cn) => [`1 taza de ${cn}`, 'Ralladura de 1/2 limón (opcional)'],
       pasos: (cn) => [`Tostá ${cn} levemente en sartén.`, 'Dejá enfriar.', 'Usá para cubrir postres, yogur o frutas.'],
     },
     {
@@ -774,7 +780,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: false, extraTags: [],
       titulo: (cn) => `Galletas de ${cn}`,
       descripcion: (cn) => `Galletas caseras con ${cn}, ideales para la merienda.`,
-      ingredientes: (cn) => ['1 taza de harina', `1 taza de ${cn}`, 'Endulzante a gusto', '2 cucharadas de aceite'],
+      ingredientes: (cn) => ['1 taza de harina', `1 taza de ${cn}`, '1 a 2 cucharadas de endulzante', '2 cucharadas de aceite'],
       pasos: () => ['Precalentá el horno a 180 °C.', 'Formá la masa.', 'Armá las galletas.', 'Horneá hasta dorar.'],
     },
   ],
@@ -793,7 +799,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Bowl de ${cn} con leche y frutas`,
       descripcion: (cn) => `La forma clásica de disfrutar ${cn}: con bebida y frutas.`,
-      ingredientes: (cn) => [`1/2 taza de ${cn}`, '1 taza de bebida vegetal', 'Frutas a gusto'],
+      ingredientes: (cn) => [`1/2 taza de ${cn}`, '1 taza de bebida vegetal', '1 taza (150 g) de frutas'],
       pasos: (cn) => [`Serví ${cn} en un bowl.`, 'Sumá la bebida.', 'Terminá con frutas.'],
     },
     {
@@ -836,7 +842,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: false, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Pastas con ${cn}`,
       descripcion: (cn) => `Pastas simples terminadas con ${cn} para dar un toque de sabor.`,
-      ingredientes: (cn) => ['Pastas a gusto', 'Aceite de oliva y ajo', `2 cucharadas de ${cn}`],
+      ingredientes: (cn) => ['200 g de pastas', 'Aceite de oliva y ajo', `2 cucharadas de ${cn}`],
       pasos: (cn) => ['Cociná las pastas.', 'Saltealas con aceite y ajo.', `Terminá con ${cn} por encima.`],
     },
     {
@@ -852,7 +858,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Pochoclos con ${cn}`,
       descripcion: (cn) => `Pochoclos caseros con ${cn} en lugar de queso.`,
-      ingredientes: (cn) => ['1/2 taza de maíz pisingallo', '1 cucharada de aceite', `2 cucharadas de ${cn}`, 'Sal a gusto'],
+      ingredientes: (cn) => ['1/2 taza de maíz pisingallo', '1 cucharada de aceite', `2 cucharadas de ${cn}`, '1/2 cucharadita de sal'],
       pasos: (cn) => ['Hacé los pochoclos en una olla tapada.', `Espolvoreá ${cn} y sal.`, 'Mezclá y serví.'],
     },
     {
@@ -871,7 +877,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Snack simple con ${cn}`,
       descripcion: (cn) => `Una colación rápida para sumar ${cn} a tu día.`,
-      ingredientes: (cn) => [`${cap(cn)} a gusto`, 'Frutas o frutos secos'],
+      ingredientes: (cn) => [`${cap(cn)}, 1 a 2 cucharadas`, 'Frutas o frutos secos'],
       pasos: (cn) => [`Serví ${cn} en un bol.`, 'Acompañá con fruta o frutos secos.'],
     },
     {
@@ -879,7 +885,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Desayuno con ${cn}`,
       descripcion: (cn) => `Un desayuno simple que incorpora ${cn}.`,
-      ingredientes: (cn) => ['1 taza de yogur o avena', `${cap(cn)} a gusto`, 'Frutas'],
+      ingredientes: (cn) => ['1 taza de yogur o avena', `${cap(cn)}, 1 a 2 cucharadas`, 'Frutas'],
       pasos: (cn) => ['Serví la base en un bol.', `Sumá ${cn} y frutas.`],
     },
     {
@@ -887,7 +893,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Ensalada con ${cn}`,
       descripcion: (cn) => `Una ensalada fresca que suma ${cn}.`,
-      ingredientes: (cn) => ['Hojas verdes y vegetales', `${cap(cn)} a gusto`, 'Aceite, limón y sal'],
+      ingredientes: (cn) => ['Hojas verdes y vegetales', `${cap(cn)}, 1 a 2 cucharadas`, 'Aceite, limón y sal'],
       pasos: (cn) => ['Armá la ensalada.', `Sumá ${cn}.`, 'Aderezá y serví.'],
     },
     {
@@ -895,7 +901,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: true, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Bebida con ${cn}`,
       descripcion: (cn) => `Una bebida simple para incorporar ${cn}.`,
-      ingredientes: (cn) => ['1 taza de bebida vegetal o agua', `${cap(cn)} a gusto`],
+      ingredientes: (cn) => ['1 taza de bebida vegetal o agua', `${cap(cn)}, 1 a 2 cucharadas`],
       pasos: (cn) => ['Mezclá la base con el producto.', `Integrá ${cn} bien.`, 'Serví.'],
     },
     {
@@ -903,7 +909,7 @@ const ARCHETYPES: Record<string, Blueprint[]> = {
       vegano: false, glutenFree: true, noAddedSugar: true, extraTags: [],
       titulo: (cn) => `Postre simple con ${cn}`,
       descripcion: (cn) => `Un postre liviano que incorpora ${cn}.`,
-      ingredientes: (cn) => ['Yogur o crema vegetal', 'Frutas', `${cap(cn)} a gusto`],
+      ingredientes: (cn) => ['Yogur o crema vegetal', 'Frutas', `${cap(cn)}, 1 a 2 cucharadas`],
       pasos: (cn) => ['Serví la base en copas.', `Sumá frutas y ${cn}.`, 'Llevá al frío y serví.'],
     },
   ],
