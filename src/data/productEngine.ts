@@ -45,6 +45,14 @@ const PACKSHOTS = new Set<string>([
   'ashwagandha', 'camu-camu', 'guarana', 'maqui', 'baobab', 'lucuma',
   'stevia', 'azucar-de-coco', 'panela', 'chia-blanca', 'semillas-de-canamo',
   'psyllium', 'higos-turcos', 'wheatgrass',
+  // Oleada 3 (liquidos en botella/frasco + hierbas)
+  'aceite-de-oliva', 'aceite-de-girasol', 'aceite-de-lino', 'aceite-de-sesamo',
+  'aceite-de-palta', 'aceite-de-almendras', 'aceite-de-canamo', 'aceite-de-argan',
+  'miel-de-eucalipto', 'miel-cremosa', 'tahini', 'manteca-de-mani',
+  'pasta-de-datil', 'vinagre-de-manzana', 'miso', 'manteca-de-coco',
+  'leche-de-coco', 'agua-de-coco', 'jarabe-de-arce', 'jarabe-de-agave',
+  'melaza', 'ginseng', 'regaliz', 'equinacea', 'hibisco', 'cola-de-caballo',
+  'diente-de-leon', 'calendula', 'lavanda', 'ginkgo-biloba',
 ]);
 
 const FAQ_BASE: FAQItem[] = [
