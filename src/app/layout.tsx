@@ -6,6 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { GlobalSearch } from '@/components/GlobalSearch';
 import { WhatsAppFab } from '@/components/WhatsAppFab';
+import { PostHogProvider } from '@/components/PostHogProvider';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -90,11 +91,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Saltar al contenido
         </a>
-        <Navbar />
-        <main id="contenido">{children}</main>
-        <Footer />
-        <GlobalSearch />
-        <WhatsAppFab />
+        <PostHogProvider>
+          <Navbar />
+          <main id="contenido">{children}</main>
+          <Footer />
+          <GlobalSearch />
+          <WhatsAppFab />
+        </PostHogProvider>
 
         {GA_ID && (
           <>

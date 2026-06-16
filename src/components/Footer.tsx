@@ -20,17 +20,19 @@ export function Footer() {
                 href={site.whatsappCta}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-ph-mask
                 className="flex items-center gap-2.5 text-on-brand/90 transition-colors hover:text-on-brand"
               >
                 <Icon name="WhatsappLogo" size={18} weight="fill" />
-                {site.whatsapp}
+                <span data-ph-mask>{site.whatsapp}</span>
               </a>
               <a
                 href={`mailto:${site.email}`}
+                data-ph-mask
                 className="flex items-center gap-2.5 text-on-brand/90 transition-colors hover:text-on-brand"
               >
                 <Icon name="Envelope" size={18} weight="fill" />
-                {site.email}
+                <span data-ph-mask>{site.email}</span>
               </a>
             </div>
           </div>

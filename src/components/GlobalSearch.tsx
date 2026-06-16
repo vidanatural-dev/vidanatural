@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Icon } from './Icon';
 import { searchAll, searchSuggestions, typeLabel, type SearchItem, type SearchType } from '@/lib/search';
+import { trackEvent } from '@/lib/analytics';
 
 const ORDER: SearchType[] = ['uso', 'producto', 'receta'];
 
@@ -85,6 +86,16 @@ export function GlobalSearch() {
   useEffect(() => {
     setActive(0);
   }, [query]);
+
+  // Analítica: búsqueda realizada (con debounce para no duplicar por tecla).
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2) return;
+    const t = setTimeout(() => {
+      trackEvent('busqueda_realizada', { query: q, resultados: flat.length });
+    }, 800);
+    return () => clearTimeout(t);
+  }, [query, flat.length]);
 
   function go(item: SearchItem) {
     setOpen(false);

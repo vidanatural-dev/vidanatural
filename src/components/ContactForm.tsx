@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Icon } from './Icon';
 import { site } from '@/lib/site';
+import { trackEvent } from '@/lib/analytics';
 
 type Status = 'idle' | 'error' | 'success';
 
@@ -28,6 +29,9 @@ export function ContactForm() {
       setStatus('error');
       return;
     }
+    // Analítica: no enviamos datos personales (nombre/email/mensaje), solo el evento.
+    trackEvent('formulario_enviado', { form: 'contacto' });
+    trackEvent('lead_generado', { source: 'form_contacto' });
     const subject = encodeURIComponent(`Consulta de ${nombre}`);
     const body = encodeURIComponent(`${mensaje}\n\nDe: ${nombre}\nEmail: ${email}`);
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
