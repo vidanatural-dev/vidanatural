@@ -64,10 +64,7 @@ function HeroTile({
       <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.05]">
         <ProductImage product={product} priority={priority} sizes="(max-width: 1024px) 45vw, 24vw" />
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/45 via-transparent to-black/15" aria-hidden />
-      <span className="absolute left-4 top-3 z-10 max-w-[85%] font-display text-xl font-semibold leading-tight text-brand-deep drop-shadow-[0_1px_2px_rgba(255,255,255,0.55)] sm:text-2xl">
-        {product.nombre}
-      </span>
+      <span className="sr-only">{product.nombre}</span>
     </Link>
   );
 }
