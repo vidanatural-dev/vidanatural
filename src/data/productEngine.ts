@@ -25,6 +25,12 @@ const FAO: Fuente = { nombre: 'Organización de las Naciones Unidas para la Alim
 const OMS: Fuente = { nombre: 'Organización Mundial de la Salud (OMS)', url: 'https://www.who.int/es' };
 const ODS: Fuente = { nombre: 'Oficina de Suplementos Dietéticos (NIH, EE. UU.)', url: 'https://ods.od.nih.gov/' };
 
+// Productos con packshot real en /public/productos/<slug>.webp (se completa por oleadas).
+const PACKSHOTS = new Set<string>([
+  'castanas-caju', 'mani', 'avellanas', 'nuez-de-brasil', 'nuez-pecan',
+  'pistachos', 'macadamia', 'pinones',
+]);
+
 const FAQ_BASE: FAQItem[] = [
   {
     q: '¿Sirve para adelgazar?',
@@ -226,7 +232,7 @@ export function buildProduct(seed: SeedProduct): Product {
     casosDeUso: seed.casosDeUso,
     destacado: seed.destacado,
     hue: seed.hue,
-    imagen: undefined,
+    imagen: PACKSHOTS.has(seed.slug) ? `/productos/${seed.slug}.webp` : undefined,
   };
 }
 
