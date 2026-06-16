@@ -26,7 +26,8 @@ const fichaIncluye = [
 export default function HomePage() {
   const featured = featuredProducts().slice(0, 3);
   const collage = featuredProducts().slice(0, 3);
-  const marquee = products.map((p) => p.nombre);
+  // Subconjunto para la tira: con todo el catálogo el marquee quedaba demasiado rápido.
+  const marquee = products.slice(0, 24).map((p) => p.nombre);
 
   return (
     <>
