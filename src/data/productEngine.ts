@@ -298,7 +298,7 @@ const CATEGORY_INTRO: Record<string, string> = {
   Hierba: 'Las hierbas se usan desde hace siglos en infusiones y en la cocina por su aroma y por su lugar en la tradición popular',
   Especia: 'Las especias concentran aroma, color y sabor: un detalle pequeño que transforma cualquier plato y forma parte del recetario de todo el mundo',
   Superalimento: 'Se llama así, de forma popular, a alimentos especialmente densos en nutrientes o en compuestos de interés, que suelen sumarse en pequeñas cantidades a la dieta',
-  Coco: 'El coco da origen a una familia de productos muy versátiles —agua, leche, aceite, harina, ralladura— presentes en la cocina natural y de inspiración tropical',
+  Coco: 'El coco da origen a una familia de productos muy versátiles (agua, leche, aceite, harina, ralladura) presentes en la cocina natural y de inspiración tropical',
   Raíz: 'Las raíces guardan los nutrientes y los compuestos aromáticos de la planta, y se usan tanto en la cocina como en infusiones tradicionales',
   Alga: 'Las algas son vegetales marinos apreciados por su perfil de minerales y por su uso en la cocina de Oriente, cada vez más presente en la dietética',
   Untable: 'Los untables a base de frutos secos, semillas o legumbres son una forma práctica y sabrosa de sumar nutrientes a desayunos y meriendas',

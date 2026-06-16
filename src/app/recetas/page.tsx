@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Container } from '@/components/Container';
 import { Reveal } from '@/components/Reveal';
+import { Aurora } from '@/components/Aurora';
 import { RecipesExplorer } from '@/components/RecipesExplorer';
 import { recipes, allRecipeTypes, recipeTypeLabel, filterTags } from '@/data/recipes';
 import { products } from '@/data/products';
@@ -17,16 +18,20 @@ export default function RecetasPage() {
 
   return (
     <div className="pt-12 sm:pt-16">
-      <Container width="wide">
-        <Reveal className="max-w-2xl">
-          <span className="eyebrow">Cocina natural</span>
-          <h1 className="mt-4 font-display text-4xl text-ink sm:text-5xl">Recetas</h1>
-          <p className="mt-4 text-lg text-ink-soft">
-            {recipes.length} recetas simples con nuestros productos. Filtrá por lo que tengas ganas
-            de cocinar: tipo de comida, tiempo, dificultad y más.
-          </p>
-        </Reveal>
+      <section className="relative isolate overflow-hidden">
+        <Aurora className="opacity-40" />
+        <Container width="wide" className="relative">
+          <Reveal className="max-w-2xl">
+            <h1 className="font-display text-h1 text-ink">Recetas para cocinar lo natural</h1>
+            <p className="mt-4 text-lead text-ink-soft">
+              {recipes.length} recetas simples con nuestros productos. Filtrá por lo que tengas ganas
+              de cocinar: tipo de comida, tiempo, dificultad y más.
+            </p>
+          </Reveal>
+        </Container>
+      </section>
 
+      <Container width="wide">
         <div className="mt-10">
           <RecipesExplorer
             recipes={recipes}

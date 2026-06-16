@@ -22,18 +22,22 @@ export function MagneticButton({
 }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLAnchorElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
 
+  function onEnter(e: React.PointerEvent<HTMLAnchorElement>) {
+    if (reduce || e.pointerType !== 'mouse') return;
+    rectRef.current = ref.current?.getBoundingClientRect() ?? null;
+  }
   function onMove(e: React.PointerEvent<HTMLAnchorElement>) {
-    if (reduce) return;
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    x.set(((e.clientX - r.left) / r.width - 0.5) * 14);
-    y.set(((e.clientY - r.top) / r.height - 0.5) * 14);
+    if (reduce || e.pointerType !== 'mouse') return;
+    const r = rectRef.current;
+    if (!r) return;
+    x.set(((e.clientX - r.left) / r.width - 0.5) * 9);
+    y.set(((e.clientY - r.top) / r.height - 0.5) * 9);
   }
   function reset() {
     x.set(0);
@@ -45,6 +49,7 @@ export function MagneticButton({
       <Link
         ref={ref}
         href={href}
+        onPointerEnter={onEnter}
         onPointerMove={onMove}
         onPointerLeave={reset}
         className={`btn btn-${variant} ${className}`}

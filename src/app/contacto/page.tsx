@@ -18,8 +18,7 @@ export default function ContactoPage() {
       <Container width="wide">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <Reveal>
-            <span className="eyebrow">Contacto</span>
-            <h1 className="mt-4 font-display text-4xl leading-tight text-ink sm:text-5xl">
+            <h1 className="font-display text-h1 text-ink">
               ¿Querés que sumemos un producto?
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-soft">
@@ -33,7 +32,7 @@ export default function ContactoPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn text-white"
-                style={{ background: '#25D366' }}
+                style={{ background: '#1b8c4e' }}
               >
                 <Icon name="WhatsappLogo" size={18} weight="fill" />
                 {site.whatsapp}

@@ -22,13 +22,13 @@ export function RecipeCard({ recipe, priority = false }: { recipe: Recipe; prior
       ref={ref}
       href={`/recetas/${recipe.slug}`}
       onPointerMove={onMove}
-      className="group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-soft transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand/40 hover:shadow-lift"
+      className="group relative flex transform-gpu flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-card transition-[transform,box-shadow,border-color] duration-[250ms] ease-out hover:-translate-y-1 hover:border-brand/40 hover:shadow-lift active:scale-[0.985]"
     >
       <span
         className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            'radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), oklch(0.6 0.12 90 / 0.12), transparent 70%)',
+            'radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), var(--card-glow), transparent 72%)',
         }}
         aria-hidden
       />

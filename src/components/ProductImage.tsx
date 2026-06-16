@@ -19,6 +19,7 @@ export function ProductImage({
   className?: string;
 }) {
   if (product.imagen) {
+    const fit = className.includes('object-') ? '' : 'object-cover';
     return (
       <Image
         src={product.imagen}
@@ -26,7 +27,7 @@ export function ProductImage({
         fill
         sizes={sizes}
         priority={priority}
-        className={`object-cover ${className}`}
+        className={`${fit} ${className}`.trim()}
       />
     );
   }

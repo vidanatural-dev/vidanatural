@@ -83,7 +83,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         <div className="mt-6 grid items-center gap-8 pb-12 lg:grid-cols-[1fr_0.85fr] lg:gap-12">
           <Reveal>
             <span className="badge">{product.categoria}</span>
-            <h1 className="mt-4 font-display text-4xl leading-[1.05] text-ink sm:text-6xl">
+            <h1 className="mt-4 font-display text-h1 text-ink">
               {product.nombre}
             </h1>
             {product.nombreCientifico && (
@@ -105,8 +105,16 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="relative aspect-square overflow-hidden rounded-xl border border-line bg-surface-2 shadow-lift">
-              <ProductImage product={product} priority sizes="(max-width: 1024px) 100vw, 40vw" />
+            <div
+              className="relative aspect-square overflow-hidden rounded-xl border border-line shadow-lift lg:aspect-[4/5]"
+              style={{ background: 'radial-gradient(120% 120% at 50% 0%, var(--brand-soft), var(--surface-2) 70%)' }}
+            >
+              <ProductImage
+                product={product}
+                priority
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-contain p-6 sm:p-8"
+              />
             </div>
           </Reveal>
         </div>
@@ -125,14 +133,14 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             <Disclaimer className="mb-12" />
 
             <section id="que-es" className="scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Qué es</h2>
+              <h2 className="font-display text-h2 text-ink">Qué es</h2>
               <div className="prose-materia mt-4">
                 <p>{product.queEs}</p>
               </div>
             </section>
 
             <section id="composicion" className="mt-14 scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Composición y nutrientes</h2>
+              <h2 className="font-display text-h2 text-ink">Composición y nutrientes</h2>
               <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                 {product.composicion.map((c, i) => (
                   <li key={i} className="flex gap-3 rounded-md border border-line bg-surface p-4">
@@ -146,7 +154,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             </section>
 
             <section id="usos" className="mt-14 scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Usos tradicionales</h2>
+              <h2 className="font-display text-h2 text-ink">Usos tradicionales</h2>
               <p className="mt-3 text-sm text-muted">
                 Usos populares y culinarios. No implican efectos médicos comprobados.
               </p>
@@ -161,7 +169,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             </section>
 
             <section id="consumo" className="mt-14 scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Cómo se consume</h2>
+              <h2 className="font-display text-h2 text-ink">Cómo se consume</h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-3">
                 {product.comoSeConsume.map((c, i) => (
                   <div key={i} className="rounded-md border border-line bg-surface p-5">
@@ -176,7 +184,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             </section>
 
             <section id="precauciones" className="mt-14 scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Precauciones</h2>
+              <h2 className="font-display text-h2 text-ink">Precauciones</h2>
               <div className="mt-5 rounded-lg border border-line bg-surface-2 p-6">
                 <ul className="space-y-3">
                   {product.precauciones.map((p, i) => (
@@ -196,14 +204,14 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             </section>
 
             <section id="faq" className="mt-14 scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Preguntas frecuentes</h2>
+              <h2 className="font-display text-h2 text-ink">Preguntas frecuentes</h2>
               <div className="mt-5">
                 <FAQ items={product.faq} />
               </div>
             </section>
 
             <section id="fuentes" className="mt-14 scroll-mt-24">
-              <h2 className="font-display text-3xl text-ink">Fuentes</h2>
+              <h2 className="font-display text-h2 text-ink">Fuentes</h2>
               <p className="mt-3 text-sm text-muted">
                 Organismos y entidades de referencia para profundizar. La información puede
                 actualizarse con el tiempo.
@@ -238,7 +246,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       {recetas.length > 0 && (
         <section className="border-t border-line py-16">
           <Container width="wide">
-            <h2 className="font-display text-3xl text-ink">Recetas con {product.nombre.toLowerCase()}</h2>
+            <h2 className="font-display text-h2 text-ink">Recetas con {product.nombre.toLowerCase()}</h2>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {recetas.map((r) => (
                 <RecipeCard key={r.slug} recipe={r} />
@@ -252,7 +260,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       {related.length > 0 && (
         <section className="border-t border-line bg-surface-2/50 py-16">
           <Container width="wide">
-            <h2 className="font-display text-3xl text-ink">Productos relacionados</h2>
+            <h2 className="font-display text-h2 text-ink">Productos relacionados</h2>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p) => (
                 <ProductCard key={p.slug} product={p} />

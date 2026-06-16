@@ -15,7 +15,7 @@ export function UseCaseCard({
   return (
     <Link
       href={`/usos/${useCase.slug}`}
-      className={`group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand/40 hover:shadow-lift ${className}`}
+      className={`group relative flex transform-gpu flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-card transition-[transform,box-shadow,border-color] duration-[250ms] ease-out hover:-translate-y-1 hover:border-brand/40 hover:shadow-lift active:scale-[0.985] ${className}`}
     >
       {useCase.imagen ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden">

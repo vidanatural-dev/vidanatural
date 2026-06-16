@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { MotionConfig } from 'motion/react';
 import './globals.css';
 import { display, sans, mono } from '@/lib/fonts';
 import { Navbar } from '@/components/Navbar';
@@ -12,8 +13,8 @@ import { site } from '@/lib/site';
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} · ${site.tagline}`,
+    template: `%s · ${site.name}`,
   },
   description: site.description,
   applicationName: site.name,
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.name }],
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.name} · ${site.tagline}`,
     description: site.description,
     type: 'website',
     locale: 'es_AR',
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.name} · ${site.tagline}`,
     description: site.description,
   },
   robots: {
@@ -91,13 +92,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Saltar al contenido
         </a>
-        <PostHogProvider>
-          <Navbar />
-          <main id="contenido">{children}</main>
-          <Footer />
-          <GlobalSearch />
-          <WhatsAppFab />
-        </PostHogProvider>
+        <MotionConfig reducedMotion="user">
+          <PostHogProvider>
+            <Navbar />
+            <main id="contenido">{children}</main>
+            <Footer />
+            <GlobalSearch />
+            <WhatsAppFab />
+          </PostHogProvider>
+        </MotionConfig>
 
         {GA_ID && (
           <>

@@ -8,15 +8,17 @@ const EASE = [0.23, 1, 0.32, 1] as const;
 export function Reveal({
   children,
   delay = 0,
-  y = 20,
+  y = 16,
   className = '',
   as = 'div',
+  amount = 'some',
 }: {
   children: ReactNode;
   delay?: number;
   y?: number;
   className?: string;
   as?: 'div' | 'li' | 'section';
+  amount?: 'some' | 'all' | number;
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[as];
@@ -25,8 +27,8 @@ export function Reveal({
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      viewport={{ once: true, amount, margin: '0px 0px -10% 0px' }}
+      transition={{ duration: 0.45, delay, ease: EASE }}
     >
       {children}
     </MotionTag>
@@ -48,7 +50,7 @@ export function RevealGroup({
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 'some', margin: '0px 0px -8% 0px' }}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: reduce ? 0 : stagger } },
@@ -74,7 +76,7 @@ export function RevealItem({
       className={className}
       variants={{
         hidden: reduce ? {} : { opacity: 0, y },
-        show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+        show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
       }}
     >
       {children}

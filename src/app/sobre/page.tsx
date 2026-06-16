@@ -40,8 +40,7 @@ export default function SobrePage() {
     <div className="pt-12 sm:pt-16">
       <Container width="wide">
         <Reveal className="max-w-3xl">
-          <span className="eyebrow">Sobre el sitio</span>
-          <h1 className="mt-4 font-display text-4xl leading-tight text-ink sm:text-5xl">
+          <h1 className="font-display text-h1 text-ink">
             Una guía para entender los productos naturales antes de elegirlos.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-ink-soft">
@@ -56,7 +55,7 @@ export default function SobrePage() {
       <section className="mt-16 border-y border-line bg-surface-2/60 py-16 sm:py-20">
         <Container width="wide">
           <Reveal>
-            <h2 className="font-display text-3xl text-ink sm:text-[2.4rem]">Cómo escribimos cada ficha</h2>
+            <h2 className="font-display text-h2 text-ink">Cómo escribimos cada ficha</h2>
           </Reveal>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {comoLeemos.map((c, i) => (
@@ -80,7 +79,7 @@ export default function SobrePage() {
         <Container width="wide">
           <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
             <Reveal>
-              <h2 className="font-display text-3xl text-ink sm:text-[2.4rem]">
+              <h2 className="font-display text-h2 text-ink">
                 Por qué el contenido es informativo
               </h2>
               <div className="prose-materia mt-5">

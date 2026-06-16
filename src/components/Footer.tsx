@@ -56,12 +56,12 @@ export function Footer() {
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-on-brand-soft">
               Por uso
             </p>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {useCases.slice(0, 5).map((u) => (
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {useCases.slice(0, 7).map((u) => (
                 <li key={u.slug}>
                   <Link
                     href={`/usos/${u.slug}`}
-                    className="text-on-brand/90 transition-colors hover:text-on-brand"
+                    className="inline-flex rounded-full border border-on-brand/20 px-3 py-1.5 text-[0.8rem] text-on-brand/90 transition-colors hover:border-on-brand/50 hover:text-on-brand"
                   >
                     {u.nombre}
                   </Link>
@@ -71,10 +71,11 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-12 border-t border-on-brand/15 pt-6 text-xs text-on-brand-soft">
-          <p>
-            {year} {site.name}. Sitio informativo sobre productos naturales. No constituye consejo
-            médico ni reemplaza la consulta profesional.
+        <div className="mt-12 border-t border-on-brand/15 pt-6">
+          <p className="max-w-3xl text-sm leading-relaxed text-on-brand/80">
+            {year} {site.name}. Sitio informativo sobre productos naturales. La información tiene
+            fines educativos y no constituye consejo médico ni reemplaza la consulta con un
+            profesional de la salud.
           </p>
         </div>
       </Container>

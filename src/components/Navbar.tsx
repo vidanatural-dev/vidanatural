@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion, useReducedMotion, useScroll, useMotionValueEvent } from 'motion/react';
 import { Container } from './Container';
 import { Icon } from './Icon';
 import { ThemeToggle } from './ThemeToggle';
@@ -16,11 +16,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 12));
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    setScrolled(window.scrollY > 12);
   }, []);
 
   useEffect(() => {
@@ -30,7 +30,9 @@ export function Navbar() {
   return (
     <header
       className={`sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${
-        scrolled ? 'border-b border-line bg-bg/80 backdrop-blur-md' : 'border-b border-transparent'
+        scrolled
+          ? 'border-b border-line bg-bg/80 backdrop-blur-md'
+          : 'border-b border-transparent bg-bg/30 backdrop-blur-[2px]'
       }`}
     >
       <Container width="wide">
@@ -51,8 +53,11 @@ export function Navbar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
-                      active ? 'text-brand-deep' : 'text-ink-soft hover:text-ink'
+                    aria-current={active ? 'page' : undefined}
+                    className={`rounded-full px-3.5 py-2 text-sm transition-colors duration-200 ${
+                      active
+                        ? 'font-semibold text-brand-deep dark:text-brand'
+                        : 'font-medium text-ink-soft hover:text-ink'
                     }`}
                   >
                     {item.label}
