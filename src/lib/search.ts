@@ -37,6 +37,10 @@ const usoSinonimos: Record<UseCaseSlug, string[]> = {
   descanso: ['descanso', 'sueño', 'dormir', 'insomnio', 'relax', 'estres', 'calma', 'nervios', 'ansiedad'],
   articulaciones: ['articulaciones', 'huesos', 'musculos', 'movilidad', 'dolor', 'deporte', 'recuperacion'],
   mente: ['mente', 'memoria', 'concentracion', 'foco', 'cerebro', 'estudio', 'animo'],
+  'piel-cabello': ['piel', 'cabello', 'pelo', 'uñas', 'colageno', 'belleza'],
+  circulacion: ['circulacion', 'corazon', 'cardiovascular', 'presion', 'colesterol'],
+  'control-peso': ['peso', 'adelgazar', 'saciedad', 'dieta', 'liviano', 'fibra'],
+  huesos: ['huesos', 'dientes', 'calcio', 'osteo'],
 };
 
 const norm = (s: string): string =>

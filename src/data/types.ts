@@ -4,7 +4,11 @@ export type UseCaseSlug =
   | 'defensas'
   | 'descanso'
   | 'articulaciones'
-  | 'mente';
+  | 'mente'
+  | 'piel-cabello'
+  | 'circulacion'
+  | 'control-peso'
+  | 'huesos';
 
 export interface UseCase {
   slug: UseCaseSlug;

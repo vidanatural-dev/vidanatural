@@ -206,6 +206,39 @@ const DEFAULT_CAT: CatTemplate = {
   fuentes: [MED, EFSA, FAO],
 };
 
+// Necesidades adicionales asociadas por categoría (informativas, no claims médicos).
+const CATEGORY_EXTRA: Record<string, UseCaseSlug[]> = {
+  'Fruto seco': ['piel-cabello', 'circulacion'],
+  Semilla: ['piel-cabello', 'circulacion'],
+  Aceite: ['circulacion', 'piel-cabello'],
+  Alga: ['circulacion'],
+  Legumbre: ['control-peso', 'huesos'],
+  Pseudocereal: ['control-peso'],
+  Cereal: ['control-peso'],
+  Superalimento: ['piel-cabello', 'circulacion'],
+  Hierba: ['circulacion'],
+  Especia: ['circulacion'],
+  'Producto apícola': ['piel-cabello'],
+};
+
+// Aplicaciones extra por categoría (más usos, lenguaje seguro).
+const EXTRA_USES: Record<string, string[]> = {
+  'Fruto seco': ['En barras y bolitas energéticas caseras.', 'Como crema o manteca untable.'],
+  Semilla: ['Como sustituto de huevo al hidratarse, en recetas veganas.', 'En aderezos, salsas y rebozados.'],
+  'Fruta seca': ['Como endulzante natural en preparaciones.', 'En barras, bolitas y rellenos.'],
+  Cereal: ['En desayunos, galletas y barras caseras.', 'Como guarnición o relleno.'],
+  Pseudocereal: ['En bowls, ensaladas y rellenos.', 'En harina para panificados sin gluten.'],
+  Legumbre: ['En untables, hamburguesas y croquetas.', 'En harinas para rebozados y panificados.'],
+  Harina: ['En premezclas y rebozados.', 'Combinada con otras harinas en panificados.'],
+  Aceite: ['Para aderezar ensaladas y bowls.', 'En repostería, según el tipo.'],
+  Endulzante: ['En bebidas, postres y aderezos.', 'Como reemplazo de azúcar en recetas.'],
+  Infusión: ['Como base de blends con otras hierbas.', 'En versiones frías tipo té helado.'],
+  Hierba: ['Combinada con otras hierbas en mezclas.', 'En tisanas caseras.'],
+  Especia: ['En adobos y mezclas de especias.', 'En bebidas y repostería.'],
+  Superalimento: ['En batidos, bowls y energy balls.', 'Espolvoreado sobre yogur o avena.'],
+  Coco: ['En repostería y bebidas.', 'En preparaciones de inspiración tropical.'],
+};
+
 export function buildProduct(seed: SeedProduct): Product {
   const cat = CATS[seed.categoria] ?? DEFAULT_CAT;
   const n = seed.nombre;
@@ -223,13 +256,13 @@ export function buildProduct(seed: SeedProduct): Product {
       seed.queEs ??
       `${n} es un producto que se ofrece habitualmente en dietéticas dentro de la categoría ${seed.categoria.toLowerCase()}. Se incorpora a la alimentación según el gusto y las costumbres, siguiendo las indicaciones del envase.`,
     composicion: cat.composicion,
-    usosTradicionales: cat.usos,
+    usosTradicionales: [...cat.usos, ...(EXTRA_USES[seed.categoria] ?? [])],
     comoSeConsume: cat.consumo,
     precauciones: [...cat.precauciones, ...PREC_COMUNES],
     contraindicaciones: cat.contra,
     faq: [...FAQ_BASE],
     fuentes: cat.fuentes,
-    casosDeUso: seed.casosDeUso,
+    casosDeUso: Array.from(new Set([...seed.casosDeUso, ...(CATEGORY_EXTRA[seed.categoria] ?? [])])),
     destacado: seed.destacado,
     hue: seed.hue,
     imagen: PACKSHOTS.has(seed.slug) ? `/productos/${seed.slug}.webp` : undefined,

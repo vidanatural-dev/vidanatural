@@ -43,6 +43,34 @@ export const useCases: UseCase[] = [
     icon: 'Brain',
     hue: 330,
   },
+  {
+    slug: 'piel-cabello',
+    nombre: 'Piel y cabello',
+    descripcion: 'Alimentos que la tradición asocia al cuidado de la piel y el cabello, dentro de una alimentación variada. No son tratamientos.',
+    icon: 'Sparkle',
+    hue: 25,
+  },
+  {
+    slug: 'circulacion',
+    nombre: 'Corazón y circulación',
+    descripcion: 'Alimentos que suelen incluirse en hábitos de cuidado cardiovascular, como parte de una dieta equilibrada. No reemplazan indicaciones médicas.',
+    icon: 'Heart',
+    hue: 0,
+  },
+  {
+    slug: 'control-peso',
+    nombre: 'Control de peso',
+    descripcion: 'Alimentos que suelen formar parte de planes de alimentación equilibrada. No son productos para adelgazar; consultá con un profesional.',
+    icon: 'Scales',
+    hue: 200,
+  },
+  {
+    slug: 'huesos',
+    nombre: 'Huesos y dientes',
+    descripcion: 'Alimentos con nutrientes que acompañan el cuidado de huesos y dientes dentro de una dieta variada.',
+    icon: 'Barbell',
+    hue: 220,
+  },
 ];
 
 export const useCaseBySlug = (slug: UseCaseSlug): UseCase | undefined =>

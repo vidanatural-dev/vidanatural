@@ -33,6 +33,9 @@ import {
   Cake,
   Cookie,
   Bread,
+  Heart,
+  Scales,
+  Barbell,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -69,6 +72,9 @@ const map: Record<string, PhosphorIcon> = {
   Cake,
   Cookie,
   Bread,
+  Heart,
+  Scales,
+  Barbell,
 };
 
 interface IconProps {
