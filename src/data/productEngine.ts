@@ -36,6 +36,15 @@ const PACKSHOTS = new Set<string>([
   'trigo-burgol', 'porotos-colorados', 'lenteja-coral', 'polenta',
   'quinoa-roja', 'semillas-de-amapola', 'sesamo-negro', 'cacao-amargo',
   'moringa', 'maca-roja',
+  // Oleada 2 (estilo rico Materia Natural)
+  'lino-dorado',
+  'manzanilla', 'tilo', 'menta', 'valeriana', 'aloe-vera', 'boldo',
+  'te-negro', 'rooibos', 'cardamomo', 'clavo-de-olor', 'pimienta-negra',
+  'nuez-moscada', 'azafran', 'vainilla', 'laurel', 'oregano', 'romero',
+  'tomillo', 'comino', 'curry', 'pimenton', 'chlorella', 'acai', 'reishi',
+  'ashwagandha', 'camu-camu', 'guarana', 'maqui', 'baobab', 'lucuma',
+  'stevia', 'azucar-de-coco', 'panela', 'chia-blanca', 'semillas-de-canamo',
+  'psyllium', 'higos-turcos', 'wheatgrass',
 ]);
 
 const FAQ_BASE: FAQItem[] = [
