@@ -8,6 +8,7 @@ import { productsByUseCase } from '@/data/products';
 
 export const metadata: Metadata = {
   title: 'Productos por caso de uso',
+  alternates: { canonical: '/usos' },
   description:
     'Explorá productos naturales agrupados por aquello que querés cuidar: digestión, energía, defensas, descanso, articulaciones y mente.',
 };

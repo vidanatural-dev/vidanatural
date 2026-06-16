@@ -20,6 +20,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: r.seoTitle,
     description: r.seoDescription,
+    alternates: { canonical: `/recetas/${params.slug}` },
     openGraph: { title: r.titulo, description: r.seoDescription, type: 'article' },
   };
 }

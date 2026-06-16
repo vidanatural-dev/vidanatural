@@ -14,6 +14,8 @@ import { featuredProducts, products, productsByUseCase } from '@/data/products';
 import { useCases } from '@/data/useCases';
 import { featuredRecipes, recipes } from '@/data/recipes';
 
+export const metadata = { alternates: { canonical: '/' } };
+
 const fichaIncluye = [
   'Qué es y de dónde viene',
   'Composición y nutrientes',

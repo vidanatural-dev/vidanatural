@@ -7,6 +7,7 @@ import { products } from '@/data/products';
 
 export const metadata: Metadata = {
   title: 'Recetas naturales',
+  alternates: { canonical: '/recetas' },
   description:
     'Todas las recetas con productos naturales: filtrá por producto, tipo de comida, dificultad, tiempo, vegano, sin TACC o sin azúcar agregada.',
 };

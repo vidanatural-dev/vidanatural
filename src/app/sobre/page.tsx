@@ -7,6 +7,7 @@ import { Icon } from '@/components/Icon';
 
 export const metadata: Metadata = {
   title: 'Sobre el sitio',
+  alternates: { canonical: '/sobre' },
   description:
     'Qué es esta guía de productos naturales, cómo escribimos cada ficha y por qué el contenido es informativo y no médico.',
 };

@@ -20,6 +20,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: `${u.nombre}: productos naturales`,
     description: u.descripcion,
+    alternates: { canonical: `/usos/${params.slug}` },
   };
 }
 

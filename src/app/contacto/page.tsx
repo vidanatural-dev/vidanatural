@@ -7,6 +7,7 @@ import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Contacto',
+  alternates: { canonical: '/contacto' },
   description:
     'Sugerí productos para sumar a la guía o escribinos tu consulta sobre el sitio. Contenido informativo, no médico.',
 };

@@ -24,6 +24,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: `${product.nombre}: qué es, usos y precauciones`,
     description: product.resumen,
+    alternates: { canonical: `/productos/${params.slug}` },
     openGraph: { title: product.nombre, description: product.resumen, type: 'article' },
   };
 }

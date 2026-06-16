@@ -3,7 +3,7 @@ export const site = {
   tagline: 'Guía de productos naturales',
   description:
     'Información clara sobre productos naturales y de dietética: qué son, su composición, usos tradicionales, cómo se consumen y qué precauciones tener. Contenido informativo, no médico.',
-  url: 'https://materia.example',
+  url: 'https://www.materianatural.site',
   email: 'vidanatural@madsjeez.com',
   whatsapp: '+54 11 2181-6064',
   whatsappLink: 'https://wa.me/5491121816064',

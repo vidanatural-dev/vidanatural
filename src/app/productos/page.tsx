@@ -8,6 +8,7 @@ import { useCases } from '@/data/useCases';
 
 export const metadata: Metadata = {
   title: 'Productos naturales',
+  alternates: { canonical: '/productos' },
   description:
     'Listado de productos naturales y de dietética con su composición, usos tradicionales y precauciones. Buscá por nombre o filtrá por caso de uso.',
 };
