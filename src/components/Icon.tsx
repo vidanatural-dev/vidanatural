@@ -36,6 +36,7 @@ import {
   Heart,
   Scales,
   Barbell,
+  Check,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -75,6 +76,7 @@ const map: Record<string, PhosphorIcon> = {
   Heart,
   Scales,
   Barbell,
+  Check,
 };
 
 interface IconProps {

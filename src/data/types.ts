@@ -16,6 +16,11 @@ export interface UseCase {
   descripcion: string;
   icon: string; // clave de icono Phosphor (ver components/Icon.tsx)
   hue: number; // tono OKLCH para el arte generativo
+  imagen?: string; // foto temática (banner de la categoría)
+  intro?: string; // párrafo introductorio con contexto útil
+  alimentos?: string[]; // alimentos y nutrientes que se asocian a esta necesidad
+  consejos?: string[]; // hábitos generales que ayudan (no son indicaciones médicas)
+  faq?: FAQItem[]; // preguntas frecuentes (informativas)
 }
 
 export interface FAQItem {
