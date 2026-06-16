@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/Container';
-import { Reveal, RevealGroup, RevealItem } from '@/components/Reveal';
+import { Reveal } from '@/components/Reveal';
 import { ProductCard } from '@/components/ProductCard';
 import { Disclaimer } from '@/components/Disclaimer';
 import { Icon } from '@/components/Icon';
@@ -57,13 +57,11 @@ export default function UseCasePage({ params }: { params: { slug: string } }) {
           </div>
         </Reveal>
 
-        <RevealGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((p, i) => (
-            <RevealItem key={p.slug}>
-              <ProductCard product={p} priority={i < 3} />
-            </RevealItem>
+            <ProductCard key={p.slug} product={p} priority={i < 3} />
           ))}
-        </RevealGroup>
+        </div>
 
         <Disclaimer className="my-16" />
       </Container>
