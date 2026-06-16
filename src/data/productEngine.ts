@@ -1,4 +1,8 @@
 import type { Product, UseCaseSlug, FAQItem, Fuente, FormaDeConsumo } from './types';
+import { localImages } from './localImages';
+
+// Productos con foto generada localmente (GPU/SDXL) en /public/productos/local/<slug>.webp
+const LOCAL = new Set<string>(localImages);
 
 /**
  * Generador de fichas de producto por categoría. Permite escalar el catálogo
@@ -263,10 +267,43 @@ const EXTRA_USES: Record<string, string[]> = {
   Coco: ['En repostería y bebidas.', 'En preparaciones de inspiración tropical.'],
 };
 
+// Introducción descriptiva por categoría (para fichas amplias, lenguaje no médico).
+const CATEGORY_INTRO_DEFAULT =
+  'Es un producto que se ofrece habitualmente en dietéticas y se incorpora a la alimentación según el gusto y las costumbres de cada persona';
+const CATEGORY_INTRO: Record<string, string> = {
+  'Fruto seco': 'Los frutos secos son semillas oleaginosas muy valoradas por su densidad nutricional: concentran grasas saludables, proteínas vegetales y minerales en muy poco volumen',
+  Semilla: 'Las semillas son pequeñas pero muy nutritivas: aportan fibra, grasas buenas y minerales, y son un recurso práctico para enriquecer casi cualquier comida',
+  'Fruta seca': 'Las frutas deshidratadas concentran el dulzor y los nutrientes de la fruta fresca al perder agua, lo que las convierte en un snack energético y fácil de llevar',
+  Cereal: 'Los cereales son una fuente tradicional de energía de liberación gradual, fibra y vitaminas del complejo B, y son base de la alimentación en casi todas las culturas',
+  Pseudocereal: 'Los pseudocereales se cocinan y se usan como un cereal, pero se destacan por aportar proteína de buena calidad y por no contener gluten',
+  Legumbre: 'Las legumbres son uno de los pilares de la alimentación basada en plantas: combinan proteína vegetal, fibra y minerales a un costo accesible',
+  Harina: 'Las harinas llevan el valor nutritivo de granos, semillas o legumbres a panificados, rebozados y repostería, ampliando mucho las posibilidades en la cocina',
+  Aceite: 'Los aceites vegetales aportan grasas y compuestos propios de su materia prima; bien elegidos y usados con medida, suman sabor y calidad a la dieta',
+  Endulzante: 'Los endulzantes naturales permiten dar dulzor a las preparaciones como alternativa al azúcar refinado, siempre con moderación',
+  Infusión: 'Las infusiones son una forma simple y milenaria de disfrutar hierbas y plantas en agua caliente, como un ritual cotidiano de pausa y bienestar',
+  Hierba: 'Las hierbas se usan desde hace siglos en infusiones y en la cocina por su aroma y por su lugar en la tradición popular',
+  Especia: 'Las especias concentran aroma, color y sabor: un detalle pequeño que transforma cualquier plato y forma parte del recetario de todo el mundo',
+  Superalimento: 'Se llama así, de forma popular, a alimentos especialmente densos en nutrientes o en compuestos de interés, que suelen sumarse en pequeñas cantidades a la dieta',
+  Coco: 'El coco da origen a una familia de productos muy versátiles —agua, leche, aceite, harina, ralladura— presentes en la cocina natural y de inspiración tropical',
+  Raíz: 'Las raíces guardan los nutrientes y los compuestos aromáticos de la planta, y se usan tanto en la cocina como en infusiones tradicionales',
+  Alga: 'Las algas son vegetales marinos apreciados por su perfil de minerales y por su uso en la cocina de Oriente, cada vez más presente en la dietética',
+  Untable: 'Los untables a base de frutos secos, semillas o legumbres son una forma práctica y sabrosa de sumar nutrientes a desayunos y meriendas',
+  'Producto apícola': 'Los productos de la colmena acompañan a la humanidad desde la antigüedad, valorados como alimento natural y como parte de costumbres de cuidado',
+  Condimento: 'Los condimentos realzan el sabor de las comidas y permiten reducir el agregado de sal o de aderezos ultraprocesados',
+  Fermentado: 'Los alimentos fermentados son el resultado de procesos naturales con microorganismos, valorados por su sabor característico y por su larga tradición en la cocina',
+};
+
+const stripDot = (s: string) => s.replace(/\.$/, '').toLowerCase();
+
 export function buildProduct(seed: SeedProduct): Product {
   const cat = CATS[seed.categoria] ?? DEFAULT_CAT;
   const n = seed.nombre;
   const nl = n.toLowerCase();
+  const catl = seed.categoria.toLowerCase();
+  const sci = seed.nombreCientifico ? ` (${seed.nombreCientifico})` : '';
+  const intro = CATEGORY_INTRO[seed.categoria] ?? CATEGORY_INTRO_DEFAULT;
+  const usosTxt = cat.usos.slice(0, 3).map(stripDot).join('; ');
+  const compTxt = cat.composicion.map(stripDot).join(', ');
   return {
     slug: seed.slug,
     nombre: n,
@@ -275,10 +312,10 @@ export function buildProduct(seed: SeedProduct): Product {
     tagline: seed.tagline ?? cat.tagline(n),
     resumen:
       seed.resumen ??
-      `${n} es un producto natural de la categoría ${seed.categoria.toLowerCase()}. Se usa en distintas preparaciones dentro de una alimentación variada. Es un alimento, no un medicamento, y no reemplaza ningún tratamiento.`,
+      `${n} es un producto de la categoría ${catl} de uso habitual en dietética. ${intro}. Se suma a la alimentación diaria en distintas preparaciones, siempre dentro de una dieta variada; es un alimento, no un medicamento, y no reemplaza ningún tratamiento.`,
     queEs:
       seed.queEs ??
-      `${n} es un producto que se ofrece habitualmente en dietéticas dentro de la categoría ${seed.categoria.toLowerCase()}. Se incorpora a la alimentación según el gusto y las costumbres, siguiendo las indicaciones del envase.`,
+      `${n}${sci} es un producto natural que en dietética se ubica dentro de la categoría ${catl}. ${intro}. En la cocina, ${nl} se aprovecha de varias maneras: ${usosTxt}. Por su composición aporta ${compTxt}. Forma parte de una alimentación variada y equilibrada; recordá que es un alimento, no un medicamento, y que no reemplaza una dieta completa ni las indicaciones de un profesional de la salud.`,
     composicion: cat.composicion,
     usosTradicionales: [...cat.usos, ...(EXTRA_USES[seed.categoria] ?? [])],
     comoSeConsume: cat.consumo,
@@ -289,7 +326,11 @@ export function buildProduct(seed: SeedProduct): Product {
     casosDeUso: Array.from(new Set([...seed.casosDeUso, ...(CATEGORY_EXTRA[seed.categoria] ?? [])])),
     destacado: seed.destacado,
     hue: seed.hue,
-    imagen: PACKSHOTS.has(seed.slug) ? `/productos/${seed.slug}.webp` : undefined,
+    imagen: PACKSHOTS.has(seed.slug)
+      ? `/productos/${seed.slug}.webp`
+      : LOCAL.has(seed.slug)
+        ? `/productos/local/${seed.slug}.webp`
+        : undefined,
   };
 }
 

@@ -141,7 +141,12 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
   if (bp.noAddedSugar && !SWEETENERS.has(product.slug)) tags.push('Sin azúcar agregada');
   const uniqTags = Array.from(new Set(tags));
 
-  const descripcion = bp.descripcion(cn);
+  const baseDesc = bp.descripcion(cn);
+  const tiempoTxt = tiempoMin <= 10 ? 'en pocos minutos' : `en alrededor de ${tiempoMin} minutos`;
+  const descripcion =
+    `${baseDesc} Se prepara ${tiempoTxt}, rinde ${bp.porciones.toLowerCase()} y es de dificultad ${bp.dificultad.toLowerCase()}. ` +
+    `${cap(cn)} aporta su sabor y sus nutrientes a esta preparación, que podés adaptar a tu gusto variando frutas, semillas, especias o el nivel de dulzor. ` +
+    `Las cantidades son orientativas: ajustalas a tus porciones y disfrutala dentro de una alimentación variada y equilibrada.`;
 
   const pasos = [
     'Reuní y medí todos los ingredientes antes de empezar; así controlás mejor las cantidades y las porciones.',
@@ -174,7 +179,7 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
     productos: [product.slug],
     casoDeUso: product.casosDeUso[0],
     seoTitle: truncate(`${titulo} | Receta con ${cn}`, 60),
-    seoDescription: truncate(descripcion, 155),
+    seoDescription: truncate(baseDesc, 155),
     faq: buildFaq(bp.tipo, cn),
     hue: product.hue,
   };

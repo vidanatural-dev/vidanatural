@@ -4,6 +4,7 @@ import { extraSeeds } from './extraProducts';
 import { extraSeeds2 } from './extraProducts2';
 import { extraSeeds3 } from './extraProducts3';
 import { extraSeeds4 } from './extraProducts4';
+import { extraSeeds5 } from './extraProducts5';
 
 const FAQ_BASE = [
   {
@@ -1279,6 +1280,7 @@ export const products: Product[] = [
   ...buildProducts(extraSeeds2),
   ...buildProducts(extraSeeds3),
   ...buildProducts(extraSeeds4),
+  ...buildProducts(extraSeeds5),
 ];
 
 export const allProductSlugs = (): string[] => products.map((p) => p.slug);
