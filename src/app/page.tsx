@@ -27,7 +27,7 @@ const fichaIncluye = [
 
 export default function HomePage() {
   const featured = featuredProducts().slice(0, 3);
-  const collage = featuredProducts().slice(0, 3);
+  const collage = featuredProducts().slice(0, 4);
   // Subconjunto para la tira: con todo el catálogo el marquee quedaba demasiado rápido.
   const marquee = products.slice(0, 24).map((p) => p.nombre);
 
@@ -37,13 +37,18 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden pt-12 sm:pt-16">
         <Aurora className="opacity-90" />
         <Container width="wide" className="relative">
-          <div className="grid items-center gap-12 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:pb-24">
+          <div className="grid items-center gap-12 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
             <div>
               <Reveal>
-                <span className="eyebrow">Guía informativa</span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-ink-soft backdrop-blur-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden />
+                  <span className="font-mono uppercase tracking-[0.14em]">
+                    {products.length} productos · {recipes.length} recetas
+                  </span>
+                </span>
               </Reveal>
               <Reveal delay={0.05}>
-                <h1 className="mt-5 font-display text-[2.6rem] font-medium leading-[1.04] text-ink sm:text-6xl">
+                <h1 className="mt-5 font-display text-[2.8rem] font-medium leading-[1.02] tracking-[-0.025em] text-ink sm:text-6xl lg:text-[4.25rem]">
                   La guía <em className="italic text-brand">clara</em> de los productos naturales.
                 </h1>
               </Reveal>
@@ -58,8 +63,23 @@ export default function HomePage() {
                   <SearchTrigger variant="hero" />
                 </div>
               </Reveal>
-              <Reveal delay={0.2}>
-                <div className="mt-4 flex flex-wrap items-center gap-3">
+              <Reveal delay={0.18}>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="text-sm text-muted">Buscá por necesidad:</span>
+                  {[
+                    { slug: 'descanso', label: 'Descanso' },
+                    { slug: 'energia', label: 'Energía' },
+                    { slug: 'digestion', label: 'Digestión' },
+                    { slug: 'defensas', label: 'Defensas' },
+                  ].map((q) => (
+                    <Link key={q.slug} href={`/usos/${q.slug}`} className="chip">
+                      {q.label}
+                    </Link>
+                  ))}
+                </div>
+              </Reveal>
+              <Reveal delay={0.22}>
+                <div className="mt-7 flex flex-wrap items-center gap-3">
                   <MagneticButton href="/productos" variant="primary">
                     Ver productos
                     <Icon name="ArrowRight" size={18} />
@@ -73,18 +93,25 @@ export default function HomePage() {
 
             <Reveal delay={0.2} className="relative">
               <div className="relative mx-auto grid max-w-md grid-cols-2 gap-4 sm:gap-5">
-                <div className="animate-float overflow-hidden rounded-lg border border-line bg-surface-2 shadow-lift">
-                  <div className="relative aspect-square">
-                    {collage[0] && <ProductImage product={collage[0]} priority />}
+                <div className="flex flex-col gap-4 sm:gap-5">
+                  <div className="animate-float overflow-hidden rounded-xl border border-line bg-surface-2 shadow-lift">
+                    <div className="relative aspect-square">
+                      {collage[0] && <ProductImage product={collage[0]} priority />}
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-xl border border-line bg-surface-2 shadow-lift">
+                    <div className="relative aspect-square">
+                      {collage[3] && <ProductImage product={collage[3]} />}
+                    </div>
                   </div>
                 </div>
-                <div className="mt-10 flex flex-col gap-4 sm:gap-5">
-                  <div className="animate-float overflow-hidden rounded-lg border border-line bg-surface-2 shadow-lift" style={{ animationDelay: '0.8s' }}>
+                <div className="mt-8 flex flex-col gap-4 sm:gap-5">
+                  <div className="overflow-hidden rounded-xl border border-line bg-surface-2 shadow-lift">
                     <div className="relative aspect-square">
                       {collage[1] && <ProductImage product={collage[1]} priority />}
                     </div>
                   </div>
-                  <div className="overflow-hidden rounded-lg border border-line bg-surface-2 shadow-lift">
+                  <div className="animate-float overflow-hidden rounded-xl border border-line bg-surface-2 shadow-lift" style={{ animationDelay: '1.2s' }}>
                     <div className="relative aspect-square">
                       {collage[2] && <ProductImage product={collage[2]} />}
                     </div>
