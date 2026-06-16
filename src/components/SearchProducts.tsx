@@ -42,7 +42,7 @@ export function SearchProducts({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar producto, categoría o nombre científico"
             aria-label="Buscar productos"
-            className="w-full rounded-full border border-line-strong bg-surface py-3 pl-11 pr-4 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-brand"
+            className="search-input w-full rounded-full border border-line-strong bg-surface py-3 pl-11 pr-4 text-base text-ink outline-none transition-colors placeholder:text-muted focus:border-brand"
           />
         </div>
 
@@ -51,6 +51,7 @@ export function SearchProducts({
             type="button"
             className="chip"
             data-active={filter === 'todos'}
+            aria-pressed={filter === 'todos'}
             onClick={() => setFilter('todos')}
           >
             Todos
@@ -61,6 +62,7 @@ export function SearchProducts({
               type="button"
               className="chip"
               data-active={filter === u.slug}
+              aria-pressed={filter === u.slug}
               onClick={() => setFilter(u.slug)}
             >
               <Icon name={u.icon} size={15} weight="bold" />

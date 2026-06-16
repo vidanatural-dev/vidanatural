@@ -11,7 +11,7 @@ interface ProductoOpt {
 }
 
 const selectClass =
-  'rounded-full border border-line-strong bg-surface px-4 py-2.5 text-sm text-ink outline-none transition-colors focus:border-brand';
+  'rounded-full border border-line-strong bg-surface px-4 py-2.5 text-base text-ink outline-none transition-colors focus:border-brand';
 
 const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
 
@@ -82,7 +82,7 @@ export function RecipesExplorer({
             }}
             placeholder="Buscar receta por nombre..."
             aria-label="Buscar receta"
-            className="search-input w-full rounded-full border border-line-strong bg-surface py-3 pl-11 pr-4 text-sm text-ink outline-none placeholder:text-muted focus:border-brand"
+            className="search-input w-full rounded-full border border-line-strong bg-surface py-3 pl-11 pr-4 text-base text-ink outline-none placeholder:text-muted focus:border-brand"
           />
         </div>
 
@@ -138,7 +138,7 @@ export function RecipesExplorer({
 
         <div className="mt-4 flex flex-wrap gap-2">
           {tags.map((t) => (
-            <button key={t} type="button" className="chip" data-active={activeTags.includes(t)} onClick={() => toggleTag(t)}>
+            <button key={t} type="button" className="chip" data-active={activeTags.includes(t)} aria-pressed={activeTags.includes(t)} onClick={() => toggleTag(t)}>
               {t}
             </button>
           ))}
