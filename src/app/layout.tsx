@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     : undefined,
 };
 
-const THEME_INIT = `(function(){try{var t=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(!t&&d)){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+const THEME_INIT = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'){document.documentElement.classList.add('dark')}}catch(e){document.documentElement.classList.add('dark')}})();`;
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 

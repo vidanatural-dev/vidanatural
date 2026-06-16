@@ -37,12 +37,17 @@ export function Navbar() {
     >
       <Container width="wide">
         <nav className="flex h-[68px] items-center justify-between gap-6">
-          <Link href="/" className="flex items-baseline gap-2">
-            <span className="font-display text-2xl font-semibold tracking-tight text-ink">
-              {site.name}
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand/15 text-brand ring-1 ring-brand/20">
+              <Icon name="Leaf" size={19} weight="fill" />
             </span>
-            <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-muted sm:inline">
-              natural
+            <span className="flex items-baseline gap-2">
+              <span className="font-display text-2xl font-semibold tracking-tight text-ink">
+                {site.name}
+              </span>
+              <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-muted sm:inline">
+                natural
+              </span>
             </span>
           </Link>
 
@@ -70,6 +75,17 @@ export function Navbar() {
             </li>
             <li>
               <ThemeToggle />
+            </li>
+            <li>
+              <a
+                href={site.whatsappCta}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-1 inline-flex items-center gap-2 rounded-full bg-[#1b8c4e] px-3.5 py-2 text-sm font-semibold text-white transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:hover:translate-y-0"
+              >
+                <Icon name="WhatsappLogo" size={16} weight="fill" />
+                WhatsApp
+              </a>
             </li>
           </ul>
 

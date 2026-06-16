@@ -1,78 +1,156 @@
 import Link from 'next/link';
 import { Container } from '@/components/Container';
-import { Reveal, RevealGroup, RevealItem } from '@/components/Reveal';
+import { Reveal } from '@/components/Reveal';
 import { MagneticButton } from '@/components/MagneticButton';
-import { ProductCard } from '@/components/ProductCard';
-import { UseCaseCard } from '@/components/UseCaseCard';
 import { ProductImage } from '@/components/ProductImage';
-import { RecipeCard } from '@/components/RecipeCard';
-import { Aurora } from '@/components/Aurora';
+import { RecipeImage } from '@/components/RecipeImage';
 import { ProductMarquee } from '@/components/ProductMarquee';
+import { Aurora } from '@/components/Aurora';
 import { SearchTrigger } from '@/components/SearchTrigger';
 import { Icon } from '@/components/Icon';
-import { featuredProducts, products, productsByUseCase } from '@/data/products';
-import { useCases } from '@/data/useCases';
+import { featuredProducts, products, getProduct } from '@/data/products';
 import { featuredRecipes, recipes } from '@/data/recipes';
+import type { Product } from '@/data/types';
 
 export const metadata = { alternates: { canonical: '/' } };
 
-const fichaIncluye = [
-  'Qué es y de dónde viene',
-  'Composición y nutrientes',
-  'Usos tradicionales',
-  'Cómo se consume',
-  'Precauciones y contraindicaciones',
-  'Preguntas frecuentes y fuentes',
+const needChips = [
+  { label: 'Digestión', icon: 'Leaf', href: '/usos/digestion' },
+  { label: 'Energía', icon: 'Lightning', href: '/usos/energia' },
+  { label: 'Descanso', icon: 'Moon', href: '/usos/descanso' },
+  { label: 'Defensas', icon: 'ShieldCheck', href: '/usos/defensas' },
+  { label: 'Recetas', icon: 'BowlFood', href: '/recetas' },
+  { label: 'Precauciones', icon: 'Warning', href: '/sobre' },
 ];
 
+const needTiles = [
+  { label: 'Energía', icon: 'Lightning', href: '/usos/energia' },
+  { label: 'Descanso', icon: 'Moon', href: '/usos/descanso' },
+  { label: 'Digestión', icon: 'Leaf', href: '/usos/digestion' },
+  { label: 'Cocina saludable', icon: 'CookingPot', href: '/recetas' },
+  { label: 'Infusiones', icon: 'Coffee', href: '/productos' },
+  { label: 'Sin TACC', icon: 'Plant', href: '/recetas' },
+  { label: 'Alto en fibra', icon: 'Carrot', href: '/usos/digestion' },
+  { label: 'Proteínas vegetales', icon: 'Barbell', href: '/usos/energia' },
+];
+
+const infoImportante = [
+  { icon: 'BookOpen', title: 'Uso tradicional', text: 'Conocé cómo se usan habitualmente los productos naturales.' },
+  { icon: 'Warning', title: 'Precauciones', text: 'Recomendaciones importantes a tener en cuenta antes de consumir.' },
+  { icon: 'PersonSimpleWalk', title: 'Consultar profesional', text: 'Ante dudas o tratamientos, consultá siempre con un profesional de la salud.' },
+];
+
+const confianza = [
+  { icon: 'ShieldCheck', title: 'Información clara y confiable', text: 'Contenido basado en fuentes confiables y en el uso tradicional.' },
+  { icon: 'Storefront', title: 'Sin venta de productos', text: 'No vendemos nada. Solo información educativa e imparcial.' },
+  { icon: 'ArrowsClockwise', title: 'Actualizaciones constantes', text: 'Sumamos productos, recetas y guías nuevas cada semana.' },
+  { icon: 'Heart', title: 'Hecho con cariño en Argentina', text: 'Contenido pensado para nuestra comunidad.' },
+];
+
+function HeroTile({
+  product,
+  className = '',
+  priority = false,
+}: {
+  product: Product;
+  className?: string;
+  priority?: boolean;
+}) {
+  return (
+    <Link
+      href={`/productos/${product.slug}`}
+      className={`group relative overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-card transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lift ${className}`}
+    >
+      <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.05]">
+        <ProductImage product={product} priority={priority} sizes="(max-width: 1024px) 45vw, 24vw" />
+      </div>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/45 via-transparent to-black/15" aria-hidden />
+      <span className="absolute left-4 top-3 z-10 max-w-[85%] font-display text-xl font-semibold leading-tight text-brand-deep drop-shadow-[0_1px_2px_rgba(255,255,255,0.55)] sm:text-2xl">
+        {product.nombre}
+      </span>
+    </Link>
+  );
+}
+
+function ConsultadoCard({ product }: { product: Product }) {
+  return (
+    <Link
+      href={`/productos/${product.slug}`}
+      className="group flex w-[300px] shrink-0 snap-start gap-4 rounded-xl border border-line bg-surface p-3 shadow-card transition-[transform,box-shadow,border-color] duration-[250ms] ease-out hover:-translate-y-1 hover:border-brand/40 hover:shadow-lift active:scale-[0.99]"
+    >
+      <span className="relative h-[88px] w-[88px] shrink-0 overflow-hidden rounded-lg bg-surface-2">
+        <ProductImage product={product} sizes="88px" />
+      </span>
+      <div className="flex min-w-0 flex-col">
+        <h3 className="truncate font-display text-lg leading-tight text-ink">{product.nombre}</h3>
+        <p className="text-xs text-muted">{product.categoria}</p>
+        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-soft">{product.tagline}</p>
+        <span className="mt-auto inline-flex w-fit items-center gap-1 pt-2 text-sm font-semibold text-brand transition-colors group-hover:text-brand-deep">
+          Ver guía
+          <Icon name="ArrowRight" size={14} className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
 export default function HomePage() {
-  const featured = featuredProducts().slice(0, 3);
-  const collage = featuredProducts().slice(0, 4);
-  const lead = featured[0];
+  const heroPicks = (['chia', 'avena', 'quinoa', 'almendras'].map(getProduct).filter(Boolean) as Product[]).filter(
+    (p) => p.imagen
+  );
+  const bento = (heroPicks.length >= 4 ? heroPicks : featuredProducts().filter((p) => p.imagen)).slice(0, 4);
+  const consultados = featuredProducts()
+    .filter((p) => p.imagen)
+    .slice(0, 8);
+  const receta = featuredRecipes()[0];
+  const prods600 = Math.floor(products.length / 100) * 100;
+  const recetas1000 = Math.floor(recipes.length / 1000) * 1000;
 
   return (
     <>
       {/* ============ HERO ============ */}
-      <section className="relative isolate overflow-hidden pt-12 sm:pt-16">
-        <Aurora className="opacity-90" />
+      <section className="relative isolate overflow-hidden pt-10 sm:pt-14">
+        <Aurora className="opacity-80" />
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{ background: 'radial-gradient(110% 80% at 82% -10%, var(--brand-soft), transparent 55%)' }}
+          aria-hidden
+        />
         <Container width="wide" className="relative">
-          <div className="grid items-center gap-12 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
+          <div className="grid items-center gap-10 pb-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:pb-20">
+            {/* ----- Columna texto ----- */}
             <div>
               <Reveal>
-                <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-ink-soft backdrop-blur-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden />
-                  <span className="font-mono uppercase tracking-[0.14em]">
-                    {products.length} productos · {recipes.length} recetas
+                <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1.5 text-xs font-medium text-brand">
+                  <Icon name="Leaf" size={13} weight="fill" />
+                  <span className="font-mono uppercase tracking-[0.12em]">
+                    +{prods600} productos · +{recetas1000} recetas · información confiable
                   </span>
                 </span>
               </Reveal>
               <Reveal delay={0.05}>
-                <h1 className="mt-5 font-display text-display font-semibold text-ink">
-                  La guía <em className="italic text-brand">clara</em> de los productos naturales.
+                <h1 className="mt-5 font-sans text-display font-bold tracking-[-0.03em] text-ink">
+                  Descubrí para qué se usan los productos{' '}
+                  <span className="text-brand">naturales.</span>
                 </h1>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-6 max-w-xl text-lead text-ink-soft">
-                  Qué es cada producto, su composición, sus usos tradicionales y las precauciones.
-                  Información, no venta.
+                <p className="mt-5 max-w-xl text-lead text-ink-soft">
+                  Guías claras sobre alimentos, hierbas, semillas, harinas y suplementos. Cómo se
+                  consumen, para qué sirven y qué precauciones tener.
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
-                <div className="mt-8">
+                <div className="mt-7">
                   <SearchTrigger variant="hero" />
                 </div>
               </Reveal>
               <Reveal delay={0.18}>
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="text-sm text-muted">Buscá por necesidad:</span>
-                  {[
-                    { slug: 'descanso', label: 'Descanso' },
-                    { slug: 'energia', label: 'Energía' },
-                    { slug: 'digestion', label: 'Digestión' },
-                    { slug: 'defensas', label: 'Defensas' },
-                  ].map((q) => (
-                    <Link key={q.slug} href={`/usos/${q.slug}`} className="chip">
-                      {q.label}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {needChips.map((c) => (
+                    <Link key={c.label} href={c.href} className="chip">
+                      <Icon name={c.icon} size={14} weight="bold" />
+                      {c.label}
                     </Link>
                   ))}
                 </div>
@@ -80,117 +158,57 @@ export default function HomePage() {
               <Reveal delay={0.22}>
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <MagneticButton href="/productos" variant="primary">
-                    Ver productos
+                    Buscar un producto natural
                     <Icon name="ArrowRight" size={18} />
                   </MagneticButton>
-                  <Link href="/recetas" className="btn btn-ghost">
-                    Ver recetas
+                  <Link href="/usos" className="btn btn-ghost">
+                    Ver guías por necesidad
                   </Link>
                 </div>
               </Reveal>
+              <Reveal delay={0.26}>
+                <p className="mt-5 inline-flex items-center gap-2 text-sm text-muted">
+                  <Icon name="ShieldCheck" size={16} weight="fill" className="text-brand" />
+                  Contenido educativo. No reemplaza la consulta con un profesional de la salud.
+                </p>
+              </Reveal>
             </div>
 
-            {/* Collage editorial asimétrico (aspectos mezclados, un solo gesto flotante) */}
+            {/* ----- Bento de productos ----- */}
             <Reveal delay={0.2} className="relative">
-              <div className="relative mx-auto flex max-w-md gap-4 sm:gap-5">
-                <div className="flex w-[58%] flex-col gap-4 sm:gap-5">
-                  <div className="animate-float overflow-hidden rounded-xl border border-line bg-surface-2 shadow-lift">
-                    <div className="relative aspect-[4/5]">
-                      {collage[0] && <ProductImage product={collage[0]} priority />}
-                    </div>
-                  </div>
-                  <div className="overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card">
-                    <div className="relative aspect-square">
-                      {collage[2] && <ProductImage product={collage[2]} />}
-                    </div>
-                  </div>
+              <div className="relative grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-4">
+                  {bento[0] && <HeroTile product={bento[0]} className="aspect-[5/6]" priority />}
+                  {bento[2] && <HeroTile product={bento[2]} className="aspect-square" />}
                 </div>
-                <div className="mt-9 flex w-[42%] flex-col gap-4 sm:gap-5">
-                  <div className="overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card">
-                    <div className="relative aspect-square">
-                      {collage[1] && <ProductImage product={collage[1]} priority />}
-                    </div>
-                  </div>
-                  <div className="overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card">
-                    <div className="relative aspect-[3/4]">
-                      {collage[3] && <ProductImage product={collage[3]} />}
-                    </div>
-                  </div>
+                <div className="mt-8 flex flex-col gap-4">
+                  {bento[1] && <HeroTile product={bento[1]} className="aspect-square" priority />}
+                  {bento[3] && <HeroTile product={bento[3]} className="aspect-[5/6]" />}
+                </div>
+                {/* badge central */}
+                <div className="absolute left-1/2 top-1/2 z-20 hidden h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-brand/40 bg-brand-deep p-3 text-center shadow-lift sm:grid">
+                  <span className="text-[0.7rem] font-medium leading-snug text-on-brand">
+                    <Icon name="Leaf" size={16} weight="fill" className="mx-auto mb-1 text-on-brand" />
+                    Guías simples y confiables
+                  </span>
                 </div>
               </div>
             </Reveal>
           </div>
         </Container>
 
-        {/* tira viva de productos (doble fila, fotos reales, sentidos opuestos) */}
+        {/* tira viva de productos */}
         <div className="border-y border-line bg-surface-2/40 py-5">
           <ProductMarquee />
         </div>
       </section>
 
-      {/* ============ BANDA DE CONFIANZA ============ */}
-      <section className="border-b border-line bg-surface-2/60 py-16 sm:py-20">
-        <Container width="wide">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
-            <Reveal>
-              <h2 className="font-display text-h2 text-ink">
-                Cada ficha está pensada para que decidas con información, no con marketing.
-              </h2>
-              <p className="mt-5 max-w-prose text-ink-soft">
-                Reunimos lo que se sabe de cada producto en lenguaje simple y prudente. No vendemos
-                nada y no damos consejo médico: la idea es que llegues con buenas preguntas a la
-                dietética y a tu profesional de salud.
-              </p>
-              <p className="mt-6 text-sm text-ink-soft">
-                Ya son {products.length} productos explicados, {useCases.length} casos de uso y{' '}
-                {recipes.length} recetas para probar, y vamos sumando.
-              </p>
-            </Reveal>
-            <RevealGroup className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {fichaIncluye.map((item) => (
-                <RevealItem key={item} className="flex items-center gap-3 border-b border-line py-3 text-ink">
-                  <span className="text-brand">
-                    <Icon name="Leaf" size={18} weight="fill" />
-                  </span>
-                  <span className="text-[0.97rem] font-medium">{item}</span>
-                </RevealItem>
-              ))}
-            </RevealGroup>
-          </div>
-        </Container>
-      </section>
-
-      {/* ============ CASOS DE USO ============ */}
-      <section className="py-20 sm:py-28">
-        <Container width="wide">
-          <Reveal className="max-w-2xl">
-            <h2 className="font-display text-h2 text-ink">
-              Encontrá productos según lo que te interesa cuidar
-            </h2>
-            <p className="mt-4 max-w-prose text-ink-soft">
-              Agrupamos el catálogo por aquello que la tradición y la nutrición asocian a cada
-              necesidad. Una guía para orientarte, no una recomendación médica.
-            </p>
-          </Reveal>
-          <RevealGroup className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {useCases.map((u, i) => (
-              <RevealItem key={u.slug} className={i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}>
-                <UseCaseCard useCase={u} count={productsByUseCase(u.slug).length} className="h-full" />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </Container>
-      </section>
-
-      {/* ============ PRODUCTOS DESTACADOS (feature + stack asimétrico) ============ */}
-      <section className="pb-24">
+      {/* ============ PRODUCTOS MÁS CONSULTADOS ============ */}
+      <section className="py-16 sm:py-20">
         <Container width="wide">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <Reveal>
-              <h2 className="font-display text-h2 text-ink">Los más conocidos para empezar</h2>
-              <p className="mt-3 max-w-prose text-ink-soft">
-                Una primera selección. Vamos sumando productos por caso de uso.
-              </p>
+              <h2 className="font-display text-h2 text-ink">Productos más consultados</h2>
             </Reveal>
             <Reveal delay={0.05}>
               <Link
@@ -202,98 +220,109 @@ export default function HomePage() {
               </Link>
             </Reveal>
           </div>
-
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {lead && (
-              <Reveal className="lg:col-span-2">
-                <Link
-                  href={`/productos/${lead.slug}`}
-                  className="group relative flex h-full transform-gpu flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-card transition-[transform,box-shadow,border-color] duration-[250ms] ease-out hover:-translate-y-1 hover:border-brand/40 hover:shadow-lift active:scale-[0.99] lg:flex-row"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-surface-2 lg:aspect-auto lg:w-[52%]">
-                    <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-                      <ProductImage product={lead} priority sizes="(max-width: 1024px) 100vw, 45vw" />
-                    </div>
-                    <span className="badge absolute left-3 top-3 z-10 bg-surface/90 backdrop-blur-sm">
-                      {lead.categoria}
-                    </span>
-                  </div>
-                  <div className="flex flex-1 flex-col justify-center p-6 sm:p-8">
-                    <h3 className="font-display text-h3 text-ink sm:text-[1.9rem]">{lead.nombre}</h3>
-                    {lead.nombreCientifico && (
-                      <p className="mt-1 font-mono text-xs italic text-muted">{lead.nombreCientifico}</p>
-                    )}
-                    <p className="mt-3 max-w-prose text-ink-soft">{lead.resumen}</p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors group-hover:text-brand-deep">
-                      Ver ficha
-                      <Icon
-                        name="ArrowRight"
-                        size={16}
-                        className="transition-transform duration-300 ease-out group-hover:translate-x-1"
-                      />
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            )}
-            <Reveal delay={0.08} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-              {featured.slice(1, 3).map((p) => (
-                <ProductCard key={p.slug} product={p} priority />
-              ))}
-            </Reveal>
-          </div>
-        </Container>
-      </section>
-
-      {/* ============ RECETAS (carrusel) ============ */}
-      <section className="border-t border-line bg-surface-2/40 py-20 sm:py-24">
-        <Container width="wide">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <Reveal>
-              <span className="eyebrow">Cocina natural</span>
-              <h2 className="mt-4 font-display text-h2 text-ink">Recetas para aprovecharlos</h2>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <Link
-                href="/recetas"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors hover:text-brand-deep"
-              >
-                Ver todas las recetas
-                <Icon name="ArrowRight" size={16} />
-              </Link>
-            </Reveal>
-          </div>
-          <div className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {featuredRecipes().map((r, i) => (
-              <div key={r.slug} className="w-[290px] shrink-0 snap-start sm:w-[340px]">
-                <RecipeCard recipe={r} priority={i < 3} />
-              </div>
+          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {consultados.map((p) => (
+              <ConsultadoCard key={p.slug} product={p} />
             ))}
           </div>
         </Container>
       </section>
 
-      {/* ============ CTA ============ */}
-      <section className="pb-4 pt-20">
+      {/* ============ NECESIDADES · RECETAS · INFO (3 columnas) ============ */}
+      <section className="pb-20">
         <Container width="wide">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-xl bg-brand-deep px-6 py-16 text-center text-on-brand sm:px-12 sm:py-20">
-              <Aurora className="opacity-40" />
-              <h2 className="relative mx-auto max-w-2xl font-display text-h2 text-on-brand">
-                {products.length} productos explicados con claridad, y sumando.
-              </h2>
-              <p className="relative mx-auto mt-4 max-w-xl text-on-brand-soft">
-                Explorá las fichas, conocé usos y precauciones, y llegá mejor informado a tu próxima
-                compra en la dietética.
-              </p>
-              <div className="relative mt-8 flex justify-center">
-                <MagneticButton href="/productos" variant="accent">
-                  Explorar el catálogo
-                  <Icon name="ArrowRight" size={18} />
-                </MagneticButton>
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr_0.9fr]">
+            {/* Buscá por necesidad */}
+            <Reveal className="rounded-2xl border border-line bg-surface p-6 sm:p-7">
+              <h2 className="font-display text-2xl text-ink">Buscá por necesidad</h2>
+              <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4">
+                {needTiles.map((t) => (
+                  <Link
+                    key={t.label}
+                    href={t.href}
+                    className="group flex flex-col items-center gap-2 rounded-xl border border-line bg-surface-2/60 px-2 py-4 text-center transition-[transform,border-color,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-brand/40 hover:bg-surface-2"
+                  >
+                    <span className="text-brand transition-transform duration-200 ease-out group-hover:scale-110">
+                      <Icon name={t.icon} size={22} weight="duotone" />
+                    </span>
+                    <span className="text-xs font-medium leading-tight text-ink-soft">{t.label}</span>
+                  </Link>
+                ))}
               </div>
-            </div>
-          </Reveal>
+              <Link
+                href="/usos"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors hover:text-brand-deep"
+              >
+                Ver todas las necesidades
+                <Icon name="ArrowRight" size={16} />
+              </Link>
+            </Reveal>
+
+            {/* Recetas saludables */}
+            <Reveal delay={0.05} className="flex flex-col rounded-2xl border border-line bg-surface p-6 sm:p-7">
+              <div className="flex items-center justify-between">
+                <h2 className="font-display text-2xl text-ink">Recetas saludables</h2>
+                <Link href="/recetas" className="text-sm font-semibold text-brand transition-colors hover:text-brand-deep">
+                  Ver todas
+                </Link>
+              </div>
+              {receta && (
+                <Link href={`/recetas/${receta.slug}`} className="group mt-5 flex flex-1 flex-col">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-surface-2">
+                    <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.05]">
+                      <RecipeImage recipe={receta} sizes="(max-width: 1024px) 100vw, 33vw" />
+                    </div>
+                    <span className="badge absolute left-3 top-3 bg-surface/90 capitalize backdrop-blur-sm">
+                      {receta.tipo}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 font-display text-xl leading-tight text-ink">{receta.titulo}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">{receta.descripcion}</p>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors group-hover:text-brand-deep">
+                    Ver receta
+                    <Icon name="ArrowRight" size={15} className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              )}
+            </Reveal>
+
+            {/* Información importante */}
+            <Reveal delay={0.1} className="rounded-2xl border border-line bg-surface p-6 sm:p-7">
+              <h2 className="font-display text-2xl text-ink">Información importante</h2>
+              <ul className="mt-5 space-y-5">
+                {infoImportante.map((it) => (
+                  <li key={it.title} className="flex gap-3.5">
+                    <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand-deep">
+                      <Icon name={it.icon} size={18} weight="duotone" />
+                    </span>
+                    <div>
+                      <p className="font-medium text-ink">{it.title}</p>
+                      <p className="mt-0.5 text-[0.85rem] leading-relaxed text-ink-soft">{it.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      {/* ============ BARRA DE CONFIANZA ============ */}
+      <section className="border-t border-line bg-surface-2/40 py-12">
+        <Container width="wide">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {confianza.map((c) => (
+              <div key={c.title} className="flex gap-3.5">
+                <span className="mt-0.5 shrink-0 text-brand">
+                  <Icon name={c.icon} size={24} weight="duotone" />
+                </span>
+                <div>
+                  <p className="font-medium text-ink">{c.title}</p>
+                  <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-soft">{c.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
     </>

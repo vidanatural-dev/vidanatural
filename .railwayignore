@@ -3,3 +3,6 @@ node_modules
 .git
 out
 *.log
+
+# fotos locales GPU en progreso (se suben cuando esten completas)
+public/productos/local/
