@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { Icon } from './Icon';
-import { site } from '@/lib/site';
 import { trackEvent } from '@/lib/analytics';
 
-type Status = 'idle' | 'error' | 'success';
+type Status = 'idle' | 'error' | 'sending' | 'neterror' | 'success';
 
 export function ContactForm() {
   const [nombre, setNombre] = useState('');
@@ -23,19 +22,32 @@ export function ContactForm() {
     return Object.keys(e).length === 0;
   }
 
-  function onSubmit(ev: React.FormEvent) {
+  async function onSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     if (!validate()) {
       setStatus('error');
       return;
     }
-    // Analítica: no enviamos datos personales (nombre/email/mensaje), solo el evento.
+    setStatus('sending');
+    // Analítica: no enviamos datos personales por el evento, solo la señal.
     trackEvent('formulario_enviado', { form: 'contacto' });
-    trackEvent('lead_generado', { source: 'form_contacto' });
-    const subject = encodeURIComponent(`Consulta de ${nombre}`);
-    const body = encodeURIComponent(`${mensaje}\n\nDe: ${nombre}\nEmail: ${email}`);
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-    setStatus('success');
+    try {
+      const res = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre,
+          email,
+          mensaje,
+          page: typeof window !== 'undefined' ? window.location.pathname : '',
+        }),
+      });
+      if (!res.ok) throw new Error('fail');
+      trackEvent('lead_generado', { source: 'form_contacto' });
+      setStatus('success');
+    } catch {
+      setStatus('neterror');
+    }
   }
 
   if (status === 'success') {
@@ -105,9 +117,15 @@ export function ContactForm() {
         {errors.mensaje && <p className="text-sm text-accent-ink">{errors.mensaje}</p>}
       </div>
 
-      <button type="submit" className="btn btn-primary">
-        Enviar mensaje
-        <Icon name="ArrowRight" size={18} />
+      {status === 'neterror' && (
+        <p className="rounded-md border border-line bg-surface-2 px-4 py-3 text-sm text-accent-ink" role="alert">
+          No pudimos enviar tu mensaje. Probá de nuevo en un momento o escribinos por WhatsApp.
+        </p>
+      )}
+
+      <button type="submit" disabled={status === 'sending'} className="btn btn-primary disabled:opacity-70">
+        {status === 'sending' ? 'Enviando…' : 'Enviar mensaje'}
+        {status !== 'sending' && <Icon name="ArrowRight" size={18} />}
       </button>
     </form>
   );
