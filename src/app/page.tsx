@@ -7,6 +7,7 @@ import { UseCaseCard } from '@/components/UseCaseCard';
 import { ProductImage } from '@/components/ProductImage';
 import { RecipeCard } from '@/components/RecipeCard';
 import { Aurora } from '@/components/Aurora';
+import { ProductMarquee } from '@/components/ProductMarquee';
 import { SearchTrigger } from '@/components/SearchTrigger';
 import { Icon } from '@/components/Icon';
 import { featuredProducts, products, productsByUseCase } from '@/data/products';
@@ -27,8 +28,6 @@ const fichaIncluye = [
 export default function HomePage() {
   const featured = featuredProducts().slice(0, 3);
   const collage = featuredProducts().slice(0, 4);
-  // Subconjunto para la tira: con todo el catálogo el marquee quedaba demasiado rápido.
-  const marquee = products.slice(0, 24).map((p) => p.nombre);
   const lead = featured[0];
 
   return (
@@ -123,19 +122,9 @@ export default function HomePage() {
           </div>
         </Container>
 
-        {/* tira marquee */}
-        <div className="relative overflow-hidden border-y border-line bg-surface-2/40 py-4">
-          <div className="flex w-max animate-marquee items-center gap-10 pr-10" aria-hidden>
-            {[...marquee, ...marquee].map((w, i) => (
-              <span
-                key={i}
-                className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.18em] text-muted"
-              >
-                {w}
-                <span className="h-1 w-1 rounded-full bg-brand/60" aria-hidden />
-              </span>
-            ))}
-          </div>
+        {/* tira viva de productos (doble fila, fotos reales, sentidos opuestos) */}
+        <div className="border-y border-line bg-surface-2/40 py-5">
+          <ProductMarquee />
         </div>
       </section>
 

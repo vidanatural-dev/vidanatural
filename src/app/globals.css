@@ -345,10 +345,23 @@ p {
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 38s linear infinite;
+  animation: marquee 40s linear infinite;
 }
-.animate-marquee:hover {
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.animate-marquee-reverse {
+  animation: marquee-reverse 48s linear infinite;
+}
+.marquee-mask:hover .animate-marquee,
+.marquee-mask:hover .animate-marquee-reverse {
   animation-play-state: paused;
+}
+/* Desvanecido en los bordes de la tira */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
 @keyframes shimmer {
