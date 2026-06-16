@@ -57,6 +57,20 @@ const PACKSHOTS = new Set<string>([
   'leche-de-coco', 'agua-de-coco', 'jarabe-de-arce', 'jarabe-de-agave',
   'melaza', 'ginseng', 'regaliz', 'equinacea', 'hibisco', 'cola-de-caballo',
   'diente-de-leon', 'calendula', 'lavanda', 'ginkgo-biloba',
+  // Oleada 4 (packshots Materia Natural provistos, ChatGPT)
+  'ajo-en-polvo', 'albahaca', 'alcaravea', 'amaranto-inflado', 'anana-deshidratado',
+  'anis-estrellado', 'arroz-basmati', 'arroz-negro', 'cebada', 'cebolla-en-polvo',
+  'cedron', 'coco-rallado', 'comino-negro', 'copos-de-maiz', 'coriandro', 'couscous',
+  'dulse', 'fecula-de-maiz', 'fenogreco', 'frambuesas-deshidratadas',
+  'frutos-rojos-deshidratados', 'garam-masala', 'garbanzo-tostado', 'grosella-seca',
+  'harina-de-amaranto', 'harina-de-arroz-integral', 'harina-de-castanas',
+  'harina-de-mandioca', 'harina-de-quinoa', 'harina-de-teff', 'hinojo', 'lenteja-beluga',
+  'maca-negra', 'mango-deshidratado', 'mix-de-pimientas', 'mix-tropical', 'orejones',
+  'papaya-deshidratada', 'peras-deshidratadas', 'perejil', 'pimenton-ahumado',
+  'polvo-de-espinaca', 'polvo-de-kale', 'polvo-de-remolacha', 'poroto-cranberry',
+  'poroto-pallar', 'porotos-blancos', 'proteina-de-soja-aislada', 'quinoa-negra',
+  'sal-rosa-del-himalaya', 'salvia', 'semillas-de-mostaza', 'semola', 'tapioca',
+  'te-blanco', 'te-rojo', 'tomate-deshidratado', 'trigo-sarraceno', 'wakame',
 ]);
 
 const FAQ_BASE: FAQItem[] = [
