@@ -74,7 +74,7 @@ export const products: Product[] = [
     casosDeUso: ['digestion', 'articulaciones'],
     destacado: true,
     hue: 150,
-    imagen: '/productos/chia.png',
+    imagen: '/productos/local/chia.webp',
   },
   {
     slug: 'avena',
@@ -121,7 +121,7 @@ export const products: Product[] = [
     casosDeUso: ['digestion', 'energia', 'descanso'],
     destacado: true,
     hue: 75,
-    imagen: '/productos/avena.png',
+    imagen: '/productos/local/avena.webp',
   },
   {
     slug: 'quinoa',
@@ -168,7 +168,7 @@ export const products: Product[] = [
     casosDeUso: ['energia', 'digestion'],
     destacado: true,
     hue: 95,
-    imagen: '/productos/quinoa.png',
+    imagen: '/productos/local/quinoa.webp',
   },
   {
     slug: 'lino',
@@ -263,7 +263,7 @@ export const products: Product[] = [
     casosDeUso: ['energia', 'mente', 'descanso'],
     destacado: true,
     hue: 60,
-    imagen: '/productos/almendras.png',
+    imagen: '/productos/local/almendras.webp',
   },
   {
     slug: 'nueces',
