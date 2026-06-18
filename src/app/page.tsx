@@ -8,6 +8,9 @@ import { ProductMarquee } from '@/components/ProductMarquee';
 import { Aurora } from '@/components/Aurora';
 import { SearchTrigger } from '@/components/SearchTrigger';
 import { Icon } from '@/components/Icon';
+import { AnimatedCounter } from '@/components/AnimatedCounter';
+import { AnimatedUnderline } from '@/components/AnimatedUnderline';
+import { FloatingLeaves } from '@/components/FloatingLeaves';
 import { featuredProducts, products, getProduct } from '@/data/products';
 import { featuredRecipes, recipes } from '@/data/recipes';
 import type { Product } from '@/data/types';
@@ -108,6 +111,7 @@ export default function HomePage() {
       {/* ============ HERO ============ */}
       <section className="relative isolate overflow-hidden pt-10 sm:pt-14">
         <Aurora className="opacity-80" />
+        <FloatingLeaves />
         <div
           className="pointer-events-none absolute inset-0 -z-10"
           style={{ background: 'radial-gradient(110% 80% at 82% -10%, var(--brand-soft), transparent 55%)' }}
@@ -121,14 +125,14 @@ export default function HomePage() {
                 <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1.5 text-xs font-medium text-brand">
                   <Icon name="Leaf" size={13} weight="fill" />
                   <span className="font-mono uppercase tracking-[0.12em]">
-                    +{prods600} productos · +{recetas1000} recetas · información confiable
+                    +<AnimatedCounter to={prods600} suffix=" productos" duration={1200} /> · +<AnimatedCounter to={recetas1000} suffix=" recetas" duration={1400} /> · información confiable
                   </span>
                 </span>
               </Reveal>
               <Reveal delay={0.05}>
                 <h1 className="mt-5 font-sans text-display font-bold tracking-[-0.03em] text-ink">
                   Descubrí para qué se usan los productos{' '}
-                  <span className="text-brand">naturales.</span>
+                  <AnimatedUnderline as="span" className="text-brand">naturales.</AnimatedUnderline>
                 </h1>
               </Reveal>
               <Reveal delay={0.1}>

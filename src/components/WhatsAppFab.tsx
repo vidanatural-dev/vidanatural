@@ -1,12 +1,21 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import { Icon } from './Icon';
 import { site } from '@/lib/site';
+import { startPulse } from '@/lib/animations/pulse';
 
-/**
- * Botón flotante de WhatsApp, presente en todo el sitio.
- */
 export function WhatsAppFab() {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    return startPulse(ref.current);
+  }, []);
+
   return (
     <a
+      ref={ref}
       href={site.whatsappCta}
       target="_blank"
       rel="noopener noreferrer"
