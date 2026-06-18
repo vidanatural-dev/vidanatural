@@ -158,7 +158,7 @@ function buildRecipe(product: Product, bp: Blueprint): Recipe {
   const imagen = RECIPE_IMAGES.has(slug)
     ? `/recetas/r/${slug}.webp`
     : AVAILABLE_FAMILIES.has(familia)
-      ? `/recetas/${familia}.png`
+      ? `/recetas/${familia}.webp`
       : undefined;
 
   return {
