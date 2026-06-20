@@ -20,6 +20,8 @@ export interface SeedProduct {
   queEs?: string;
   resumen?: string;
   tagline?: string;
+  contraindicaciones?: string;
+  faq?: FAQItem[];
   destacado?: boolean;
 }
 
@@ -334,8 +336,8 @@ export function buildProduct(seed: SeedProduct): Product {
     usosTradicionales: [...cat.usos, ...(EXTRA_USES[seed.categoria] ?? [])],
     comoSeConsume: cat.consumo,
     precauciones: [...cat.precauciones, ...PREC_COMUNES],
-    contraindicaciones: cat.contra,
-    faq: [...FAQ_BASE],
+    contraindicaciones: seed.contraindicaciones ?? cat.contra,
+    faq: seed.faq ? [...seed.faq, ...FAQ_BASE] : [...FAQ_BASE],
     fuentes: cat.fuentes,
     casosDeUso: Array.from(new Set([...seed.casosDeUso, ...(CATEGORY_EXTRA[seed.categoria] ?? [])])),
     destacado: seed.destacado,

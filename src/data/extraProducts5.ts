@@ -6,7 +6,15 @@ export const extraSeeds5: SeedProduct[] = [
   // ── Infusiones y tés ──
   { slug: 'te-sencha', nombre: 'Té sencha', categoria: 'Infusión', nombreCientifico: 'Camellia sinensis', hue: 120, casosDeUso: ['mente', 'control-peso'] },
   { slug: 'te-genmaicha', nombre: 'Té genmaicha', categoria: 'Infusión', nombreCientifico: 'Camellia sinensis', hue: 70, casosDeUso: ['mente'] },
-  { slug: 'te-earl-grey', nombre: 'Té Earl Grey', categoria: 'Infusión', nombreCientifico: 'Camellia sinensis', hue: 40, casosDeUso: ['mente'] },
+  {
+    slug: 'te-earl-grey', nombre: 'Té Earl Grey', categoria: 'Infusión', nombreCientifico: 'Camellia sinensis', hue: 40, casosDeUso: ['mente'],
+    queEs: 'El té Earl Grey es una mezcla de té negro (Camellia sinensis) aromatizado con aceite esencial de bergamota, un cítrico de origen mediterráneo. Es una de las infusiones más conocidas del mundo, reconocible por su aroma floral y cítrico. Al ser base de té negro, contiene cafeína en cantidades moderadas (menos que el café). Se prepara en infusión caliente y también puede tomarse frío.',
+    contraindicaciones: 'Contiene cafeína: conviene moderarlo en personas sensibles, en embarazo y lactancia (consultar con un profesional), y ante problemas de sueño. El aceite de bergamota puede interactuar con algunos medicamentos (como estatinas para el colesterol); ante medicación habitual, conviene consultarlo con el médico. En personas adultas sanas, el consumo de 1 a 3 tazas diarias suele tolerarse bien.',
+    faq: [
+      { q: '¿El té Earl Grey tiene contraindicaciones?', a: 'Las principales consideraciones son su contenido en cafeína (desaconsejado en exceso en embarazo, lactancia, insomnio o sensibilidad a la cafeína) y el aceite de bergamota, que puede interactuar con ciertos medicamentos como las estatinas. Consultar con un profesional ante medicación habitual o condiciones de salud específicas.' },
+      { q: '¿Cuánta cafeína tiene el té Earl Grey?', a: 'Al ser una infusión de té negro, contiene cafeína, aunque menos que el café. Una taza (200 ml) suele tener entre 30 y 60 mg de cafeína según el tiempo de infusión y la marca. Se recomienda moderar su consumo por la tarde si afecta el sueño.' },
+    ],
+  },
   { slug: 'te-de-jazmin', nombre: 'Té de jazmín', categoria: 'Infusión', nombreCientifico: 'Camellia sinensis', hue: 60, casosDeUso: ['descanso'] },
   { slug: 'te-darjeeling', nombre: 'Té darjeeling', categoria: 'Infusión', nombreCientifico: 'Camellia sinensis', hue: 30, casosDeUso: ['mente'] },
   { slug: 'mate-tostado', nombre: 'Mate tostado', categoria: 'Infusión', nombreCientifico: 'Ilex paraguariensis', hue: 35, casosDeUso: ['energia', 'mente'] },
@@ -73,7 +81,14 @@ export const extraSeeds5: SeedProduct[] = [
   { slug: 'almendras-peladas', nombre: 'Almendras peladas', categoria: 'Fruto seco', nombreCientifico: 'Prunus dulcis', hue: 38, casosDeUso: ['energia'] },
   { slug: 'almendras-laminadas', nombre: 'Almendras laminadas', categoria: 'Fruto seco', nombreCientifico: 'Prunus dulcis', hue: 40, casosDeUso: ['energia'] },
   { slug: 'nueces-mariposa', nombre: 'Nueces mariposa', categoria: 'Fruto seco', nombreCientifico: 'Juglans regia', hue: 35, casosDeUso: ['mente', 'circulacion'] },
-  { slug: 'avellanas-tostadas', nombre: 'Avellanas tostadas', categoria: 'Fruto seco', nombreCientifico: 'Corylus avellana', hue: 33, casosDeUso: ['energia'] },
+  {
+    slug: 'avellanas-tostadas', nombre: 'Avellanas tostadas', categoria: 'Fruto seco', nombreCientifico: 'Corylus avellana', hue: 33, casosDeUso: ['energia', 'piel-cabello', 'circulacion'],
+    queEs: 'Las avellanas tostadas son las avellanas (Corylus avellana) sometidas a un proceso de tostado en seco que intensifica su sabor y aroma característicos. Como fruto seco, son fuente de grasas saludables (principalmente ácido oleico monoinsaturado), vitamina E, y minerales como magnesio y calcio. El tostado reduce ligeramente su contenido en agua y concentra su sabor sin alterar de forma significativa su perfil nutritivo.',
+    faq: [
+      { q: '¿Cuáles son los beneficios de las avellanas tostadas?', a: 'Las avellanas, tostadas o crudas, son fuente de grasas saludables (principalmente monoinsaturadas), vitamina E (antioxidante), magnesio, calcio y vitaminas del grupo B. Se incorporan habitualmente en snacks, repostería y granolas dentro de una dieta variada. Son un alimento nutritivo, no un suplemento ni un medicamento.' },
+      { q: '¿Las avellanas tostadas engordan?', a: 'Las avellanas son calóricamente densas por su contenido en grasas saludables. Una porción moderada (un puñado pequeño, unos 20-30 g) es una opción nutritiva como snack. El aumento de peso depende del conjunto de la alimentación y del gasto energético de cada persona, no de un alimento en particular.' },
+    ],
+  },
   { slug: 'pistachos-pelados', nombre: 'Pistachos pelados', categoria: 'Fruto seco', nombreCientifico: 'Pistacia vera', hue: 90, casosDeUso: ['energia'] },
   { slug: 'nuez-pecan-tostada', nombre: 'Nuez pecán tostada', categoria: 'Fruto seco', nombreCientifico: 'Carya illinoinensis', hue: 28, casosDeUso: ['energia'] },
   { slug: 'mani-blanco', nombre: 'Maní blanco', categoria: 'Fruto seco', nombreCientifico: 'Arachis hypogaea', hue: 40, casosDeUso: ['energia'] },

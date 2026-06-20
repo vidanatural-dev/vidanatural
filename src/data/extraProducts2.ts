@@ -66,7 +66,14 @@ export const extraSeeds2: SeedProduct[] = [
   { slug: 'baobab', nombre: 'Baobab', categoria: 'Superalimento', nombreCientifico: 'Adansonia', hue: 55, casosDeUso: ['defensas', 'digestion'] },
   { slug: 'lucuma', nombre: 'Lúcuma', categoria: 'Superalimento', nombreCientifico: 'Pouteria lucuma', hue: 55, casosDeUso: ['energia'] },
   { slug: 'wheatgrass', nombre: 'Hierba de trigo', categoria: 'Superalimento', nombreCientifico: 'Triticum aestivum', hue: 150, casosDeUso: ['energia', 'defensas'] },
-  { slug: 'guarana', nombre: 'Guaraná', categoria: 'Superalimento', nombreCientifico: 'Paullinia cupana', hue: 30, casosDeUso: ['energia', 'mente'] },
+  {
+    slug: 'guarana', nombre: 'Guaraná', categoria: 'Superalimento', nombreCientifico: 'Paullinia cupana', hue: 30, casosDeUso: ['energia', 'mente'],
+    queEs: 'El guaraná (Paullinia cupana) es una planta originaria de la Amazonia cuya semilla se seca y muele para obtener un polvo o extracto. Contiene guaranina, un alcaloide de la misma familia que la cafeína, lo que le da sus propiedades estimulantes. Se usa en dietética como complemento asociado a la energía y la concentración. En Brasil tiene una larga tradición de consumo como bebida.',
+    faq: [
+      { q: '¿Para qué sirve el guaraná?', a: 'Se usa de forma tradicional como complemento estimulante, asociado a la energía y el estado de alerta, por su contenido en guaranina (similar a la cafeína). Es un alimento, no un medicamento, y no reemplaza hábitos de descanso ni tratamientos.' },
+      { q: '¿Cuánta cafeína tiene el guaraná?', a: 'La semilla de guaraná tiene una concentración de guaranina (cafeína) mayor que el grano de café. La cantidad exacta varía según el producto y la dosis; conviene leer el etiquetado y moderar el consumo si se es sensible a la cafeína.' },
+    ],
+  },
   { slug: 'maqui', nombre: 'Maqui', categoria: 'Superalimento', nombreCientifico: 'Aristotelia chilensis', hue: 290, casosDeUso: ['defensas'] },
   { slug: 'reishi', nombre: 'Reishi', categoria: 'Superalimento', nombreCientifico: 'Ganoderma lucidum', hue: 25, casosDeUso: ['defensas', 'descanso'] },
   { slug: 'cordyceps', nombre: 'Cordyceps', categoria: 'Superalimento', nombreCientifico: 'Cordyceps', hue: 40, casosDeUso: ['energia'] },
@@ -105,15 +112,34 @@ export const extraSeeds2: SeedProduct[] = [
 
   // ===== Endulzantes =====
   { slug: 'eritritol', nombre: 'Eritritol', categoria: 'Endulzante', hue: 150, casosDeUso: ['energia'] },
-  { slug: 'xilitol', nombre: 'Xilitol', categoria: 'Endulzante', hue: 150, casosDeUso: ['energia'] },
+  {
+    slug: 'xilitol', nombre: 'Xilitol', categoria: 'Endulzante', hue: 150, casosDeUso: ['energia'],
+    queEs: 'El xilitol es un polialcohol (alcohol de azúcar) que se encuentra de forma natural en pequeñas cantidades en frutas y verduras, y que se obtiene comercialmente de la corteza de abedul o del bagazo de maíz. Tiene un poder endulzante similar al azúcar de mesa pero con menos calorías por gramo. Es ampliamente usado en dietética como alternativa al azúcar refinado y en productos de higiene oral.',
+    faq: [
+      { q: '¿Qué es el xilitol y para qué sirve?', a: 'El xilitol es un endulzante natural que aporta dulzor con menos calorías que el azúcar común. Se usa para endulzar infusiones, postres y preparaciones en dietética. A diferencia del azúcar, no es fermentado por las bacterias orales de la misma manera. Es un alimento, no un suplemento con propiedades médicas.' },
+      { q: '¿El xilitol es seguro?', a: 'En personas adultas y en las cantidades habituales de uso alimentario se considera seguro. En dosis altas puede producir malestar digestivo (efecto laxante). Es tóxico para los perros: no compartir alimentos que lo contengan con mascotas.' },
+    ],
+  },
   { slug: 'panela', nombre: 'Panela', categoria: 'Endulzante', nombreCientifico: 'Saccharum officinarum', hue: 40, casosDeUso: ['energia'] },
   { slug: 'azucar-rubia', nombre: 'Azúcar rubia', categoria: 'Endulzante', hue: 55, casosDeUso: ['energia'] },
 
   // ===== Cereales =====
   { slug: 'arroz-basmati', nombre: 'Arroz basmati', categoria: 'Cereal', nombreCientifico: 'Oryza sativa', hue: 65, casosDeUso: ['energia'] },
   { slug: 'tapioca', nombre: 'Tapioca', categoria: 'Cereal', nombreCientifico: 'Manihot esculenta', hue: 70, casosDeUso: ['energia'] },
-  { slug: 'copos-de-quinoa', nombre: 'Copos de quinoa', categoria: 'Cereal', nombreCientifico: 'Chenopodium quinoa', hue: 90, casosDeUso: ['energia', 'digestion'] },
-  { slug: 'germen-de-trigo', nombre: 'Germen de trigo', categoria: 'Cereal', nombreCientifico: 'Triticum', hue: 60, casosDeUso: ['energia', 'defensas'] },
+  {
+    slug: 'copos-de-quinoa', nombre: 'Copos de quinoa', categoria: 'Cereal', nombreCientifico: 'Chenopodium quinoa', hue: 90, casosDeUso: ['energia', 'digestion'],
+    queEs: 'Los copos de quinoa son el resultado de prensar y aplanar los granos de quinoa (Chenopodium quinoa), pseudocereal de origen andino. Al estar procesados, se hidratan y cocinan más rápido que la quinoa entera y pueden consumirse incluso en frío remojados en líquido. Mantienen las propiedades del grano: son fuente de proteínas vegetales de buena calidad, fibra, y minerales como hierro y magnesio. Son naturalmente libres de gluten.',
+    faq: [
+      { q: '¿Qué propiedades tienen los copos de quinoa?', a: 'Los copos de quinoa aportan proteínas vegetales que incluyen todos los aminoácidos esenciales, fibra, carbohidratos de liberación gradual y minerales como hierro, magnesio y fósforo. Son una alternativa versátil a los copos de avena, apta para personas celíacas (verificar el etiquetado ante contaminación cruzada). Son un alimento, no un suplemento.' },
+    ],
+  },
+  {
+    slug: 'germen-de-trigo', nombre: 'Germen de trigo', categoria: 'Cereal', nombreCientifico: 'Triticum', hue: 60, casosDeUso: ['energia', 'defensas'],
+    queEs: 'El germen de trigo es la parte del grano de trigo que daría origen a la nueva planta al germinar. Representa apenas el 2-3 % del grano pero concentra gran parte de sus nutrientes: vitamina E, vitaminas del grupo B (especialmente ácido fólico), minerales como zinc, hierro y magnesio, y ácidos grasos saludables. Se comercializa en copos o polvo y se recomienda sumarlo en frío o al final de la preparación, ya que el calor puede alterar algunos de sus nutrientes.',
+    faq: [
+      { q: '¿El germen de trigo sirve para adelgazar?', a: 'No debe considerarse un producto para adelgazar. Es un alimento nutritivo que puede formar parte de una dieta equilibrada y variada, pero no tiene efecto específico sobre el peso corporal. Los resultados en el control de peso dependen del conjunto de hábitos alimentarios y de actividad física de cada persona.' },
+    ],
+  },
   { slug: 'arroz-arborio', nombre: 'Arroz arborio', categoria: 'Cereal', nombreCientifico: 'Oryza sativa', hue: 68, casosDeUso: ['energia'] },
   { slug: 'salvado-de-arroz', nombre: 'Salvado de arroz', categoria: 'Cereal', nombreCientifico: 'Oryza sativa', hue: 60, casosDeUso: ['digestion'] },
 
@@ -140,7 +166,15 @@ export const extraSeeds2: SeedProduct[] = [
   // ===== Legumbres =====
   { slug: 'lenteja-turca', nombre: 'Lenteja turca (coral)', categoria: 'Legumbre', nombreCientifico: 'Lens culinaris', hue: 30, casosDeUso: ['energia', 'digestion'] },
   { slug: 'poroto-pallar', nombre: 'Poroto pallar', categoria: 'Legumbre', nombreCientifico: 'Phaseolus lunatus', hue: 80, casosDeUso: ['energia', 'digestion'] },
-  { slug: 'edamame', nombre: 'Edamame', categoria: 'Legumbre', nombreCientifico: 'Glycine max', hue: 120, casosDeUso: ['energia'] },
+  {
+    slug: 'edamame', nombre: 'Edamame', categoria: 'Legumbre', nombreCientifico: 'Glycine max', hue: 120, casosDeUso: ['energia', 'control-peso'],
+    queEs: 'El edamame son las vainas tiernas de la soja (Glycine max), cosechadas antes de que el grano madure por completo. Es una legumbre de origen asiático, muy popular en la cocina japonesa, que habitualmente se consume hervida o al vapor con sal. A diferencia de la soja seca, tiene una textura blanda y un sabor suave. Se destaca por su aporte de proteínas vegetales, fibra y minerales.',
+    contraindicaciones: 'El principal cuidado es la alergia a la soja, que puede ser grave: quienes tengan alergia conocida deben evitarlo. Como toda legumbre puede generar gases en personas no habituadas; incorporarla de forma gradual suele ayudar. Personas con patología tiroidea o que toman medicación para la tiroides deben consultar con su médico antes de sumarlo de forma habitual.',
+    faq: [
+      { q: '¿El edamame produce gases?', a: 'Como toda legumbre, el edamame puede generar gases en personas que no están habituadas a su consumo. Incorporarlo de a poco en la dieta y masticarlo bien suele reducir este efecto. La respuesta varía de persona a persona.' },
+      { q: '¿Cuáles son las contraindicaciones del edamame?', a: 'La principal contraindicación es la alergia a la soja, que puede ser severa. Personas con alteraciones tiroideas conocidas deben consultar antes de incorporarlo de forma habitual. En personas sin alergia ni condiciones específicas, es una legumbre saludable en el contexto de una alimentación variada.' },
+    ],
+  },
 
   // ===== Harinas =====
   { slug: 'harina-de-mandioca', nombre: 'Harina de mandioca', categoria: 'Harina', nombreCientifico: 'Manihot esculenta', hue: 65, casosDeUso: ['energia'] },

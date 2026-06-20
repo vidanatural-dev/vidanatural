@@ -113,6 +113,10 @@ export const products: Product[] = [
     faq: [
       ...FAQ_BASE,
       {
+        q: '¿Qué es la avena arrollada?',
+        a: 'La avena arrollada son los granos de avena (Avena sativa) que se someten a un proceso de vapor y prensado para obtener copos planos. El nombre "arrollada" describe ese proceso de aplanar el grano. Es la forma más común de consumir avena en el desayuno: se cocina rápido, se puede remojar en frío (overnight oats) y se incorpora en panificados y granolas.',
+      },
+      {
         q: '¿La avena tiene gluten?',
         a: 'La avena en sí no contiene gluten, pero suele contaminarse con otros cereales durante su procesamiento. Las personas celíacas deben elegir avena certificada sin gluten.',
       },
@@ -396,6 +400,10 @@ export const products: Product[] = [
       'Suele tolerarse bien como complemento en personas sanas. Ante condiciones hormonales, embarazo, lactancia o medicación, conviene consultar antes de incorporarla.',
     faq: [
       ...FAQ_BASE,
+      {
+        q: '¿Qué es la maca peruana?',
+        a: 'La maca peruana (Lepidium meyenii) es una raíz que crece en las zonas altas de los Andes del Perú, a más de 4000 metros sobre el nivel del mar. Su uso como alimento se remonta a siglos en las comunidades andinas. Hoy se comercializa principalmente en polvo (obtenido al secar y moler la raíz) y se suma a batidos, desayunos y preparaciones. Es un alimento de la tradición andina, no un medicamento.',
+      },
       {
         q: '¿Qué diferencia hay entre los colores de maca?',
         a: 'Existen variedades de raíz de distintos colores (amarilla, roja, negra). Se comercializan como polvos con matices de sabor; las diferencias entre ellas conviene contrastarlas con fuentes confiables.',
