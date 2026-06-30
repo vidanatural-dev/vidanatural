@@ -77,6 +77,19 @@ export function Navbar() {
               <ThemeToggle />
             </li>
             <li>
+              <Link
+                href="/comprar"
+                className={`ml-1 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold uppercase tracking-wide transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:hover:translate-y-0 ${
+                  pathname === '/comprar' || pathname.startsWith('/comprar/')
+                    ? 'bg-amber-600 text-white shadow-md shadow-amber-500/30'
+                    : 'bg-amber-500 text-white shadow-md shadow-amber-500/25 hover:bg-amber-600'
+                }`}
+              >
+                <Icon name="Storefront" size={17} weight="fill" />
+                Comprar
+              </Link>
+            </li>
+            <li>
               <a
                 href={site.whatsappCta}
                 target="_blank"
@@ -128,8 +141,17 @@ export function Navbar() {
                   </li>
                 ))}
                 <li className="pt-2">
+                  <Link
+                    href="/comprar"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-3.5 text-base font-bold uppercase tracking-wide text-white shadow-lg shadow-amber-500/25"
+                  >
+                    <Icon name="Storefront" size={20} weight="fill" />
+                    Comprar
+                  </Link>
+                </li>
+                <li className="pt-2">
                   <Link href="/productos" className="btn btn-primary w-full">
-                    Ver productos
+                    Ver guías
                   </Link>
                 </li>
               </ul>

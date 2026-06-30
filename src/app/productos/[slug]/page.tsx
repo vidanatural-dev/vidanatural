@@ -13,8 +13,6 @@ import { Icon } from '@/components/Icon';
 import { allProductSlugs, getProduct, relatedProducts } from '@/data/products';
 import { recipesByProduct } from '@/data/recipes';
 import { getUseCaseBySlug } from '@/data/useCases';
-import { formatPrice } from '@/lib/price';
-import { site } from '@/lib/site';
 
 export function generateStaticParams() {
   return allProductSlugs().map((slug) => ({ slug }));
@@ -92,20 +90,6 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               <p className="mt-2 font-mono text-sm italic text-muted">{product.nombreCientifico}</p>
             )}
             <p className="mt-5 max-w-prose text-lg leading-relaxed text-ink-soft">{product.resumen}</p>
-            {product.precio != null && (
-              <div className="mt-6 flex flex-wrap items-center gap-4">
-                <p className="font-mono text-3xl font-semibold text-brand">{formatPrice(product.precio)}</p>
-                <a
-                  href={`${site.whatsappCta}&text=${encodeURIComponent(`Hola, quiero consultar por: ${product.nombre}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary py-2.5 text-sm"
-                >
-                  Consultar por WhatsApp
-                  <Icon name="WhatsappLogo" size={18} weight="fill" />
-                </a>
-              </div>
-            )}
             <div className="mt-6 flex flex-wrap gap-2">
               {product.casosDeUso.map((slug) => {
                 const u = getUseCaseBySlug(slug);
