@@ -986,6 +986,7 @@ export function generateAllRecipes(products: Product[]): Recipe[] {
   const seen = new Set<string>();
   const out: Recipe[] = [];
   for (const p of products) {
+    if (p.tienda) continue;
     for (const r of generateRecipesForProduct(p)) {
       if (seen.has(r.slug)) continue;
       seen.add(r.slug);

@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { ProductImage } from './ProductImage';
 import { Icon } from './Icon';
 import type { Product } from '@/data/types';
+import { formatPrice } from '@/lib/price';
 
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -49,6 +50,9 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           <p className="mt-0.5 font-mono text-xs italic text-muted">{product.nombreCientifico}</p>
         )}
         <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{product.tagline}</p>
+        {product.precio != null && (
+          <p className="mt-3 font-mono text-lg font-semibold text-brand">{formatPrice(product.precio)}</p>
+        )}
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors">
           Ver ficha
           <Icon name="ArrowRight" size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-1" />

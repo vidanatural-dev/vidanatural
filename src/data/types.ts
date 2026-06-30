@@ -57,6 +57,10 @@ export interface Product {
   destacado?: boolean;
   hue: number; // tono OKLCH para el arte generativo del producto
   imagen?: string; // URL de foto real (opcional)
+  precio?: number; // precio de venta en ARS
+  precioOrigen?: number; // precio de referencia del proveedor
+  urlOrigen?: string; // URL del producto en tienda origen
+  tienda?: boolean; // true si proviene del catálogo de tienda
 }
 
 export type Dificultad = 'Fácil' | 'Media' | 'Avanzada';
