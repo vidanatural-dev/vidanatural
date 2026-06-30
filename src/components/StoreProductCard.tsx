@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { StoreProductImage } from './StoreProductImage';
 import { Icon } from './Icon';
 import type { StoreProduct } from '@/data/store/types';
 import { formatPrice } from '@/lib/price';
@@ -40,20 +40,18 @@ export function StoreProductCard({
         aria-hidden
       />
       <div className="relative aspect-square w-full overflow-hidden bg-white">
-        <Image
-          src={product.imagen}
-          alt={product.nombre}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
+        <StoreProductImage
+          product={product}
           priority={priority}
-          className="object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="transition-transform duration-500 ease-out group-hover:scale-[1.05]"
         />
-        <span className="absolute left-3 top-3 z-20 rounded-full bg-amber-500 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
-          {product.categoria}
-        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
+        <span className="mb-2 w-fit rounded-full bg-amber-500/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+          {product.categoria}
+        </span>
         <h3 className="line-clamp-2 font-display text-xl leading-tight text-ink">{product.nombre}</h3>
         <p className="mt-3 font-mono text-2xl font-bold text-amber-600 dark:text-amber-400">
           {formatPrice(product.precio)}

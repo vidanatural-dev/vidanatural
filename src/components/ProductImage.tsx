@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { ProductArt } from './ProductArt';
 import { glyphForCategory } from '@/lib/glyph';
 import type { Product } from '@/data/types';
+import { isMarketingPackshot } from '@/lib/productImagery';
 
 /**
- * Muestra la foto real del producto si existe (next/image), o el visual
- * generativo como respaldo. Pensado para llenar su contenedor (usar relative + aspect).
+ * Foto limpia del producto o arte generativo (sin packshots con texto incrustado).
  */
 export function ProductImage({
   product,
@@ -18,11 +18,13 @@ export function ProductImage({
   sizes?: string;
   className?: string;
 }) {
-  if (product.imagen) {
+  const src = product.imagen && !isMarketingPackshot(product.imagen) ? product.imagen : undefined;
+
+  if (src) {
     const fit = className.includes('object-') ? '' : 'object-cover';
     return (
       <Image
-        src={product.imagen}
+        src={src}
         alt={`${product.nombre}${product.nombreCientifico ? ` (${product.nombreCientifico})` : ''}`}
         fill
         sizes={sizes}

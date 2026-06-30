@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "recipes:generate": "npx -y tsx scripts/generate-recipes.ts",
-    "catalog:scrape": "npx -y tsx scripts/scrape-dieteticas.ts"
+    "catalog:scrape": "npx -y tsx scripts/scrape-dieteticas.ts",
+    "catalog:images": "npx -y tsx scripts/refresh-store-images.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",

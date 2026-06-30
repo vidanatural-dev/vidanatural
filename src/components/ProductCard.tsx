@@ -38,12 +38,12 @@ export function ProductCard({ product, priority = false }: { product: Product; p
         <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04]">
           <ProductImage product={product} priority={priority} />
         </div>
-        <span className="badge absolute left-3 top-3 z-20 bg-surface/90 backdrop-blur-sm">
-          {product.categoria}
-        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
+        <span className="mb-2 w-fit rounded-full bg-brand-soft px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-deep">
+          {product.categoria}
+        </span>
         <h3 className="font-display text-2xl leading-tight text-ink">{product.nombre}</h3>
         {product.nombreCientifico && (
           <p className="mt-0.5 font-mono text-xs italic text-muted">{product.nombreCientifico}</p>
