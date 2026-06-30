@@ -7,6 +7,7 @@ export const display = Newsreader({
   style: ['normal', 'italic'],
   variable: '--font-display',
   display: 'swap',
+  adjustFontFallback: false,
 });
 
 // Body: grotesca limpia, contraste de eje con la serif.

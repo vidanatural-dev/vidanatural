@@ -12,7 +12,7 @@ import { RecipeCard } from '@/components/RecipeCard';
 import { Icon } from '@/components/Icon';
 import { allProductSlugs, getProduct, relatedProducts } from '@/data/products';
 import { recipesByProduct } from '@/data/recipes';
-import { useCaseBySlug } from '@/data/useCases';
+import { getUseCaseBySlug } from '@/data/useCases';
 
 export function generateStaticParams() {
   return allProductSlugs().map((slug) => ({ slug }));
@@ -92,7 +92,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             <p className="mt-5 max-w-prose text-lg leading-relaxed text-ink-soft">{product.resumen}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {product.casosDeUso.map((slug) => {
-                const u = useCaseBySlug(slug);
+                const u = getUseCaseBySlug(slug);
                 if (!u) return null;
                 return (
                   <Link key={slug} href={`/usos/${slug}`} className="chip">

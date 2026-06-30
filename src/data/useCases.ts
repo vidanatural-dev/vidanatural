@@ -312,5 +312,5 @@ export const useCases: UseCase[] = [
   },
 ];
 
-export const useCaseBySlug = (slug: UseCaseSlug): UseCase | undefined =>
+export const getUseCaseBySlug = (slug: UseCaseSlug): UseCase | undefined =>
   useCases.find((u) => u.slug === slug);

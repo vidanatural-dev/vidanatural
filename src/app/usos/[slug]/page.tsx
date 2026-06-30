@@ -8,7 +8,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { Disclaimer } from '@/components/Disclaimer';
 import { FAQ } from '@/components/FAQ';
 import { Icon } from '@/components/Icon';
-import { useCases, useCaseBySlug } from '@/data/useCases';
+import { useCases, getUseCaseBySlug } from '@/data/useCases';
 import { productsByUseCase } from '@/data/products';
 import type { UseCaseSlug } from '@/data/types';
 
@@ -17,7 +17,7 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const u = useCaseBySlug(params.slug as UseCaseSlug);
+  const u = getUseCaseBySlug(params.slug as UseCaseSlug);
   if (!u) return {};
   return {
     title: `${u.nombre}: productos naturales`,
@@ -27,7 +27,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export default function UseCasePage({ params }: { params: { slug: string } }) {
-  const useCase = useCaseBySlug(params.slug as UseCaseSlug);
+  const useCase = getUseCaseBySlug(params.slug as UseCaseSlug);
   if (!useCase) notFound();
 
   const items = productsByUseCase(useCase.slug);
