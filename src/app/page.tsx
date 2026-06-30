@@ -62,12 +62,21 @@ function HeroTile({
   return (
     <Link
       href={`/productos/${product.slug}`}
-      className={`group relative overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-card transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lift ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lift ${className}`}
     >
-      <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.05]">
-        <ProductImage product={product} priority={priority} sizes="(max-width: 1024px) 45vw, 24vw" />
+      <div className="absolute inset-0 bg-white transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+        <ProductImage
+          product={product}
+          priority={priority}
+          sizes="(max-width: 1024px) 45vw, 24vw"
+          className="object-cover"
+        />
       </div>
-      <span className="sr-only">{product.nombre}</span>
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-3 pb-3 pt-10">
+        <p className="font-display text-sm font-semibold leading-tight text-white sm:text-base">
+          {product.nombre}
+        </p>
+      </div>
     </Link>
   );
 }
@@ -95,13 +104,9 @@ function ConsultadoCard({ product }: { product: Product }) {
 }
 
 export default function HomePage() {
-  const heroPicks = (['chia', 'avena', 'quinoa', 'almendras'].map(getProduct).filter(Boolean) as Product[]).filter(
-    (p) => p.imagen
-  );
-  const bento = (heroPicks.length >= 4 ? heroPicks : featuredProducts().filter((p) => p.imagen)).slice(0, 4);
-  const consultados = featuredProducts()
-    .filter((p) => p.imagen)
-    .slice(0, 8);
+  const heroSlugs = ['chia', 'avena', 'quinoa', 'almendras'] as const;
+  const bento = heroSlugs.map((slug) => getProduct(slug)).filter((p): p is Product => Boolean(p));
+  const consultados = featuredProducts().slice(0, 8);
   const receta = featuredRecipes()[0];
   const prods600 = Math.floor(products.length / 100) * 100;
   const recetas1000 = Math.floor(recipes.length / 1000) * 1000;

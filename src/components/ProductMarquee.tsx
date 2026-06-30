@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ProductImage } from '@/components/ProductImage';
 import { products } from '@/data/products';
+import { resolveGuidePhoto } from '@/lib/guidePhotos';
 import type { Product } from '@/data/types';
 
 /**
@@ -25,8 +26,8 @@ function Chip({ p }: { p: Product }) {
 }
 
 export function ProductMarquee() {
-  const withImg = products.filter((p) => p.imagen);
-  const pool = withImg.length >= 24 ? withImg : products;
+  const withImg = products.filter((p) => resolveGuidePhoto(p));
+  const pool = withImg.length >= 8 ? withImg : products;
   const rowA = pool.slice(0, 12);
   const rowB = pool.slice(12, 24).length >= 8 ? pool.slice(12, 24) : [...pool.slice(0, 12)].reverse();
 

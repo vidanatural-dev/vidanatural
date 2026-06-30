@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ProductArt } from './ProductArt';
 import { glyphForCategory } from '@/lib/glyph';
 import type { Product } from '@/data/types';
-import { isMarketingPackshot } from '@/lib/productImagery';
+import { resolveGuidePhoto } from '@/lib/guidePhotos';
 
 /**
  * Foto limpia del producto o arte generativo (sin packshots con texto incrustado).
@@ -18,7 +18,7 @@ export function ProductImage({
   sizes?: string;
   className?: string;
 }) {
-  const src = product.imagen && !isMarketingPackshot(product.imagen) ? product.imagen : undefined;
+  const src = resolveGuidePhoto(product);
 
   if (src) {
     const fit = className.includes('object-') ? '' : 'object-cover';
