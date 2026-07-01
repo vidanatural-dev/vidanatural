@@ -1,5 +1,6 @@
 import type { StoreProduct } from './types';
 import catalog from '../dieteticasCatalog.json';
+import localImages from './localImages.json';
 
 interface CatalogEntry {
   slug: string;
@@ -30,10 +31,17 @@ function inferCategoria(nombre: string): string {
   return 'Otros';
 }
 
-const entries = (catalog as CatalogEntry[]).map((e) => ({
-  ...e,
-  categoria: inferCategoria(e.nombre),
-}));
+const imageMap = localImages as Record<string, string[]>;
+
+const entries = (catalog as CatalogEntry[]).map((e) => {
+  const imagenes = imageMap[e.slug];
+  return {
+    ...e,
+    categoria: inferCategoria(e.nombre),
+    imagenes,
+    imagen: imagenes?.[0] ?? e.imagen,
+  };
+});
 
 export const storeProducts: StoreProduct[] = entries;
 

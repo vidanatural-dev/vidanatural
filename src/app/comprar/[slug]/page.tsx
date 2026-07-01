@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/Container';
 import { Reveal } from '@/components/Reveal';
-import { StoreProductImage } from '@/components/StoreProductImage';
+import { StoreProductGallery } from '@/components/StoreProductGallery';
 import { StoreProductCard } from '@/components/StoreProductCard';
 import { Icon } from '@/components/Icon';
 import {
@@ -30,7 +29,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       title: product.nombre,
       description: `Precio: ${formatPrice(product.precio)}`,
       type: 'website',
-      images: [{ url: product.imagen }],
+      images: (product.imagenes ?? [product.imagen]).map((url) => ({
+        url: url.startsWith('/') ? `${site.url}${url}` : url,
+      })),
     },
   };
 }
@@ -48,7 +49,7 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.nombre,
-    image: product.imagen,
+    image: product.imagenes ?? product.imagen,
     offers: {
       '@type': 'Offer',
       price: product.precio,
@@ -77,14 +78,7 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
 
         <div className="mt-6 grid items-start gap-10 pb-14 lg:grid-cols-2 lg:gap-14">
           <Reveal>
-            <div className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-white shadow-lift">
-              <StoreProductImage
-                product={product}
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="p-8"
-              />
-            </div>
+            <StoreProductGallery product={product} priority />
           </Reveal>
 
           <Reveal delay={0.08}>

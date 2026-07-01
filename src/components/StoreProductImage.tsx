@@ -21,8 +21,11 @@ export function StoreProductImage({
   sizes?: string;
   className?: string;
 }) {
-  const raw = product.imagen;
-  const src = raw && !isPoorStoreImage(raw) ? upgradeStoreImageUrl(raw) : undefined;
+  const local = product.imagenes?.[0] ?? (product.imagen.startsWith('/') ? product.imagen : undefined);
+  const raw = local ?? product.imagen;
+  const src =
+    local ??
+    (raw && !isPoorStoreImage(raw) ? upgradeStoreImageUrl(raw) : undefined);
 
   if (src) {
     const fit = className.includes('object-') ? '' : 'object-contain';
