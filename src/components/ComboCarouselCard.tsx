@@ -18,16 +18,8 @@ export function ComboCarouselCard({ product }: { product: StoreProduct }) {
             Oferta −{pct}%
           </span>
         )}
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-white">
-          <div className="absolute inset-[10%]">
-            <div className="relative h-full w-full">
-              <StoreProductImage
-                product={product}
-                sizes="280px"
-                className="object-contain object-center"
-              />
-            </div>
-          </div>
+        <div className="relative aspect-square w-full overflow-hidden bg-white">
+          <StoreProductImage product={product} sizes="280px" />
         </div>
         <div className="flex flex-1 flex-col p-4">
           <span className="mb-1.5 w-fit rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">

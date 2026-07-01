@@ -41,16 +41,11 @@ export function StoreProductCard({
 
       <Link href={`/comprar/${product.slug}`} className="relative z-20 flex flex-1 flex-col">
         <div className="relative aspect-square w-full overflow-hidden bg-white">
-          <div className="absolute inset-[12%] flex items-center justify-center">
-            <div className="relative h-full w-full">
-              <StoreProductImage
-                product={product}
-                priority={priority}
-                sizes="(max-width: 768px) 100vw, 25vw"
-                className="object-contain object-center"
-              />
-            </div>
-          </div>
+          <StoreProductImage
+            product={product}
+            priority={priority}
+            sizes="(max-width: 768px) 100vw, 25vw"
+          />
         </div>
 
         <div className="flex min-h-[148px] flex-1 flex-col p-5">

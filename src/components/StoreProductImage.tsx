@@ -15,11 +15,14 @@ export function StoreProductImage({
   priority = false,
   sizes = '(max-width: 768px) 100vw, 33vw',
   className = '',
+  fit = 'cover',
 }: {
   product: StoreProduct;
   priority?: boolean;
   sizes?: string;
   className?: string;
+  /** cover = llena el contenedor sin bordes; contain = entra completa con posible margen */
+  fit?: 'cover' | 'contain';
 }) {
   const local = product.imagenes?.[0] ?? (product.imagen.startsWith('/') ? product.imagen : undefined);
   const raw = local ?? product.imagen;
@@ -27,8 +30,9 @@ export function StoreProductImage({
     local ??
     (raw && !isPoorStoreImage(raw) ? upgradeStoreImageUrl(raw) : undefined);
 
+  const fitClass = fit === 'contain' ? 'object-contain' : 'object-cover';
+
   if (src) {
-    const fit = className.includes('object-') ? className : `object-contain object-center ${className}`;
     return (
       <Image
         src={src}
@@ -36,7 +40,7 @@ export function StoreProductImage({
         fill
         sizes={sizes}
         priority={priority}
-        className={fit.includes('p-') ? fit : `${fit} p-2`.trim()}
+        className={`${fitClass} object-center ${className}`.trim()}
       />
     );
   }

@@ -29,17 +29,15 @@ export function StoreProductGallery({
             {active + 1}/{total}
           </span>
         )}
-        <div className="absolute inset-[8%]">
-          <Image
-            key={current}
-            src={current}
-            alt={`${product.nombre} — foto ${active + 1} de ${total}`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            priority={priority}
-            className="object-contain object-center"
-          />
-        </div>
+        <Image
+          key={current}
+          src={current}
+          alt={`${product.nombre} — foto ${active + 1} de ${total}`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          priority={priority}
+          className="object-cover object-center"
+        />
       </div>
 
       {total > 1 && (
@@ -69,9 +67,7 @@ export function StoreProductGallery({
                 <span className="absolute left-1 top-1 z-10 rounded bg-ink/70 px-1 font-mono text-[9px] font-bold text-white">
                   {i + 1}
                 </span>
-                <div className="absolute inset-[10%]">
-                  <Image src={src} alt="" fill sizes="80px" className="object-contain object-center" />
-                </div>
+                <Image src={src} alt="" fill sizes="80px" className="object-cover object-center" />
               </button>
             ))}
           </div>

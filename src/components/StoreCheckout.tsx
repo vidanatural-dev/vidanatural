@@ -141,9 +141,7 @@ export function StoreCheckout() {
             {items.map((item) => (
               <li key={item.slug} className="flex gap-4 p-4">
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border border-line bg-white">
-                  <div className="absolute inset-[8%]">
-                    <StoreProductImage product={item.product} sizes="80px" />
-                  </div>
+                  <StoreProductImage product={item.product} sizes="80px" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 font-medium text-ink">{item.product.nombre}</p>
