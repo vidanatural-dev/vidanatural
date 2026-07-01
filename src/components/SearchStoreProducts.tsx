@@ -87,14 +87,17 @@ export function SearchStoreProducts({
             animate={{ opacity: 1 }}
             exit={reduce ? {} : { opacity: 0 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            className="mt-4 grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             {results.map((p, i) =>
               reduce ? (
-                <StoreProductCard key={p.slug} product={p} priority={i < 4} />
+                <div key={p.slug} className="h-full">
+                  <StoreProductCard product={p} priority={i < 4} />
+                </div>
               ) : (
                 <motion.div
                   key={p.slug}
+                  className="h-full"
                   initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.38, delay: Math.min(i * 0.03, 0.35), ease: EASE }}

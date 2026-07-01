@@ -28,7 +28,7 @@ export function StoreProductImage({
     (raw && !isPoorStoreImage(raw) ? upgradeStoreImageUrl(raw) : undefined);
 
   if (src) {
-    const fit = className.includes('object-') ? '' : 'object-contain';
+    const fit = className.includes('object-') ? className : `object-contain object-center ${className}`;
     return (
       <Image
         src={src}
@@ -36,7 +36,7 @@ export function StoreProductImage({
         fill
         sizes={sizes}
         priority={priority}
-        className={`${fit} p-3 ${className}`.trim()}
+        className={fit.includes('p-') ? fit : `${fit} p-2`.trim()}
       />
     );
   }

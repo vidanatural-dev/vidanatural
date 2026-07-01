@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Container } from '@/components/Container';
 import { Reveal } from '@/components/Reveal';
 import { SearchStoreProducts } from '@/components/SearchStoreProducts';
@@ -28,17 +29,27 @@ export default function ComprarPage() {
             <h1 className="mt-5 font-display text-h1 text-ink">Comprá productos naturales</h1>
             <p className="mt-4 text-lead text-ink-soft">
               Catálogo con <strong className="font-semibold text-ink">{storeProductCount} productos</strong> de
-              dietética, herboristería, suplementos y más. Elegí lo que necesitás y finalizá tu pedido por WhatsApp.
+              dietética, herboristería, suplementos y más. Elegí cantidad, armá tu carrito y finalizá con datos de
+              envío y pago por transferencia.
             </p>
-            <a
-              href={site.whatsappCta}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-base font-bold text-white shadow-lg shadow-amber-500/25 transition-transform hover:-translate-y-0.5 hover:bg-amber-600 active:scale-[0.98]"
-            >
-              <Icon name="WhatsappLogo" size={20} weight="fill" />
-              Pedir por WhatsApp
-            </a>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/comprar/carrito"
+                className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-base font-bold text-white shadow-lg shadow-amber-500/25 transition-transform hover:-translate-y-0.5 hover:bg-amber-600 active:scale-[0.98]"
+              >
+                <Icon name="ShoppingCart" size={20} weight="fill" />
+                Ver carrito
+              </Link>
+              <a
+                href={site.whatsappCta}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-6 py-3 text-base font-semibold text-ink transition-colors hover:border-[#1b8c4e] hover:text-[#1b8c4e]"
+              >
+                <Icon name="WhatsappLogo" size={20} weight="fill" />
+                Consultar
+              </a>
+            </div>
           </Reveal>
         </Container>
       </section>

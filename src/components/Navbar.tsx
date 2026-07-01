@@ -8,6 +8,7 @@ import { Container } from './Container';
 import { Icon } from './Icon';
 import { ThemeToggle } from './ThemeToggle';
 import { SearchTrigger } from './SearchTrigger';
+import { CartLink } from './CartLink';
 import { site } from '@/lib/site';
 
 export function Navbar() {
@@ -74,6 +75,9 @@ export function Navbar() {
               <SearchTrigger />
             </li>
             <li>
+              <CartLink />
+            </li>
+            <li>
               <ThemeToggle />
             </li>
             <li>
@@ -103,6 +107,7 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2 md:hidden">
+            <CartLink />
             <SearchTrigger variant="icon" />
             <ThemeToggle />
             <button
@@ -147,6 +152,15 @@ export function Navbar() {
                   >
                     <Icon name="Storefront" size={20} weight="fill" />
                     Comprar
+                  </Link>
+                </li>
+                <li className="pt-2">
+                  <Link
+                    href="/comprar/carrito"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-line-strong bg-surface px-4 py-3.5 text-base font-semibold text-ink"
+                  >
+                    <Icon name="ShoppingCart" size={20} weight="fill" />
+                    Carrito
                   </Link>
                 </li>
                 <li className="pt-2">

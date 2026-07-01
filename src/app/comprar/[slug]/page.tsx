@@ -5,6 +5,7 @@ import { Container } from '@/components/Container';
 import { Reveal } from '@/components/Reveal';
 import { StoreProductGallery } from '@/components/StoreProductGallery';
 import { StoreProductCard } from '@/components/StoreProductCard';
+import { StoreProductActions } from '@/components/StoreProductActions';
 import { Icon } from '@/components/Icon';
 import {
   allStoreSlugs,
@@ -41,9 +42,6 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
   if (!product) notFound();
 
   const related = relatedStoreProducts(product);
-  const waUrl = `${site.whatsappLink}?text=${encodeURIComponent(
-    `Hola! Quiero comprar:\n\n*${product.nombre}*\nPrecio: ${formatPrice(product.precio)}\n\n¿Está disponible?`
-  )}`;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -94,39 +92,22 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
               <p className="pb-1 text-sm text-muted">Precio en pesos argentinos</p>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-xl bg-amber-500 px-6 py-4 text-base font-bold uppercase tracking-wide text-white shadow-lg shadow-amber-500/30 transition-[transform,background-color] hover:-translate-y-0.5 hover:bg-amber-600 active:scale-[0.98]"
-              >
-                <Icon name="Storefront" size={22} weight="fill" />
-                Comprar ahora
-              </a>
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-line-strong bg-surface px-6 py-4 text-base font-semibold text-ink transition-colors hover:border-[#1b8c4e] hover:text-[#1b8c4e]"
-              >
-                <Icon name="WhatsappLogo" size={22} weight="fill" />
-                WhatsApp
-              </a>
+            <div className="mt-8">
+              <StoreProductActions product={product} />
             </div>
 
             <ul className="mt-8 space-y-2 text-sm text-ink-soft">
               <li className="flex items-center gap-2">
                 <Icon name="Check" size={16} weight="bold" className="text-amber-500" />
-                Pedido por WhatsApp — te confirmamos stock y envío
+                Elegí cantidad y agregá al carrito
+              </li>
+              <li className="flex items-center gap-2">
+                <Icon name="Check" size={16} weight="bold" className="text-amber-500" />
+                Pagá por transferencia y enviá el comprobante por WhatsApp
               </li>
               <li className="flex items-center gap-2">
                 <Icon name="Check" size={16} weight="bold" className="text-amber-500" />
                 Productos naturales y de dietética
-              </li>
-              <li className="flex items-center gap-2">
-                <Icon name="Check" size={16} weight="bold" className="text-amber-500" />
-                Consultá sin compromiso antes de comprar
               </li>
             </ul>
 
@@ -140,7 +121,7 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
         {related.length > 0 && (
           <section className="border-t border-line pt-12">
             <h2 className="font-display text-h2 text-ink">También en {product.categoria}</h2>
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((p) => (
                 <StoreProductCard key={p.slug} product={p} />
               ))}

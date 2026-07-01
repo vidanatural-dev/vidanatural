@@ -40,6 +40,10 @@ import {
   Storefront,
   ArrowsClockwise,
   Carrot,
+  ShoppingCart,
+  Plus,
+  Minus,
+  Wallet,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -83,6 +87,10 @@ const map: Record<string, PhosphorIcon> = {
   Storefront,
   ArrowsClockwise,
   Carrot,
+  ShoppingCart,
+  Plus,
+  Minus,
+  Wallet,
 };
 
 interface IconProps {

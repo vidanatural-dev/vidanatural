@@ -9,6 +9,11 @@ export const site = {
   whatsappLink: 'https://wa.me/5491121816064',
   whatsappCta:
     'https://wa.me/5491121816064?text=Quiero%20consultar%20sobre%20un%20producto%20de%20Materia%20Natural',
+  payment: {
+    alias: 'MATERIANATURAL',
+    holder: 'Ezequiel A. Ziegler',
+    method: 'Tarjeta Naranja',
+  },
   nav: [
     { href: '/productos', label: 'Productos' },
     { href: '/usos', label: 'Por uso' },
