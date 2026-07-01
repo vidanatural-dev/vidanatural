@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { ARGENTINE_PROVINCES, type ShippingData } from '@/lib/cart';
 import { formatPrice } from '@/lib/price';
-import { getEffectivePrice } from '@/lib/storePricing';
+import { getDisplayListPrice, getEffectivePrice, hasVisualOffer } from '@/lib/storePricing';
 import { site } from '@/lib/site';
 import { QuantityControl } from './QuantityControl';
 import { Icon } from './Icon';
@@ -23,10 +23,8 @@ const EMPTY_SHIPPING: ShippingData = {
 function buildOrderMessage(shipping: ShippingData, items: ReturnType<typeof useCart>['items'], total: number) {
   const lines = items.map((i) => {
     const unit = getEffectivePrice(i.product);
-    const note =
-      i.product.precioOferta != null && i.product.precioOferta < i.product.precio
-        ? ` (oferta, antes ${formatPrice(i.product.precio)})`
-        : '';
+    const lista = getDisplayListPrice(i.product);
+    const note = hasVisualOffer(i.product) ? ` (oferta, antes ${formatPrice(lista)})` : '';
     return `• ${i.product.nombre} x${i.cantidad} — ${formatPrice(i.subtotal)}${note}`;
   });
 

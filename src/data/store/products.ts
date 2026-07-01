@@ -2,7 +2,7 @@ import type { StoreProduct } from './types';
 import catalog from '../dieteticasCatalog.json';
 import localImages from './localImages.json';
 import storeDescriptions from '../storeDescriptions.json';
-import { comboOfferPrice, isComboProduct } from '@/lib/storePricing';
+import { comboDisplayListPrice, isComboProduct } from '@/lib/storePricing';
 import { sortImageUrls } from '@/lib/imageOrder';
 
 interface CatalogEntry {
@@ -48,7 +48,8 @@ const entries = (catalog as CatalogEntry[]).map((e) => {
     categoria: inferCategoria(e.nombre),
     imagenes,
     imagen: imagenes?.[0] ?? e.imagen,
-    precioOferta: combo ? comboOfferPrice(e.precio) : undefined,
+    precioLista: combo ? comboDisplayListPrice(e.precio) : undefined,
+    precioOferta: combo ? e.precio : undefined,
     descripcion,
   };
 });

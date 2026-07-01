@@ -1,21 +1,32 @@
 import type { StoreProduct } from '@/data/store/types';
 
-/** Descuento de oferta aplicado a productos cuyo nombre incluye "combo". */
+/** Porcentaje de “descuento” mostrado en combos (solo visual). */
 export const COMBO_OFFER_DISCOUNT = 0.15;
 
 export function isComboProduct(nombre: string): boolean {
   return /\bcombo\b/i.test(nombre);
 }
 
-export function comboOfferPrice(precioLista: number): number {
-  return Math.round(precioLista * (1 - COMBO_OFFER_DISCOUNT));
+/** Precio tachado: se infla el precio real y luego se “descuenta” de vuelta. */
+export function comboDisplayListPrice(realPrice: number): number {
+  return Math.round(realPrice * (1 + COMBO_OFFER_DISCOUNT));
 }
 
+/** Precio que paga el cliente (siempre el precio real del catálogo). */
 export function getEffectivePrice(product: StoreProduct): number {
-  return product.precioOferta ?? product.precio;
+  return product.precio;
+}
+
+export function getDisplayListPrice(product: StoreProduct): number {
+  return product.precioLista ?? product.precio;
+}
+
+export function hasVisualOffer(product: StoreProduct): boolean {
+  const lista = getDisplayListPrice(product);
+  return lista > getEffectivePrice(product);
 }
 
 export function offerDiscountPercent(product: StoreProduct): number | null {
-  if (!product.precioOferta || product.precioOferta >= product.precio) return null;
-  return Math.round((1 - product.precioOferta / product.precio) * 100);
+  if (!hasVisualOffer(product)) return null;
+  return Math.round(COMBO_OFFER_DISCOUNT * 100);
 }

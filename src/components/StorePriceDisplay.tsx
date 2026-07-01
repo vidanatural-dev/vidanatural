@@ -1,6 +1,11 @@
 import type { StoreProduct } from '@/data/store/types';
 import { formatPrice } from '@/lib/price';
-import { offerDiscountPercent } from '@/lib/storePricing';
+import {
+  getDisplayListPrice,
+  getEffectivePrice,
+  hasVisualOffer,
+  offerDiscountPercent,
+} from '@/lib/storePricing';
 
 export function StorePriceDisplay({
   product,
@@ -9,7 +14,9 @@ export function StorePriceDisplay({
   product: StoreProduct;
   size?: 'sm' | 'md' | 'lg';
 }) {
-  const onOffer = product.precioOferta != null && product.precioOferta < product.precio;
+  const venta = getEffectivePrice(product);
+  const lista = getDisplayListPrice(product);
+  const onOffer = hasVisualOffer(product);
   const pct = offerDiscountPercent(product);
 
   const priceClass =
@@ -25,7 +32,7 @@ export function StorePriceDisplay({
   if (!onOffer) {
     return (
       <p className={`${priceClass} text-amber-600 dark:text-amber-400`}>
-        {formatPrice(product.precio)}
+        {formatPrice(venta)}
       </p>
     );
   }
@@ -33,9 +40,9 @@ export function StorePriceDisplay({
   return (
     <div className="flex flex-wrap items-end gap-2">
       <p className={`${priceClass} text-amber-600 dark:text-amber-400`}>
-        {formatPrice(product.precioOferta!)}
+        {formatPrice(venta)}
       </p>
-      <p className={`${oldClass} pb-0.5 text-muted line-through`}>{formatPrice(product.precio)}</p>
+      <p className={`${oldClass} pb-0.5 text-muted line-through`}>{formatPrice(lista)}</p>
       {pct != null && (
         <span className="mb-1 rounded-full bg-red-500/15 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-red-600 dark:text-red-400">
           −{pct}%
