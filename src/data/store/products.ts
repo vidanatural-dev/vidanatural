@@ -1,6 +1,7 @@
 import type { StoreProduct } from './types';
 import catalog from '../dieteticasCatalog.json';
 import localImages from './localImages.json';
+import storeDescriptions from '../storeDescriptions.json';
 import { comboOfferPrice, isComboProduct } from '@/lib/storePricing';
 import { sortImageUrls } from '@/lib/imageOrder';
 
@@ -12,6 +13,7 @@ interface CatalogEntry {
   imagen: string;
   categoria: string;
   urlOrigen: string;
+  descripcion?: string;
 }
 
 function inferCategoria(nombre: string): string {
@@ -34,17 +36,20 @@ function inferCategoria(nombre: string): string {
 }
 
 const imageMap = localImages as Record<string, string[]>;
+const descriptionMap = storeDescriptions as Record<string, string>;
 
 const entries = (catalog as CatalogEntry[]).map((e) => {
   const rawImages = imageMap[e.slug];
   const imagenes = rawImages?.length ? sortImageUrls(rawImages) : undefined;
   const combo = isComboProduct(e.nombre);
+  const descripcion = descriptionMap[e.slug] ?? e.descripcion;
   return {
     ...e,
     categoria: inferCategoria(e.nombre),
     imagenes,
     imagen: imagenes?.[0] ?? e.imagen,
     precioOferta: combo ? comboOfferPrice(e.precio) : undefined,
+    descripcion,
   };
 });
 

@@ -293,7 +293,23 @@ p {
 .prose-materia > * + * {
   margin-top: 1.1rem;
 }
-.prose-materia strong {
+.store-description p {
+  margin-bottom: 0.85rem;
+}
+.store-description p:empty,
+.store-description p:has(> span:only-child:empty) {
+  display: none;
+}
+.store-description ul,
+.store-description ol {
+  margin: 0.75rem 0 0.75rem 1.25rem;
+  list-style: disc;
+}
+.store-description li {
+  margin-bottom: 0.35rem;
+}
+.store-description strong,
+.store-description b {
   color: var(--ink);
   font-weight: 600;
 }

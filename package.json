@@ -11,7 +11,8 @@
     "recipes:generate": "npx -y tsx scripts/generate-recipes.ts",
     "catalog:scrape": "npx -y tsx scripts/scrape-dieteticas.ts",
     "catalog:images": "npx -y tsx scripts/refresh-store-images.ts",
-    "catalog:import-images": "npx -y tsx scripts/import-store-images.ts"
+    "catalog:import-images": "npx -y tsx scripts/import-store-images.ts",
+    "catalog:descriptions": "npx -y tsx scripts/scrape-store-descriptions.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",

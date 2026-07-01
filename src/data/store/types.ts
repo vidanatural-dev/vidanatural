@@ -11,4 +11,6 @@ export interface StoreProduct {
   /** Hasta 10 fotos propias en /public/comprar/{slug}/ */
   imagenes?: string[];
   urlOrigen: string;
+  /** HTML de la ficha original (dieteticasnaturalmente.com.ar) */
+  descripcion?: string;
 }

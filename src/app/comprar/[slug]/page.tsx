@@ -15,7 +15,9 @@ import {
 import { formatPrice } from '@/lib/price';
 import { getEffectivePrice } from '@/lib/storePricing';
 import { site } from '@/lib/site';
+import { StoreProductDescription } from '@/components/StoreProductDescription';
 import { StorePriceDisplay } from '@/components/StorePriceDisplay';
+import { htmlToPlainText } from '@/lib/productHtml';
 
 export function generateStaticParams() {
   return allStoreSlugs().map((slug) => ({ slug }));
@@ -25,13 +27,16 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const product = getStoreProduct(params.slug);
   if (!product) return {};
   const price = getEffectivePrice(product);
+  const descPlain = product.descripcion ? htmlToPlainText(product.descripcion).slice(0, 160) : '';
   return {
     title: `${product.nombre} — ${formatPrice(price)}`,
-    description: `Comprá ${product.nombre} en ${site.name}. Precio: ${formatPrice(price)}. Pedí por WhatsApp.`,
+    description:
+      descPlain ||
+      `Comprá ${product.nombre} en ${site.name}. Precio: ${formatPrice(price)}. Pedí por WhatsApp.`,
     alternates: { canonical: `/comprar/${params.slug}` },
     openGraph: {
       title: product.nombre,
-      description: `Precio: ${formatPrice(price)}`,
+    description: descPlain ? descPlain.slice(0, 200) : `Precio: ${formatPrice(price)}`,
       type: 'website',
       images: (product.imagenes ?? [product.imagen]).map((url) => ({
         url: url.startsWith('/') ? `${site.url}${url}` : url,
@@ -118,6 +123,12 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
             </p>
           </Reveal>
         </div>
+
+        {product.descripcion && (
+          <Reveal delay={0.12}>
+            <StoreProductDescription html={product.descripcion} />
+          </Reveal>
+        )}
 
         {related.length > 0 && (
           <section className="border-t border-line pt-12">
