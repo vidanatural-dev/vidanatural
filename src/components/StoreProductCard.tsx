@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRef } from 'react';
-import { StoreProductImage } from './StoreProductImage';
+import { StoreProductMedia } from './StoreProductImage';
 import { StorePriceDisplay } from './StorePriceDisplay';
 import { AddToCartControl } from './AddToCartControl';
 import type { StoreProduct } from '@/data/store/types';
@@ -39,16 +39,15 @@ export function StoreProductCard({
         aria-hidden
       />
 
-      <Link href={`/comprar/${product.slug}`} className="relative z-20 flex flex-1 flex-col">
-        <div className="relative aspect-square w-full overflow-hidden bg-white">
-          <StoreProductImage
-            product={product}
-            priority={priority}
-            sizes="(max-width: 768px) 100vw, 25vw"
-          />
-        </div>
+      <Link href={`/comprar/${product.slug}`} className="relative z-20 flex flex-1 flex-col overflow-hidden">
+        <StoreProductMedia
+          product={product}
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, 25vw"
+          fit="cover"
+        />
 
-        <div className="flex min-h-[148px] flex-1 flex-col p-5">
+        <div className="flex min-h-[132px] flex-1 flex-col p-5">
           <span className="mb-2 w-fit rounded-full bg-amber-500/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">
             {product.categoria}
           </span>

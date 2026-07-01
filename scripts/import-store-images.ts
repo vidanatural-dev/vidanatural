@@ -41,8 +41,8 @@ const IMAGE_EXT = /\.(png|jpe?g|webp)$/i;
 async function convertOne(src: string, dest: string): Promise<void> {
   await sharp(src)
     .rotate()
-    .resize(1200, 1200, { fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: 82 })
+    .resize(1200, 1200, { fit: 'cover', position: 'center' })
+    .webp({ quality: 85 })
     .toFile(dest);
 }
 

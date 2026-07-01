@@ -33,7 +33,7 @@ export function CombosCarousel({ combos }: { combos: StoreProduct[] }) {
   function scrollByPage(dir: -1 | 1) {
     const el = trackRef.current;
     if (!el) return;
-    const step = Math.max(280, el.clientWidth * 0.85);
+    const step = Math.max(340, el.clientWidth * 0.85);
     el.scrollBy({ left: dir * step, behavior: 'smooth' });
   }
 

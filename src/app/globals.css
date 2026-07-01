@@ -293,6 +293,20 @@ p {
 .prose-materia > * + * {
   margin-top: 1.1rem;
 }
+.store-product-media {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.store-product-media > img,
+.store-product-media span > img,
+.store-product-media picture img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
 .store-description p {
   margin-bottom: 0.85rem;
 }

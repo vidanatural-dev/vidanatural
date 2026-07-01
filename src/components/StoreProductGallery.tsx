@@ -23,7 +23,7 @@ export function StoreProductGallery({
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-white shadow-lift">
+      <div className="store-product-media relative aspect-square overflow-hidden rounded-2xl border border-line shadow-lift">
         {total > 1 && (
           <span className="absolute right-3 top-3 z-10 rounded-full bg-ink/75 px-2.5 py-1 font-mono text-xs font-semibold tabular-nums text-white backdrop-blur-sm">
             {active + 1}/{total}
@@ -58,7 +58,7 @@ export function StoreProductGallery({
                 aria-selected={i === active}
                 aria-label={`Foto ${i + 1} de ${total}`}
                 onClick={() => setActive(i)}
-                className={`relative aspect-square overflow-hidden rounded-xl border-2 bg-white transition-[border-color,opacity,transform] hover:scale-[1.02] ${
+                className={`store-product-media relative aspect-square overflow-hidden rounded-xl border-2 transition-[border-color,opacity,transform] hover:scale-[1.02] ${
                   i === active
                     ? 'border-amber-500 ring-2 ring-amber-500/30'
                     : 'border-line opacity-90 hover:border-amber-500/50'
@@ -67,7 +67,7 @@ export function StoreProductGallery({
                 <span className="absolute left-1 top-1 z-10 rounded bg-ink/70 px-1 font-mono text-[9px] font-bold text-white">
                   {i + 1}
                 </span>
-                <Image src={src} alt="" fill sizes="80px" className="object-cover object-center" />
+                <Image src={src} alt="" fill sizes="120px" className="object-cover object-center" />
               </button>
             ))}
           </div>

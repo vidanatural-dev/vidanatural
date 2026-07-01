@@ -9,7 +9,7 @@ import { getEffectivePrice } from '@/lib/storePricing';
 import { site } from '@/lib/site';
 import { QuantityControl } from './QuantityControl';
 import { Icon } from './Icon';
-import { StoreProductImage } from './StoreProductImage';
+import { StoreProductMedia } from './StoreProductImage';
 
 const EMPTY_SHIPPING: ShippingData = {
   nombre: '',
@@ -140,9 +140,11 @@ export function StoreCheckout() {
           <ul className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
             {items.map((item) => (
               <li key={item.slug} className="flex gap-4 p-4">
-                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border border-line bg-white">
-                  <StoreProductImage product={item.product} sizes="80px" />
-                </div>
+                <StoreProductMedia
+                  product={item.product}
+                  sizes="80px"
+                  className="size-20 shrink-0 rounded-lg border border-line"
+                />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 font-medium text-ink">{item.product.nombre}</p>
                   <p className="mt-1 font-mono text-sm font-semibold text-amber-600 dark:text-amber-400">

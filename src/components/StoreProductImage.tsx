@@ -10,6 +10,10 @@ function hueFromSlug(slug: string): number {
   return h;
 }
 
+export function hasLocalGallery(product: StoreProduct): boolean {
+  return Boolean(product.imagenes?.length) || product.imagen.startsWith('/');
+}
+
 export function StoreProductImage({
   product,
   priority = false,
@@ -21,7 +25,6 @@ export function StoreProductImage({
   priority?: boolean;
   sizes?: string;
   className?: string;
-  /** cover = llena el contenedor sin bordes; contain = entra completa con posible margen */
   fit?: 'cover' | 'contain';
 }) {
   const local = product.imagenes?.[0] ?? (product.imagen.startsWith('/') ? product.imagen : undefined);
@@ -51,5 +54,33 @@ export function StoreProductImage({
       glyph={glyphForCategory(product.categoria)}
       className={className}
     />
+  );
+}
+
+/** Contenedor cuadrado que fuerza la imagen a llenar todo el espacio. */
+export function StoreProductMedia({
+  product,
+  priority = false,
+  sizes,
+  className = '',
+  fit,
+}: {
+  product: StoreProduct;
+  priority?: boolean;
+  sizes?: string;
+  className?: string;
+  fit?: 'cover' | 'contain';
+}) {
+  const useContain = fit === 'contain' || (!hasLocalGallery(product) && fit !== 'cover');
+
+  return (
+    <div className={`store-product-media relative aspect-square w-full overflow-hidden ${className}`}>
+      <StoreProductImage
+        product={product}
+        priority={priority}
+        sizes={sizes}
+        fit={useContain ? 'contain' : 'cover'}
+      />
+    </div>
   );
 }
