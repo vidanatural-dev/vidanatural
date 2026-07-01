@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { useRef } from 'react';
 import { StoreProductImage } from './StoreProductImage';
+import { StorePriceDisplay } from './StorePriceDisplay';
 import { AddToCartControl } from './AddToCartControl';
-import { Icon } from './Icon';
 import type { StoreProduct } from '@/data/store/types';
-import { formatPrice } from '@/lib/price';
 
 export function StoreProductCard({
   product,
@@ -61,9 +60,9 @@ export function StoreProductCard({
           <h3 className="line-clamp-2 min-h-[2.75rem] font-display text-xl leading-tight text-ink">
             {product.nombre}
           </h3>
-          <p className="mt-auto pt-3 font-mono text-2xl font-bold text-amber-600 dark:text-amber-400">
-            {formatPrice(product.precio)}
-          </p>
+          <div className="mt-auto pt-3">
+            <StorePriceDisplay product={product} />
+          </div>
         </div>
       </Link>
 

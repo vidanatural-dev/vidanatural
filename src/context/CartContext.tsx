@@ -11,6 +11,7 @@ import {
 } from 'react';
 import { getStoreProduct } from '@/data/store/products';
 import type { StoreProduct } from '@/data/store/types';
+import { getEffectivePrice } from '@/lib/storePricing';
 import {
   type CartLine,
   readCartFromStorage,
@@ -86,7 +87,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       resolved.push({
         ...line,
         product,
-        subtotal: product.precio * line.cantidad,
+        subtotal: getEffectivePrice(product) * line.cantidad,
       });
     }
     return resolved;

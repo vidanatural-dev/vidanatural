@@ -13,7 +13,9 @@ import {
   relatedStoreProducts,
 } from '@/data/store/products';
 import { formatPrice } from '@/lib/price';
+import { getEffectivePrice } from '@/lib/storePricing';
 import { site } from '@/lib/site';
+import { StorePriceDisplay } from '@/components/StorePriceDisplay';
 
 export function generateStaticParams() {
   return allStoreSlugs().map((slug) => ({ slug }));
@@ -22,13 +24,14 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const product = getStoreProduct(params.slug);
   if (!product) return {};
+  const price = getEffectivePrice(product);
   return {
-    title: `${product.nombre} — ${formatPrice(product.precio)}`,
-    description: `Comprá ${product.nombre} en ${site.name}. Precio: ${formatPrice(product.precio)}. Pedí por WhatsApp.`,
+    title: `${product.nombre} — ${formatPrice(price)}`,
+    description: `Comprá ${product.nombre} en ${site.name}. Precio: ${formatPrice(price)}. Pedí por WhatsApp.`,
     alternates: { canonical: `/comprar/${params.slug}` },
     openGraph: {
       title: product.nombre,
-      description: `Precio: ${formatPrice(product.precio)}`,
+      description: `Precio: ${formatPrice(price)}`,
       type: 'website',
       images: (product.imagenes ?? [product.imagen]).map((url) => ({
         url: url.startsWith('/') ? `${site.url}${url}` : url,
@@ -50,7 +53,7 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
     image: product.imagenes ?? product.imagen,
     offers: {
       '@type': 'Offer',
-      price: product.precio,
+      price: getEffectivePrice(product),
       priceCurrency: 'ARS',
       availability: 'https://schema.org/InStock',
       url: `${site.url}/comprar/${product.slug}`,
@@ -85,11 +88,9 @@ export default function StoreProductPage({ params }: { params: { slug: string } 
             </span>
             <h1 className="mt-4 font-display text-h1 text-ink">{product.nombre}</h1>
 
-            <div className="mt-6 flex flex-wrap items-end gap-3">
-              <p className="font-mono text-4xl font-bold text-amber-600 dark:text-amber-400">
-                {formatPrice(product.precio)}
-              </p>
-              <p className="pb-1 text-sm text-muted">Precio en pesos argentinos</p>
+            <div className="mt-6">
+              <StorePriceDisplay product={product} size="lg" />
+              <p className="mt-2 text-sm text-muted">Precio en pesos argentinos</p>
             </div>
 
             <div className="mt-8">

@@ -364,6 +364,18 @@ p {
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
+.combos-carousel {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--accent) 40%, transparent) transparent;
+}
+.combos-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+.combos-carousel::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--accent) 45%, transparent);
+}
+
 @keyframes shimmer {
   100% { transform: translateX(100%); }
 }

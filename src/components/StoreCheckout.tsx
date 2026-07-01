@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { ARGENTINE_PROVINCES, type ShippingData } from '@/lib/cart';
 import { formatPrice } from '@/lib/price';
+import { getEffectivePrice } from '@/lib/storePricing';
 import { site } from '@/lib/site';
 import { QuantityControl } from './QuantityControl';
 import { Icon } from './Icon';
@@ -20,9 +21,14 @@ const EMPTY_SHIPPING: ShippingData = {
 };
 
 function buildOrderMessage(shipping: ShippingData, items: ReturnType<typeof useCart>['items'], total: number) {
-  const lines = items.map(
-    (i) => `• ${i.product.nombre} x${i.cantidad} — ${formatPrice(i.subtotal)}`
-  );
+  const lines = items.map((i) => {
+    const unit = getEffectivePrice(i.product);
+    const note =
+      i.product.precioOferta != null && i.product.precioOferta < i.product.precio
+        ? ` (oferta, antes ${formatPrice(i.product.precio)})`
+        : '';
+    return `• ${i.product.nombre} x${i.cantidad} — ${formatPrice(i.subtotal)}${note}`;
+  });
 
   return [
     '*Nuevo pedido — Materia Natural*',
@@ -142,7 +148,7 @@ export function StoreCheckout() {
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 font-medium text-ink">{item.product.nombre}</p>
                   <p className="mt-1 font-mono text-sm font-semibold text-amber-600 dark:text-amber-400">
-                    {formatPrice(item.product.precio)} c/u
+                    {formatPrice(getEffectivePrice(item.product))} c/u
                   </p>
                   <div className="mt-3 flex flex-wrap items-center gap-3">
                     <QuantityControl

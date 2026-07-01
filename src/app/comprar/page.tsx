@@ -4,7 +4,8 @@ import { Container } from '@/components/Container';
 import { Reveal } from '@/components/Reveal';
 import { SearchStoreProducts } from '@/components/SearchStoreProducts';
 import { Icon } from '@/components/Icon';
-import { storeCategories, storeProductCount, storeProducts } from '@/data/store/products';
+import { CombosCarousel } from '@/components/CombosCarousel';
+import { storeCategories, storeCombos, storeProductCount, storeProducts } from '@/data/store/products';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 
 export default function ComprarPage() {
   const categories = storeCategories();
+  const combos = storeCombos();
 
   return (
     <div className="pt-12 sm:pt-16">
@@ -55,6 +57,7 @@ export default function ComprarPage() {
       </section>
 
       <Container width="wide" className="py-10 sm:py-14">
+        <CombosCarousel combos={combos} />
         <SearchStoreProducts products={storeProducts} categories={categories} />
       </Container>
     </div>
