@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import type { StoreProduct } from '@/data/store/types';
+import { sortImageUrls } from '@/lib/imageOrder';
 
 export function StoreProductGallery({
   product,
@@ -11,18 +12,28 @@ export function StoreProductGallery({
   product: StoreProduct;
   priority?: boolean;
 }) {
-  const images = product.imagenes?.length ? product.imagenes : [product.imagen];
+  const images = useMemo(() => {
+    const list = product.imagenes?.length ? product.imagenes : [product.imagen];
+    return sortImageUrls(list);
+  }, [product.imagen, product.imagenes]);
+
   const [active, setActive] = useState(0);
   const current = images[active] ?? images[0];
+  const total = images.length;
 
   return (
     <div className="space-y-4">
       <div className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-white shadow-lift">
+        {total > 1 && (
+          <span className="absolute right-3 top-3 z-10 rounded-full bg-ink/75 px-2.5 py-1 font-mono text-xs font-semibold tabular-nums text-white backdrop-blur-sm">
+            {active + 1}/{total}
+          </span>
+        )}
         <div className="absolute inset-[8%]">
           <Image
             key={current}
             src={current}
-            alt={`${product.nombre} — foto ${active + 1}`}
+            alt={`${product.nombre} — foto ${active + 1} de ${total}`}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority={priority}
@@ -31,23 +42,23 @@ export function StoreProductGallery({
         </div>
       </div>
 
-      {images.length > 1 && (
+      {total > 1 && (
         <>
           <p className="text-sm font-medium text-muted">
-            {images.length} fotos — tocá para ampliar
+            {total} fotos en orden — tocá para ver cada una
           </p>
           <div
-            className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5"
+            className="grid grid-cols-5 gap-2"
             role="tablist"
             aria-label="Galería de fotos del producto"
           >
             {images.map((src, i) => (
               <button
-                key={src}
+                key={`${src}-${i}`}
                 type="button"
                 role="tab"
                 aria-selected={i === active}
-                aria-label={`Foto ${i + 1}`}
+                aria-label={`Foto ${i + 1} de ${total}`}
                 onClick={() => setActive(i)}
                 className={`relative aspect-square overflow-hidden rounded-xl border-2 bg-white transition-[border-color,opacity,transform] hover:scale-[1.02] ${
                   i === active
@@ -55,8 +66,11 @@ export function StoreProductGallery({
                     : 'border-line opacity-90 hover:border-amber-500/50'
                 }`}
               >
+                <span className="absolute left-1 top-1 z-10 rounded bg-ink/70 px-1 font-mono text-[9px] font-bold text-white">
+                  {i + 1}
+                </span>
                 <div className="absolute inset-[10%]">
-                  <Image src={src} alt="" fill sizes="120px" className="object-contain object-center" />
+                  <Image src={src} alt="" fill sizes="80px" className="object-contain object-center" />
                 </div>
               </button>
             ))}

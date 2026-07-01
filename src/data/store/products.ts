@@ -2,6 +2,7 @@ import type { StoreProduct } from './types';
 import catalog from '../dieteticasCatalog.json';
 import localImages from './localImages.json';
 import { comboOfferPrice, isComboProduct } from '@/lib/storePricing';
+import { sortImageUrls } from '@/lib/imageOrder';
 
 interface CatalogEntry {
   slug: string;
@@ -35,7 +36,8 @@ function inferCategoria(nombre: string): string {
 const imageMap = localImages as Record<string, string[]>;
 
 const entries = (catalog as CatalogEntry[]).map((e) => {
-  const imagenes = imageMap[e.slug];
+  const rawImages = imageMap[e.slug];
+  const imagenes = rawImages?.length ? sortImageUrls(rawImages) : undefined;
   const combo = isComboProduct(e.nombre);
   return {
     ...e,

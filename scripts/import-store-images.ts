@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
+import { extractImageSequence, sortImageFilenames } from '../src/lib/imageOrder';
 
 const ROOT = path.resolve(__dirname, '..');
 const DEFAULT_SOURCE = path.join('C:', 'Users', 'Mi Pc', 'Downloads', 'MATERIA NATURAL');
@@ -21,8 +22,8 @@ const FOLDER_TO_SLUG: Record<string, string> = {
   'CITRATO DE MAGNESIO': 'dn-citrato-de-magnesio-x60-comprimidos-original-green',
   'COMBO ARTICULACION': 'dn-combo-articulacion',
   'COMBO CALMA CRONICA': 'dn-combo-calma-cronica-1rmj2',
-  'COMBO CANDIDA': 'dn-combo-parasitos-candida-elimina-la-candida',
-  'COMBO CANDIDA PARASITOS': 'dn-combo-anti-inflamacion-y-parasitos-intestinales-1rzqy',
+  'COMBO CANDIDA': 'dn-combo-anti-inflamacion-y-parasitos-intestinales-1rzqy',
+  'COMBO CANDIDA PARASITOS': 'dn-combo-parasitos-candida-elimina-la-candida',
   'COMBO COLESTEROL': 'dn-combo-colesterol',
   'COMBO DIABETES': 'dn-combo-diabetes-controla-tu-azucar-de-forma-natural',
   'COMBO HEPATOPROTECTOR': 'dn-combo-hepatoprotector-higado-graso-acidez-y-reflujo',
@@ -36,14 +37,6 @@ const FOLDER_TO_SLUG: Record<string, string> = {
 };
 
 const IMAGE_EXT = /\.(png|jpe?g|webp)$/i;
-
-function sortKey(filename: string): number {
-  const paren = filename.match(/\((\d+)\)/);
-  if (paren) return parseInt(paren[1], 10);
-  const trail = filename.match(/(\d+)\.(png|jpe?g|webp)$/i);
-  if (trail) return parseInt(trail[1], 10);
-  return 0;
-}
 
 async function convertOne(src: string, dest: string): Promise<void> {
   await sharp(src)
@@ -70,19 +63,32 @@ async function main() {
       continue;
     }
 
-    const files = fs
-      .readdirSync(folderPath)
-      .filter((f) => IMAGE_EXT.test(f))
-      .sort((a, b) => sortKey(a) - sortKey(b))
-      .slice(0, 10);
+    const files = sortImageFilenames(fs.readdirSync(folderPath).filter((f) => IMAGE_EXT.test(f))).slice(
+      0,
+      10
+    );
 
     if (files.length === 0) {
       console.warn(`⚠ Sin imágenes en: ${folder}`);
       continue;
     }
 
+    const order = files.map((f) => extractImageSequence(f));
+    const ordered = order.every((n, i) => n === i + 1);
+    if (!ordered) {
+      console.warn(
+        `⚠ Orden en ${folder}: ${files.map((f, i) => `${i + 1}←(${extractImageSequence(f)}) ${f}`).join(' | ')}`
+      );
+    }
+
     const slugDir = path.join(OUT_DIR, slug);
-    fs.mkdirSync(slugDir, { recursive: true });
+    if (fs.existsSync(slugDir)) {
+      for (const old of fs.readdirSync(slugDir)) {
+        if (/\.webp$/i.test(old)) fs.unlinkSync(path.join(slugDir, old));
+      }
+    } else {
+      fs.mkdirSync(slugDir, { recursive: true });
+    }
 
     const urls: string[] = [];
     for (let i = 0; i < files.length; i++) {
@@ -93,7 +99,7 @@ async function main() {
     }
 
     manifest[slug] = urls;
-    console.log(`✓ ${folder} → ${slug} (${urls.length} imgs)`);
+    console.log(`✓ ${folder} → ${slug} (${urls.length} imgs, seq ${order.join('→')})`);
   }
 
   fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
